@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "301249130862",
+    "project_id": "ubiscope",
+    "storage_bucket": "ubiscope.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:301249130862:android:43d09df27f5e1b5f0b917f",
+        "android_client_info": {
+          "package_name": "dev.kingu.ubiscope.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "301249130862-6ig4sn487287bjt230n1sup1femnp9fj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEX-cwQ94PlQJR-PvnAcIm2ooO0TV3LCc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "301249130862-6ig4sn487287bjt230n1sup1femnp9fj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "301249130862-ec5ir90repes7obtghgnld1ombo1l1vp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.kingu.ubiscope.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

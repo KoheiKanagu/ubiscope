@@ -1,0 +1,27 @@
+{
+  "folders": [
+    {
+      "name": "root",
+      "path": "."
+    },
+    {
+      "name": "core",
+      "path": "packages/core"
+    },
+    {
+      "name": "client_app",
+      "path": "packages/client_app"
+    },
+    {
+      "name": "client_app/functions",
+      "path": "packages/client_app/firebase/functions/"
+    },
+  ],
+  "settings": {
+    "conventionalCommits.scopes": [
+      "client_app",
+      "core",
+      "all"
+    ]
+  }
+}

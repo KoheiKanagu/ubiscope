@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "dev": "ubiscope-dev",
+    "prod": "ubiscope",
+    "default": "ubiscope-dev"
+  }
+}
