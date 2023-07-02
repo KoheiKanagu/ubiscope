@@ -1,0 +1,51 @@
+name: Pull Requests
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "packages/*/lib/**"
+      - "packages/*/ios/**"
+      - "packages/*/android/**"
+      - "packages/*/test/**"
+      - "packages/*/assets/**"
+      - "packages/*/pubspec.*"
+      - ".github/workflows/pull_requests.yaml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FLUTTER_VERSION: "beta" # FIXME
+
+jobs:
+  test:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      ### Set up ###
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2.10.0
+        with:
+          channel: ${{ env.FLUTTER_VERSION }}
+          cache: true
+          cache-key: "flutter-:channel:-:version:-:hash:"
+
+      - name: Flutter Setup
+        run: |
+          flutter --version
+          dart pub global activate melos
+          dart pub global activate fvm
+
+          fvm install ${{ env.FLUTTER_VERSION}}
+
+      - name: Analyze
+        run: |
+          melos run analyze --no-select
+
+      ### Test ###
+      - name: Test
+        run: |
+          melos run flutter:test --no-select

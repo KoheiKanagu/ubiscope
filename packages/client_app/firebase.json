@@ -1,0 +1,91 @@
+{
+  "flutter": {
+    "platforms": {
+      "ios": {
+        "buildConfigurations": {
+          "Debug-dev": {
+            "projectId": "ubiscope-dev",
+            "appId": "1:636244043019:ios:b3dbac9fec3b6c5ef5ee0e",
+            "uploadDebugSymbols": true,
+            "serviceFileOutput": "ios/dev/GoogleService-Info.plist"
+          },
+          "Release-dev": {
+            "projectId": "ubiscope-dev",
+            "appId": "1:636244043019:ios:b3dbac9fec3b6c5ef5ee0e",
+            "uploadDebugSymbols": true,
+            "serviceFileOutput": "ios/dev/GoogleService-Info.plist"
+          },
+          "Profile-dev": {
+            "projectId": "ubiscope-dev",
+            "appId": "1:636244043019:ios:b3dbac9fec3b6c5ef5ee0e",
+            "uploadDebugSymbols": true,
+            "serviceFileOutput": "ios/dev/GoogleService-Info.plist"
+          },
+          "Debug-prod": {
+            "projectId": "ubiscope",
+            "appId": "1:301249130862:ios:4c57371890d706ce0b917f",
+            "uploadDebugSymbols": true,
+            "serviceFileOutput": "ios/prod/GoogleService-Info.plist"
+          },
+          "Release-prod": {
+            "projectId": "ubiscope",
+            "appId": "1:301249130862:ios:4c57371890d706ce0b917f",
+            "uploadDebugSymbols": true,
+            "serviceFileOutput": "ios/prod/GoogleService-Info.plist"
+          },
+          "Profile-prod": {
+            "projectId": "ubiscope",
+            "appId": "1:301249130862:ios:4c57371890d706ce0b917f",
+            "uploadDebugSymbols": true,
+            "serviceFileOutput": "ios/prod/GoogleService-Info.plist"
+          }
+        },
+        "targets": {},
+        "default": {}
+      },
+      "macos": {
+        "buildConfigurations": {},
+        "targets": {},
+        "default": {}
+      }
+    }
+  },
+  "firestore": {
+    "rules": "firebase/firestore/firestore.rules",
+    "indexes": "firebase/firestore/firestore.indexes.json"
+  },
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "functions": {
+      "host": "0.0.0.0",
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
+  },
+  "functions": [
+    {
+      "source": "firebase/functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" ci",
+        "npm --prefix \"$RESOURCE_DIR\" run clean",
+        "npm --prefix \"$RESOURCE_DIR\" run lint",
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
+    }
+  ]
+}

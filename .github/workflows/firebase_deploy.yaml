@@ -1,0 +1,90 @@
+name: Firebase Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        type: choice
+        description: "Choose environment to deploy"
+        options:
+          - dev
+          - prod
+        required: true
+        default: dev
+      package:
+        type: choice
+        description: "Choose package to deploy"
+        options: # FIXME
+          - client_app
+        required: true
+
+  push:
+    branches:
+      - main
+    paths:
+      - "packages/*/firebase/**"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.package }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+
+    steps:
+      ### Setup ###
+      - uses: actions/checkout@v3
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1.1.1
+        if: inputs.package == 'client_app' && inputs.env != 'dev'
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_DEV }}
+          service_account: ${{ vars.SERVICE_ACCOUNT_DEV }}
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1.1.1
+        if: inputs.package == 'client_app' && inputs.env == 'prod'
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_PROD }}
+          service_account: ${{ vars.SERVICE_ACCOUNT_PROD }}
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: 18
+          cache: "npm"
+          cache-dependency-path: packages/client_app/firebase/functions/package-lock.json
+
+      - name: upgrade npm
+        run: |
+          npm install -g npm@latest
+          npm --version
+
+      - name: install firebase-tools
+        run: |
+          npm install -g firebase-tools
+          firebase --version
+
+      ### Test ###
+      - name: Test
+        working-directory: packages/${{ inputs.package }}
+        run: |
+          ./firebase_emulators_test.sh ${{ inputs.env }}
+
+      ### Deploy ###
+      - name: Deploy Dev
+        if: inputs.env != 'prod'
+        working-directory: packages/${{ inputs.package }}
+        run: |
+          firebase use dev --debug
+          firebase deploy --force --debug
+
+      - name: Deploy Prod
+        if: inputs.env == 'prod'
+        working-directory: packages/${{ inputs.package }}
+        run: |
+          firebase use prod --debug
+          firebase deploy --force --debug

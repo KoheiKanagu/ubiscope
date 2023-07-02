@@ -1,0 +1,69 @@
+name: Pull Requests Firebase
+
+on:
+  pull_request:
+    paths:
+      - "packages/*/firebase/**"
+      - ".github/workflows/pull_requests_firebase.yaml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        package: # FIXME
+          - client_app
+        flavor: # FIXME
+          - dev
+          - prod
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      ### Set up ###
+      - uses: actions/checkout@v3
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1.1.1
+        if: matrix.package == 'client_app' && matrix.flavor == 'dev'
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_DEV }}
+          service_account: ${{ vars.SERVICE_ACCOUNT_DEV }}
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1.1.1
+        if: matrix.package == 'client_app' && matrix.flavor == 'prod'
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_PROD }}
+          service_account: ${{ vars.SERVICE_ACCOUNT_PROD }}
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: 18
+          cache: "npm"
+          cache-dependency-path: packages/${{ matrix.package }}/firebase/functions/package-lock.json
+
+      - name: upgrade npm
+        run: |
+          npm install -g npm@latest
+          npm --version
+
+      - name: install firebase-tools
+        run: |
+          npm install -g firebase-tools
+          firebase --version
+
+      ### Test ###
+      - name: Test
+        working-directory: packages/${{ matrix.package }}
+        run: |
+          ./firebase_emulators_test.sh ${{ matrix.flavor }}
