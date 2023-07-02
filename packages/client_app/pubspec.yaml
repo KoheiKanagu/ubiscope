@@ -13,7 +13,7 @@ dependencies:
   core:
     path: ../core
   device_preview: ^1.1.0
-  firebase_analytics: ^10.4.1
+  firebase_analytics: ^10.4.3
   firebase_app_check: ^0.1.4+1
   firebase_auth: ^4.6.1
   firebase_core: ^2.13.0
