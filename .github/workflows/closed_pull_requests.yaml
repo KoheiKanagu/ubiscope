@@ -49,8 +49,22 @@ jobs:
           flutter --version
           dart pub global activate melos
           dart pub global activate fvm
+          dart pub global activate flutterfire_cli 0.3.0-dev.16 --overwrite
 
           fvm install ${{ env.FLUTTER_VERSION}}
+
+      ### Decode ###
+      - name: Decode signingConfigs.gradle
+        if: matrix.os == 'ubuntu-latest'
+        working-directory: packages/${{ matrix.package }}
+        run: |
+          echo ${{ secrets.SIGNING_CONFIGS_CLIENT_APP_BASE64 }} | base64 --decode > android/app/signingConfigs.gradle
+
+      - name: Decode upload-keystore.jks
+        if: matrix.os == 'ubuntu-latest'
+        working-directory: packages/${{ matrix.package }}
+        run: |
+          echo ${{ secrets.UPLOAD_KEYSTORE_CLIENT_APP_BASE64 }} | base64 --decode > android/app/upload-keystore.jks
 
       ### Build ###
       - name: Build Android Dev
