@@ -52,6 +52,13 @@ jobs:
 
           fvm install ${{ env.FLUTTER_VERSION}}
 
+      ### Decode ###
+      - name: Decode signingConfigs.gradle
+        if: matrix.os == 'ubuntu-latest'
+        working-directory: packages/${{ matrix.package }}
+        run: |
+          echo ${{ secrets.SIGNING_CONFIGS_CLIENT_APP_BASE64 }} | base64 --decode > android/app/signingConfigs.gradle
+
       ### Build ###
       - name: Build Android Dev
         if: matrix.os == 'ubuntu-latest' && matrix.flavor == 'dev'
