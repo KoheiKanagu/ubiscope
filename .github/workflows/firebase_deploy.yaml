@@ -32,7 +32,9 @@ jobs:
   deploy:
     timeout-minutes: 30
     runs-on: ubuntu-latest
-
+    permissions:
+      id-token: write
+      contents: read
     steps:
       ### Setup ###
       - uses: actions/checkout@v3
