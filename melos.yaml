@@ -95,7 +95,7 @@ scripts:
 
   build:apk:dev:
     run: |
-      flutter build apk \
+      fvm flutter build apk \
         --release \
         --flavor dev \
         --target-platform android-arm64 \
@@ -110,7 +110,7 @@ scripts:
 
   build:appbundle:prod:
     run: |
-      flutter build appbundle \
+      fvm flutter build appbundle \
         --release \
         --flavor prod \
         --dart-define-from-file configs/dart_define.prod.json \
