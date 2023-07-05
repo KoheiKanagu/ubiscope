@@ -30,4 +30,6 @@ extension $HomePageRouteExtension on HomePageRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
