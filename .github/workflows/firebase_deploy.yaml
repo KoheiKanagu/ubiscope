@@ -39,7 +39,7 @@ jobs:
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1.1.1
-        if: inputs.package == 'client_app' && inputs.env != 'dev'
+        if: inputs.package == 'client_app' && inputs.env == 'dev'
         with:
           workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_DEV }}
           service_account: ${{ vars.SERVICE_ACCOUNT_DEV }}
