@@ -59,6 +59,12 @@ jobs:
         run: |
           echo ${{ secrets.SIGNING_CONFIGS_CLIENT_APP_BASE64 }} | base64 --decode > android/app/signingConfigs.gradle
 
+      - name: Decode upload-keystore.jks
+        if: matrix.os == 'ubuntu-latest'
+        working-directory: packages/${{ matrix.package }}
+        run: |
+          echo ${{ secrets.UPLOAD_KEYSTORE_CLIENT_APP_BASE64 }} | base64 --decode > android/app/upload-keystore.jks
+
       ### Build ###
       - name: Build Android Dev
         if: matrix.os == 'ubuntu-latest' && matrix.flavor == 'dev'
