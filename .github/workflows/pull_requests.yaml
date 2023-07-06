@@ -27,15 +27,13 @@ jobs:
       ### Set up ###
       - uses: actions/checkout@v3
 
-      - uses: subosito/flutter-action@v2.10.0
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1.5.0
         with:
-          channel: ${{ env.FLUTTER_VERSION }}
-          cache: true
-          cache-key: "flutter-:channel:-:version:-:hash:"
+          sdk: stable
 
       - name: Flutter Setup
         run: |
-          flutter --version
           dart pub global activate melos
           dart pub global activate fvm
 
