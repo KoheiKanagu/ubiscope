@@ -5,9 +5,6 @@ on:
   schedule:
     - cron: "0 19 * * *" # JTS 04:00
 
-env:
-  FLUTTER_VERSION: "beta" # FIXME
-
 jobs:
   build:
     timeout-minutes: 30
@@ -41,7 +38,7 @@ jobs:
       - name: Setup Dart SDK
         uses: dart-lang/setup-dart@v1.5.0
         with:
-          sdk: stable
+          sdk: beta
 
       - name: Flutter Setup
         run: |
@@ -49,7 +46,7 @@ jobs:
           dart pub global activate fvm
           dart pub global activate flutterfire_cli 0.3.0-dev.16 --overwrite
 
-          fvm install ${{ env.FLUTTER_VERSION}}
+          fvm install
 
       ### Decode ###
       - name: Decode signingConfigs.gradle

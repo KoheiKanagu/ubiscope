@@ -16,9 +16,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  FLUTTER_VERSION: "beta" # FIXME
-
 jobs:
   test:
     timeout-minutes: 30
@@ -30,14 +27,14 @@ jobs:
       - name: Setup Dart SDK
         uses: dart-lang/setup-dart@v1.5.0
         with:
-          sdk: stable
+          sdk: beta
 
       - name: Flutter Setup
         run: |
           dart pub global activate melos
           dart pub global activate fvm
 
-          fvm install ${{ env.FLUTTER_VERSION}}
+          fvm install
 
       - name: Analyze
         run: |
