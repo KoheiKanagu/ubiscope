@@ -49,12 +49,9 @@ jobs:
           dart pub global activate fvm
 
       - if: steps.cache-flutter.outputs.cache-hit != 'true'
-        run: |
-          fvm install
+        run: fvm install
 
-      - if: steps.cache-flutter.outputs.cache-hit == 'true'
-        run: |
-          fvm flutter upgrade
+      - run: fvm flutter upgrade
 
       - name: Analyze
         run: |

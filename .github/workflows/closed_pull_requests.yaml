@@ -36,11 +36,13 @@ jobs:
           key: ${{ matrix.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}-v1
 
       - name: Setup Dart SDK
+        if: matrix.os == 'ubuntu-latest' # TODO: Remove when self-hosted is deleted
         uses: dart-lang/setup-dart@v1.5.0
         with:
           sdk: beta
 
       - name: Cache Pub Packages
+        if: matrix.os == 'ubuntu-latest' # TODO: Remove when self-hosted is deleted
         id: cache-pub-packages
         uses: actions/cache@v3.3.1
         with:
@@ -48,6 +50,7 @@ jobs:
           key: ${{ runner.os }}-pub-cache-${{ hashFiles('**/pubspec.lock') }}-v1
 
       - name: Cache Flutter
+        if: matrix.os == 'ubuntu-latest' # TODO: Remove when self-hosted is deleted
         id: cache-flutter
         uses: actions/cache@v3.3.1
         with:
@@ -61,12 +64,9 @@ jobs:
           dart pub global activate flutterfire_cli 0.3.0-dev.16 --overwrite
 
       - if: steps.cache-flutter.outputs.cache-hit != 'true'
-        run: |
-          fvm install
+        run: fvm install
 
-      - if: steps.cache-flutter.outputs.cache-hit == 'true'
-        run: |
-          fvm flutter upgrade
+      - run: fvm flutter upgrade
 
       ### Decode ###
       - name: Decode signingConfigs.gradle
