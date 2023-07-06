@@ -29,12 +29,32 @@ jobs:
         with:
           sdk: beta
 
+      - name: Cache Pub Packages
+        id: cache-pub-packages
+        uses: actions/cache@v3.3.1
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-cache-${{ hashFiles('**/pubspec.lock') }}-v1
+
+      - name: Cache Flutter
+        id: cache-flutter
+        uses: actions/cache@v3.3.1
+        with:
+          path: ~/fvm/versions
+          key: ${{ runner.os }}-flutter-v1
+
       - name: Flutter Setup
         run: |
           dart pub global activate melos
           dart pub global activate fvm
 
+      - if: steps.cache-flutter.outputs.cache-hit != 'true'
+        run: |
           fvm install
+
+      - if: steps.cache-flutter.outputs.cache-hit == 'true'
+        run: |
+          fvm flutter upgrade
 
       - name: Analyze
         run: |
