@@ -22,6 +22,11 @@
       "client_app",
       "core",
       "all"
+    ],
+    "jest.disabledWorkspaceFolders": [
+      "root",
+      "core",
+      "client_app"
     ]
   }
 }
