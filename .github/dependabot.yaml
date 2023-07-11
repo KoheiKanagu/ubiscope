@@ -6,7 +6,6 @@ updates:
       interval: "daily"
       time: "04:00"
       timezone: "Asia/Tokyo"
-    open-pull-requests-limit: 100
 
   - package-ecosystem: "pub"
     directory: "/packages/core"
@@ -14,7 +13,22 @@ updates:
       interval: "daily"
       time: "04:00"
       timezone: "Asia/Tokyo"
-    open-pull-requests-limit: 100
+    groups:
+      firebase:
+        patterns:
+          - "firebase_*"
+          - "cloud_firestore"
+          - "cloud_functions"
+      freezed:
+        patterns:
+          - "freezed_annotation"
+          - "freezed"
+          - "json_annotation"
+          - "json_serializable"
+      riverpod:
+        patterns:
+          - "hooks_riverpod"
+          - "riverpod_*"
 
   - package-ecosystem: "pub"
     directory: "/packages/client_app"
@@ -22,7 +36,26 @@ updates:
       interval: "daily"
       time: "04:00"
       timezone: "Asia/Tokyo"
-    open-pull-requests-limit: 100
+    groups:
+      firebase:
+        patterns:
+          - "firebase_*"
+          - "cloud_firestore"
+          - "cloud_functions"
+      freezed:
+        patterns:
+          - "freezed_annotation"
+          - "freezed"
+          - "json_annotation"
+          - "json_serializable"
+      riverpod:
+        patterns:
+          - "hooks_riverpod"
+          - "riverpod_*"
+      go_router:
+        patterns:
+          - "go_router"
+          - "go_router_builder"
 
   - package-ecosystem: "github-actions"
     directory: "/"
