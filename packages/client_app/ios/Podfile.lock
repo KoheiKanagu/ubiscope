@@ -141,6 +141,9 @@ PODS:
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesSwift (~> 2.1)
   - Flutter (1.0.0)
+  - google_maps_flutter_ios (0.0.1):
+    - Flutter
+    - GoogleMaps (< 8.0)
   - GoogleAppMeasurement (10.10.0):
     - GoogleAppMeasurement/AdIdSupport (= 10.10.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
@@ -165,6 +168,11 @@ PODS:
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleMaps (7.4.0):
+    - GoogleMaps/Maps (= 7.4.0)
+  - GoogleMaps/Base (7.4.0)
+  - GoogleMaps/Maps (7.4.0):
+    - GoogleMaps/Base
   - GoogleUtilities/AppDelegateSwizzler (7.11.1):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -213,6 +221,7 @@ DEPENDENCIES:
   - firebase_performance (from `.symlinks/plugins/firebase_performance/ios`)
   - FirebaseFirestore (from `https://github.com/invertase/firestore-ios-sdk-frameworks.git`, tag `10.10.0`)
   - Flutter (from `Flutter`)
+  - google_maps_flutter_ios (from `.symlinks/plugins/google_maps_flutter_ios/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
@@ -236,6 +245,7 @@ SPEC REPOS:
     - FirebaseSessions
     - GoogleAppMeasurement
     - GoogleDataTransport
+    - GoogleMaps
     - GoogleUtilities
     - GTMSessionFetcher
     - nanopb
@@ -264,6 +274,8 @@ EXTERNAL SOURCES:
     :tag: 10.10.0
   Flutter:
     :path: Flutter
+  google_maps_flutter_ios:
+    :path: ".symlinks/plugins/google_maps_flutter_ios/ios"
   package_info_plus:
     :path: ".symlinks/plugins/package_info_plus/ios"
   shared_preferences_foundation:
@@ -302,8 +314,10 @@ SPEC CHECKSUMS:
   FirebaseRemoteConfig: 5f907cd5cf6f64d026c8bfd196a1086cbe1e95e2
   FirebaseSessions: a62ba5c45284adb7714f4126cfbdb32b17c260bd
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  google_maps_flutter_ios: abdac20d6ce8931f6ebc5f46616df241bfaa2cfd
   GoogleAppMeasurement: bbbfd4bcb2b40ae9b772c3b0823a58c1e3d618f9
   GoogleDataTransport: f0308f5905a745f94fb91fea9c6cbaf3831cb1bd
+  GoogleMaps: 032f676450ba0779bd8ce16840690915f84e57ac
   GoogleUtilities: 9aa0ad5a7bc171f8bae016300bfcfa3fb8425749
   GTMSessionFetcher: e8647203b65cee28c5f73d0f473d096653945e72
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
@@ -313,6 +327,6 @@ SPEC CHECKSUMS:
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
 
-PODFILE CHECKSUM: 723c1b5ee9af8d2c6c86e923b38190c49d1dc7a4
+PODFILE CHECKSUM: 044526d94f9ef0f9a3ae22e074d4845f98159bb8
 
 COCOAPODS: 1.12.1
