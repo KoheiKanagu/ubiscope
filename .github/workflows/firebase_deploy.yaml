@@ -18,6 +18,8 @@ on:
           - client_app
         required: true
 
+run-name: Firebase Deploy ${{ inputs.package }} ${{ inputs.env }}
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.package }}
   cancel-in-progress: true
