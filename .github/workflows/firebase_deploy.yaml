@@ -18,12 +18,6 @@ on:
           - client_app
         required: true
 
-  push:
-    branches:
-      - main
-    paths:
-      - "packages/*/firebase/**"
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.package }}
   cancel-in-progress: true
