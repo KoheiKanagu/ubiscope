@@ -3,19 +3,17 @@ import 'package:client_app/features/home/application/home_page_route.dart'
     as home_page_route;
 import 'package:client_app/routing/initial_location_type.dart';
 import 'package:client_app/routing/my_navigator_observer.dart';
-import 'package:core/utils/provider_logger.dart';
+import 'package:core/core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'my_go_router.g.dart';
-
 final myGoRouterProvider =
     Provider.family.autoDispose<GoRouter, InitialLocationType>(
   (ref, arg) => GoRouter(
-    navigatorKey: ref.watch(navigatorStateProvider),
+    navigatorKey: rootNavigatorStateKey,
     routes: [
       ...home_page_route.$appRoutes,
     ],
@@ -50,15 +48,3 @@ final myGoRouterProvider =
     initialLocation: arg.location,
   ),
 );
-
-@riverpod
-GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey(
-  RootScaffoldMessengerKeyRef _,
-) =>
-    GlobalKey<ScaffoldMessengerState>();
-
-@riverpod
-GlobalKey<NavigatorState> navigatorState(
-  NavigatorStateRef _,
-) =>
-    GlobalKey<NavigatorState>();

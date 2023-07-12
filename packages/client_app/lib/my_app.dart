@@ -1,5 +1,6 @@
 import 'package:client_app/routing/initial_location_type.dart';
 import 'package:client_app/routing/my_go_router.dart';
+import 'package:core/core.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,6 +17,7 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
+      scaffoldMessengerKey: rootScaffoldMessengerKey,
       builder: DevicePreview.appBuilder,
       locale: DevicePreview.locale(context),
       localizationsDelegates: const [

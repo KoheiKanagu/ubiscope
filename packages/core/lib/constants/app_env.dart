@@ -1,25 +1,33 @@
+import 'package:flutter/foundation.dart';
+
 enum AppEnv {
   dev,
   prod,
   ;
 
-  bool get isProd => this == AppEnv.prod;
-}
+  static const _value = String.fromEnvironment(
+    'APP_ENV',
+    defaultValue: 'unknownEnv',
+  );
 
-AppEnv currentAppEnv = _parse();
-
-AppEnv _parse() {
-  switch (_appEnv) {
-    case 'dev':
-      return AppEnv.dev;
-    case 'prod':
-      return AppEnv.prod;
+  static AppEnv get current {
+    switch (_value) {
+      case 'dev':
+        return dev;
+      case 'prod':
+        return prod;
+    }
+    throw Exception('undefined appenv');
   }
 
-  throw Exception('undefined appenv');
-}
+  bool get isProd => this == AppEnv.prod;
 
-const _appEnv = String.fromEnvironment(
-  'APP_ENV',
-  defaultValue: 'unknownEnv',
-);
+  static const devicePreview = bool.fromEnvironment(
+    'APP_DEVICE_PREVIEW',
+    defaultValue: kDebugMode,
+  );
+
+  static const isFirebaseEmulator = bool.fromEnvironment(
+    'APP_IS_FIREBASE_EMULATOR',
+  );
+}
