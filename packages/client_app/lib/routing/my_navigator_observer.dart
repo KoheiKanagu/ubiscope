@@ -1,5 +1,5 @@
 import 'package:client_app/constants/firebase_providers.dart';
-import 'package:core/utils/provider_logger.dart';
+import 'package:core/core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/widgets.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

@@ -2,8 +2,7 @@ import 'package:client_app/constants/firebase_providers.dart';
 import 'package:client_app/features/configure/application/package_info_providers.dart';
 import 'package:client_app/my_app.dart';
 import 'package:client_app/routing/initial_location_type.dart';
-import 'package:core/constants/app_env.dart';
-import 'package:core/utils/provider_logger.dart';
+import 'package:core/core.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -45,7 +44,7 @@ Future<void> main() async {
           .setCrashlyticsCollectionEnabled(
             kReleaseMode,
           ),
-      if (currentAppEnv.isProd) FirebaseAppCheck.instance.activate(),
+      if (AppEnv.current.isProd) FirebaseAppCheck.instance.activate(),
     ],
   );
 
@@ -63,10 +62,10 @@ Future<void> main() async {
   };
 
   switch (container.read(packageInfoNameProvider)) {
-    case 'dev.kingu.ubiscope.app.dev' when currentAppEnv == AppEnv.dev:
+    case 'dev.kingu.ubiscope.app.dev' when AppEnv.current == AppEnv.dev:
       logger.d('dev.kingu.ubiscope.app.dev');
 
-    case 'dev.kingu.ubiscope.app' when currentAppEnv == AppEnv.prod:
+    case 'dev.kingu.ubiscope.app' when AppEnv.current == AppEnv.prod:
       logger.d('dev.kingu.ubiscope.app');
 
     case _:

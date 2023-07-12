@@ -1,4 +1,6 @@
-import 'package:core/constants/app_env.dart';
+import 'dart:developer';
+
+import 'package:core/core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -67,9 +69,8 @@ final logger = Roggle.crashlytics(
         );
       }
 
-      if (!currentAppEnv.isProd) {
-        // ignore: avoid_print
-        print(
+      if (!AppEnv.current.isProd) {
+        log(
           singlePrettyPrinter
               .log(
                 LogEvent(
@@ -88,9 +89,8 @@ final logger = Roggle.crashlytics(
         FirebaseCrashlytics.instance.log(event.message);
       }
 
-      if (!currentAppEnv.isProd) {
-        // ignore: avoid_print
-        print(
+      if (!AppEnv.current.isProd) {
+        log(
           singlePrettyPrinter
               .log(LogEvent(event.level, event.message))
               .join('\n'),
