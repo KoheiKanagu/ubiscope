@@ -21,7 +21,7 @@ on:
 run-name: Firebase Deploy ${{ inputs.package }} ${{ inputs.env }}
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.package }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event.inputs.package }}-${{ github.event.inputs.env }}
   cancel-in-progress: true
 
 jobs:
