@@ -1,0 +1,67 @@
+{
+  users_v1: {
+    uid: {
+      createdAt: "Timestamp", // FieldValue.serverTimestamp
+      updatedAt: "Timestamp", // FieldValue.serverTimestamp
+      deleted: false,
+    },
+  },
+
+  measurement_points_v1: {
+    measurementPointId: {
+      createdAt: "Timestamp", // FieldValue.serverTimestamp
+      updatedAt: "Timestamp", // FieldValue.serverTimestamp
+      deleted: false,
+
+      createdBy: "$uid",
+
+      location: [34, 135], // GeoPoint
+      level: "string", // Corresponding string to the getName method of Google Maps SDK's IndoorLevel
+
+      measuredTypes: [
+        // Array of types of measurements completed
+        // measurement_results_v1.data.type
+        "wiFi",
+        "ble",
+        "magnetic",
+      ],
+    },
+  },
+
+  measurement_results_v1: {
+    documentId: {
+      createdAt: "Timestamp", // FieldValue.serverTimestamp
+      updatedAt: "Timestamp", // FieldValue.serverTimestamp
+      deleted: false,
+
+      measuredAt: "Timestamp", // Time when the measurement was taken
+      measuredBy: "$uid",
+
+      measurementPointId: "$measurementPointId",
+      scanId: "string", // Same value for a single scan
+
+      data: {
+        type: "wiFi|ble|magnetic|unknown",
+
+        // for wiFi
+        ssid: "string",
+        bssid: "string",
+        rssi: -75,
+        frequency: 2412,
+
+        // for ble
+        deviceName: "string",
+        macAddress: "string",
+        rssi: -75,
+        txPower: 0,
+        uuid: "string",
+        major: 0,
+        minor: 0,
+
+        // for magnetic
+        recordStartTime: 1689253847000,
+        record: 0xff, // Protocol Buffers. 1MiB max
+      },
+    },
+  },
+}

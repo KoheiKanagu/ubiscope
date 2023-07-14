@@ -11,7 +11,7 @@ targets:
             - lib/features/*/application/**.dart
             - lib/routing/**.dart
             - lib/constants/**.dart
-            - lib/router/**.dart # delta_guild_370709
+            - lib/models/**.dart
       json_serializable:
         options:
           checked: true
