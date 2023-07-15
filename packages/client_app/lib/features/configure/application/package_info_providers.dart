@@ -14,3 +14,17 @@ String packageInfoName(
   PackageInfoNameRef ref,
 ) =>
     ref.watch(packageInfoProvider).packageName;
+
+@riverpod
+String packageInfoVersion(
+  PackageInfoVersionRef ref,
+) {
+  final provider = ref.watch(packageInfoProvider);
+  return '${provider.version}+${provider.buildNumber}';
+}
+
+@riverpod
+String packageInfoAppName(
+  PackageInfoAppNameRef ref,
+) =>
+    ref.watch(packageInfoProvider).appName;

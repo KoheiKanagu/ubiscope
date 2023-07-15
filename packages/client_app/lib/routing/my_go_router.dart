@@ -1,6 +1,8 @@
 import 'package:client_app/constants/firebase_providers.dart';
-import 'package:client_app/features/home/application/home_page_route.dart'
-    as home_page_route;
+import 'package:client_app/features/maps/application/maps_page_route.dart'
+    as maps_page_route;
+import 'package:client_app/features/settings/application/settings_page_route.dart'
+    as settings_page_route;
 import 'package:client_app/routing/initial_location_type.dart';
 import 'package:client_app/routing/my_navigator_observer.dart';
 import 'package:core/core.dart';
@@ -15,7 +17,8 @@ final myGoRouterProvider =
   (ref, arg) => GoRouter(
     navigatorKey: rootNavigatorStateKey,
     routes: [
-      ...home_page_route.$appRoutes,
+      ...maps_page_route.$appRoutes,
+      ...settings_page_route.$appRoutes,
     ],
     errorBuilder: (context, state) {
       logger.e(

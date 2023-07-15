@@ -37,4 +37,36 @@ final packageInfoNameProvider = AutoDisposeProvider<String>.internal(
 );
 
 typedef PackageInfoNameRef = AutoDisposeProviderRef<String>;
+String _$packageInfoVersionHash() =>
+    r'ab863f48ea51e0f5743c8ce9d8feda551580bc2e';
+
+/// See also [packageInfoVersion].
+@ProviderFor(packageInfoVersion)
+final packageInfoVersionProvider = AutoDisposeProvider<String>.internal(
+  packageInfoVersion,
+  name: r'packageInfoVersionProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$packageInfoVersionHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef PackageInfoVersionRef = AutoDisposeProviderRef<String>;
+String _$packageInfoAppNameHash() =>
+    r'fe018869c127276db37028e9344908b0034acde6';
+
+/// See also [packageInfoAppName].
+@ProviderFor(packageInfoAppName)
+final packageInfoAppNameProvider = AutoDisposeProvider<String>.internal(
+  packageInfoAppName,
+  name: r'packageInfoAppNameProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$packageInfoAppNameHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef PackageInfoAppNameRef = AutoDisposeProviderRef<String>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
