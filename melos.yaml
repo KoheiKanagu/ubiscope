@@ -205,3 +205,10 @@ scripts:
       ./flutterfire_configure.sh
     packageFilters:
       fileExists: flutterfire_configure.sh
+
+  pigeon:
+    exec: |
+      fvm dart run pigeon \
+        --input pigeons/message.dart
+    packageFilters:
+      dependsOn: pigeon
