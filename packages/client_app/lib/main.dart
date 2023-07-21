@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:client_app/constants/firebase_providers.dart';
 import 'package:client_app/features/configure/application/package_info_providers.dart';
+import 'package:client_app/features/maps/application/my_wifi_flutter_api.dart';
 import 'package:client_app/my_app.dart';
 import 'package:client_app/routing/initial_location_type.dart';
+import 'package:client_app/src/message.g.dart';
 import 'package:core/core.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
@@ -13,6 +17,12 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  final controlelr = StreamController<int>();
+  WiFiFlutterApi.setup(
+    MyWiFiFlutterApi(controlelr),
+  );
+  controlelr.stream.listen(print);
 
   await Future.wait(
     [

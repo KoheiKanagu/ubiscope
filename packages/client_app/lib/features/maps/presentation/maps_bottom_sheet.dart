@@ -1,3 +1,4 @@
+import 'package:client_app/src/message.g.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -36,6 +37,12 @@ class MapsBottomSheet extends HookConsumerWidget {
                 ),
               ),
             ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              WiFiHostApi().startScan(100);
+            },
+            child: const Text('startScan'),
           ),
         ],
       ),
