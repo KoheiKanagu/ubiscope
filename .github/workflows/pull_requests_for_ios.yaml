@@ -23,5 +23,6 @@ jobs:
           use_local_dart: true # TODO: Change to macos-latest when available
 
       ### Build ###
-      - name: build
-        run: melos run build:ios:no-codesign:dev --no-select
+      - run: melos run build:ios:config-only
+      - run: git diff --exit-code
+      - run: melos run build:ios:no-codesign:dev --no-select
