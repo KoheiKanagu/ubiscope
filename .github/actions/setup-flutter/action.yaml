@@ -1,0 +1,40 @@
+name: Setup Flutter
+description: Setup Flutter SDK
+
+inputs:
+  use_local_dart:
+    description: Use local Dart SDK
+    required: true
+    default: "false"
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+
+    - name: Cache Flutter
+      if: inputs.use_local_dart == 'false'
+      uses: actions/cache@v3.3.1
+      with:
+        path: ~/fvm/versions
+        key: flutter-v1
+
+    - name: Setup Dart SDK
+      if: inputs.use_local_dart == 'false'
+      uses: dart-lang/setup-dart@v1.5.0
+      with:
+        sdk: stable
+
+    - name: Setup global packages
+      shell: bash
+      run: |
+        dart pub global activate melos
+        dart pub global activate fvm
+        dart pub global activate flutterfire_cli 0.3.0-dev.16 --overwrite
+
+    - name: Install Flutter
+      shell: bash
+      run: |
+        fvm install
+        fvm flutter upgrade
+        fvm flutter precache

@@ -3,59 +3,38 @@ name: Pull Requests
 on:
   workflow_dispatch:
   pull_request:
-    paths:
-      - "packages/*/lib/**"
+    paths-ignore:
       - "packages/*/ios/**"
       - "packages/*/android/**"
-      - "packages/*/test/**"
-      - "packages/*/assets/**"
-      - "packages/*/pubspec.*"
-      - ".github/workflows/pull_requests.yaml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  test:
+  analyze:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
       ### Set up ###
       - uses: actions/checkout@v3
 
-      - name: Setup Dart SDK
-        uses: dart-lang/setup-dart@v1.5.0
+      - uses: ./.github/actions/setup-flutter
         with:
-          sdk: beta
+          use_local_dart: false
 
-      - name: Cache Pub Packages
-        id: cache-pub-packages
-        uses: actions/cache@v3.3.1
-        with:
-          path: ~/.pub-cache
-          key: ${{ runner.os }}-pub-cache-${{ hashFiles('**/pubspec.lock') }}-v1
-
-      - name: Cache Flutter
-        id: cache-flutter
-        uses: actions/cache@v3.3.1
-        with:
-          path: ~/fvm/versions
-          key: ${{ runner.os }}-flutter-v1
-
-      - name: Flutter Setup
-        run: |
-          dart pub global activate melos
-          dart pub global activate fvm
-
-      - if: steps.cache-flutter.outputs.cache-hit != 'true'
-        run: fvm install
-
-      - run: fvm flutter upgrade
-
+      ### Analyze ###
       - name: Analyze
         run: |
           melos run analyze --no-select
+
+  test:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      ### Set up ###
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-flutter
 
       ### Test ###
       - name: Test

@@ -1,0 +1,27 @@
+name: Pull Requests for iOS
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "packages/*/ios/**"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    timeout-minutes: 30
+    runs-on: self-hosted # TODO: Change to macos-latest when available
+    steps:
+      ### Set up ###
+      - uses: actions/checkout@v3
+
+      - uses: ./.github/actions/setup-flutter
+        with:
+          use_local_dart: true # TODO: Change to macos-latest when available
+
+      ### Build ###
+      - name: build
+        run: melos run build:ios:no-codesign:dev --no-select

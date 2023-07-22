@@ -3,11 +3,11 @@ name: Precache Flutter
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 19 * * *" # JTS 04:00
+    - cron: "0 18 * * *" # JTS 03:00
 
 jobs:
   precache:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-flutter
