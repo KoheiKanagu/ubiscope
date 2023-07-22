@@ -1,0 +1,38 @@
+name: Precache Flutter
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 19 * * *" # JTS 04:00
+
+jobs:
+  precache:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1.5.0
+        with:
+          sdk: stable
+
+      - name: Cache Flutter
+        id: cache-flutter
+        uses: actions/cache@v3.3.1
+        with:
+          path: ~/fvm/versions
+          key: flutter-v1
+
+      - name: Setup fvm
+        run: dart pub global activate fvm
+
+      - name: Install Flutter
+        if: steps.cache-flutter.outputs.cache-hit == 'true'
+        run: fvm install
+
+      - name: Upgrade Flutter
+        if: steps.cache-flutter.outputs.cache-hit != 'true'
+        run: fvm flutter upgrade
+
+      - run: fvm flutter precache
