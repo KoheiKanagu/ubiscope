@@ -26,6 +26,10 @@ jobs:
       ### Setup ###
       - uses: actions/checkout@v3
 
+      - uses: ./.github/actions/setup-flutter
+        with:
+          use_local_dart: ${{ matrix.os == 'self-hosted' }}
+
       - name: Gradle Cache
         if: matrix.os == 'ubuntu-latest'
         uses: actions/cache@v3
@@ -35,51 +39,12 @@ jobs:
             ~/.gradle/wrapper
           key: ${{ matrix.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}-v1
 
-      - name: Setup Dart SDK
-        if: matrix.os == 'ubuntu-latest' # TODO: Remove when self-hosted is deleted
-        uses: dart-lang/setup-dart@v1.5.0
-        with:
-          sdk: beta
-
-      - name: Cache Pub Packages
-        if: matrix.os == 'ubuntu-latest' # TODO: Remove when self-hosted is deleted
-        id: cache-pub-packages
-        uses: actions/cache@v3.3.1
-        with:
-          path: ~/.pub-cache
-          key: ${{ runner.os }}-pub-cache-${{ hashFiles('**/pubspec.lock') }}-v1
-
-      - name: Cache Flutter
-        if: matrix.os == 'ubuntu-latest' # TODO: Remove when self-hosted is deleted
-        id: cache-flutter
-        uses: actions/cache@v3.3.1
-        with:
-          path: ~/fvm/versions
-          key: ${{ runner.os }}-flutter-v1
-
-      - name: Flutter Setup
-        run: |
-          dart pub global activate melos
-          dart pub global activate fvm
-          dart pub global activate flutterfire_cli 0.3.0-dev.16 --overwrite
-
-      - if: steps.cache-flutter.outputs.cache-hit != 'true'
-        run: fvm install
-
-      - run: fvm flutter upgrade
-
-      ### Decode ###
-      - name: Decode signingConfigs.gradle
+      - uses: ./.github/actions/setup-android-signing
         if: matrix.os == 'ubuntu-latest'
-        working-directory: packages/${{ matrix.package }}
-        run: |
-          echo ${{ secrets.SIGNING_CONFIGS_CLIENT_APP_BASE64 }} | base64 --decode > android/app/signingConfigs.gradle
-
-      - name: Decode upload-keystore.jks
-        if: matrix.os == 'ubuntu-latest'
-        working-directory: packages/${{ matrix.package }}
-        run: |
-          echo ${{ secrets.UPLOAD_KEYSTORE_CLIENT_APP_BASE64 }} | base64 --decode > android/app/upload-keystore.jks
+        with:
+          package: ${{ matrix.package }}
+          signing_configs_base64: ${{ secrets.SIGNING_CONFIGS_CLIENT_APP_BASE64 }}
+          upload_keystore_base64: ${{ secrets.UPLOAD_KEYSTORE_CLIENT_APP_BASE64 }}
 
       ### Build ###
       - name: Build Android Dev

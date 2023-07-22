@@ -1,0 +1,38 @@
+name: Setup Firebase CLI
+description: Setup Firebase CLI
+
+inputs:
+  workload_identity_provider:
+    description: Workload Identity Provider
+    required: true
+  service_account:
+    description: Service Account
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v1.1.1
+      with:
+        workload_identity_provider: ${{ inputs.workload_identity_provider }}
+        service_account: ${{ inputs.service_account }}
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v3.7.0
+      with:
+        node-version: 18
+
+    - name: install npm
+      shell: bash
+      run: |
+        npm install -g npm@latest
+        npm --version
+
+    - name: install firebase-tools
+      shell: bash
+      run: |
+        npm install -g firebase-tools
+        firebase --version
