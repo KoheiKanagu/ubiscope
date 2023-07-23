@@ -51,7 +51,7 @@ android {
 
     defaultConfig {
         applicationId "dev.kingu.ubiscope.app"
-        minSdkVersion 23
+        minSdkVersion 28
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
