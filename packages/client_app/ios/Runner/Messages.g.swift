@@ -37,22 +37,42 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
 
 /// Generated class from Pigeon that represents data sent in messages.
 struct WiFi {
+  /// https://developer.android.com/reference/android/net/wifi/ScanResult#SSID
   var ssid: String
+  /// https://developer.android.com/reference/android/net/wifi/ScanResult#BSSID
   var bssid: String
+  /// https://developer.android.com/reference/android/net/wifi/ScanResult#level
   var rssi: Int64
+  /// https://developer.android.com/reference/android/net/wifi/ScanResult#frequency
   var frequency: Int64
+  /// https://developer.android.com/reference/android/net/wifi/ScanResult#capabilities
+  var capabilities: String
+  /// https://developer.android.com/reference/android/net/wifi/ScanResult#centerFreq0
+  var centerFreq0: Int64
+  /// https://developer.android.com/reference/android/net/wifi/ScanResult#centerFreq1
+  var centerFreq1: Int64
+  /// https://developer.android.com/reference/android/net/wifi/ScanResult#channelWidth
+  var channelWidth: Int64
 
   static func fromList(_ list: [Any?]) -> WiFi? {
     let ssid = list[0] as! String
     let bssid = list[1] as! String
     let rssi = list[2] is Int64 ? list[2] as! Int64 : Int64(list[2] as! Int32)
     let frequency = list[3] is Int64 ? list[3] as! Int64 : Int64(list[3] as! Int32)
+    let capabilities = list[4] as! String
+    let centerFreq0 = list[5] is Int64 ? list[5] as! Int64 : Int64(list[5] as! Int32)
+    let centerFreq1 = list[6] is Int64 ? list[6] as! Int64 : Int64(list[6] as! Int32)
+    let channelWidth = list[7] is Int64 ? list[7] as! Int64 : Int64(list[7] as! Int32)
 
     return WiFi(
       ssid: ssid,
       bssid: bssid,
       rssi: rssi,
-      frequency: frequency
+      frequency: frequency,
+      capabilities: capabilities,
+      centerFreq0: centerFreq0,
+      centerFreq1: centerFreq1,
+      channelWidth: channelWidth
     )
   }
   func toList() -> [Any?] {
@@ -61,6 +81,10 @@ struct WiFi {
       bssid,
       rssi,
       frequency,
+      capabilities,
+      centerFreq0,
+      centerFreq1,
+      channelWidth,
     ]
   }
 }

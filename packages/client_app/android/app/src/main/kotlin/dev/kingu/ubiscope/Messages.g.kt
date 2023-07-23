@@ -46,10 +46,22 @@ class FlutterError (
 
 /** Generated class from Pigeon that represents data sent in messages. */
 data class WiFi (
+  /** https://developer.android.com/reference/android/net/wifi/ScanResult#SSID */
   val ssid: String,
+  /** https://developer.android.com/reference/android/net/wifi/ScanResult#BSSID */
   val bssid: String,
+  /** https://developer.android.com/reference/android/net/wifi/ScanResult#level */
   val rssi: Long,
-  val frequency: Long
+  /** https://developer.android.com/reference/android/net/wifi/ScanResult#frequency */
+  val frequency: Long,
+  /** https://developer.android.com/reference/android/net/wifi/ScanResult#capabilities */
+  val capabilities: String,
+  /** https://developer.android.com/reference/android/net/wifi/ScanResult#centerFreq0 */
+  val centerFreq0: Long,
+  /** https://developer.android.com/reference/android/net/wifi/ScanResult#centerFreq1 */
+  val centerFreq1: Long,
+  /** https://developer.android.com/reference/android/net/wifi/ScanResult#channelWidth */
+  val channelWidth: Long
 
 ) {
   companion object {
@@ -59,7 +71,11 @@ data class WiFi (
       val bssid = list[1] as String
       val rssi = list[2].let { if (it is Int) it.toLong() else it as Long }
       val frequency = list[3].let { if (it is Int) it.toLong() else it as Long }
-      return WiFi(ssid, bssid, rssi, frequency)
+      val capabilities = list[4] as String
+      val centerFreq0 = list[5].let { if (it is Int) it.toLong() else it as Long }
+      val centerFreq1 = list[6].let { if (it is Int) it.toLong() else it as Long }
+      val channelWidth = list[7].let { if (it is Int) it.toLong() else it as Long }
+      return WiFi(ssid, bssid, rssi, frequency, capabilities, centerFreq0, centerFreq1, channelWidth)
     }
   }
   fun toList(): List<Any?> {
@@ -68,6 +84,10 @@ data class WiFi (
       bssid,
       rssi,
       frequency,
+      capabilities,
+      centerFreq0,
+      centerFreq1,
+      channelWidth,
     )
   }
 }

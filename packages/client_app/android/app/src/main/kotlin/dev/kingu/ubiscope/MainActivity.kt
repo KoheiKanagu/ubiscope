@@ -6,8 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.net.wifi.ScanResult
 import android.net.wifi.WifiManager
 import android.os.Build
+import androidx.core.content.ContextCompat.getSystemService
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 
@@ -52,21 +54,20 @@ class MainActivity : FlutterActivity() {
                 }
 
                 val results = wifiManager!!.scanResults.map {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        WiFi(
-                            it.wifiSsid.toString(),
-                            it.BSSID,
-                            it.level.toLong(),
-                            it.frequency.toLong(),
-                        )
-                    } else {
-                        WiFi(
-                            it.SSID,
-                            it.BSSID,
-                            it.level.toLong(),
-                            it.frequency.toLong(),
-                        )
-                    }
+                    WiFi(
+                        ssid = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            it.wifiSsid.toString()
+                        } else {
+                            it.SSID
+                        },
+                        bssid = it.BSSID,
+                        rssi = it.level.toLong(),
+                        frequency = it.frequency.toLong(),
+                        capabilities = it.capabilities,
+                        centerFreq0 = it.centerFreq0.toLong(),
+                        centerFreq1 = it.centerFreq1.toLong(),
+                        channelWidth = it.channelWidth.toLong(),
+                    )
                 }
 
                 wifiFlutterApi!!.onReceiveWiFiList(results) {}

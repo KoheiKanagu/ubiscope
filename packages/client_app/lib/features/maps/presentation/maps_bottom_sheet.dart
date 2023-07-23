@@ -1,4 +1,5 @@
-import 'package:client_app/gen/message.g.dart';
+import 'package:client_app/features/wifi/application/wifi_providers.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -39,11 +40,57 @@ class MapsBottomSheet extends HookConsumerWidget {
             ),
           ),
           ElevatedButton(
-            onPressed: () {
-              WiFiHostApi().startScan();
+            onPressed: () async {
+              final result = await ref
+                  .read(wiFiScanControllerProvider.notifier)
+                  .checkPermission();
+              logger.d('Permission.location.status: $result');
+            },
+            child: const Text('checkPermission'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final result = await ref
+                  .read(wiFiScanControllerProvider.notifier)
+                  .requestPermission();
+              logger.d('requestPermission: $result');
+            },
+            child: const Text('requestPermission'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final result = await ref
+                  .read(wiFiScanControllerProvider.notifier)
+                  .startScan();
+              logger.d('startScan: $result');
             },
             child: const Text('startScan'),
           ),
+          ElevatedButton(
+            onPressed: () async {
+              final result = await ref
+                  .read(wiFiScanControllerProvider.notifier)
+                  .isScanThrottleEnabled();
+              logger.d('isScanThrottleEnabled: $result');
+            },
+            child: const Text('isScanThrottleEnabled'),
+          ),
+          ...ref.watch(wiFiScanControllerProvider).map(
+                (e) => ListTile(
+                  title: Column(
+                    children: [
+                      Text('ssid: ${e.ssid}'),
+                      Text('bssid: ${e.bssid}'),
+                      Text('rssi: ${e.rssi}'),
+                      Text('frequency: ${e.frequency}'),
+                      Text('capabilities: ${e.capabilities}'),
+                      Text('centerFreq0: ${e.centerFreq0}'),
+                      Text('centerFreq1: ${e.centerFreq1}'),
+                      Text('channelWidth: ${e.channelWidth}'),
+                    ],
+                  ),
+                ),
+              ),
         ],
       ),
     );

@@ -15,15 +15,35 @@ class WiFi {
     required this.bssid,
     required this.rssi,
     required this.frequency,
+    required this.capabilities,
+    required this.centerFreq0,
+    required this.centerFreq1,
+    required this.channelWidth,
   });
 
+  /// https://developer.android.com/reference/android/net/wifi/ScanResult#SSID
   String ssid;
 
+  /// https://developer.android.com/reference/android/net/wifi/ScanResult#BSSID
   String bssid;
 
+  /// https://developer.android.com/reference/android/net/wifi/ScanResult#level
   int rssi;
 
+  /// https://developer.android.com/reference/android/net/wifi/ScanResult#frequency
   int frequency;
+
+  /// https://developer.android.com/reference/android/net/wifi/ScanResult#capabilities
+  String capabilities;
+
+  /// https://developer.android.com/reference/android/net/wifi/ScanResult#centerFreq0
+  int centerFreq0;
+
+  /// https://developer.android.com/reference/android/net/wifi/ScanResult#centerFreq1
+  int centerFreq1;
+
+  /// https://developer.android.com/reference/android/net/wifi/ScanResult#channelWidth
+  int channelWidth;
 
   Object encode() {
     return <Object?>[
@@ -31,6 +51,10 @@ class WiFi {
       bssid,
       rssi,
       frequency,
+      capabilities,
+      centerFreq0,
+      centerFreq1,
+      channelWidth,
     ];
   }
 
@@ -41,6 +65,10 @@ class WiFi {
       bssid: result[1]! as String,
       rssi: result[2]! as int,
       frequency: result[3]! as int,
+      capabilities: result[4]! as String,
+      centerFreq0: result[5]! as int,
+      centerFreq1: result[6]! as int,
+      channelWidth: result[7]! as int,
     );
   }
 }
