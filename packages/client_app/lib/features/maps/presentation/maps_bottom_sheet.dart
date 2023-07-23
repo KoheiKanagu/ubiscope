@@ -67,6 +67,12 @@ class MapsBottomSheet extends HookConsumerWidget {
             child: const Text('startScan'),
           ),
           ElevatedButton(
+            onPressed: () {
+              ref.read(wiFiScanControllerProvider.notifier).stopScan();
+            },
+            child: const Text('stopScan'),
+          ),
+          ElevatedButton(
             onPressed: () async {
               final result = await ref
                   .read(wiFiScanControllerProvider.notifier)
