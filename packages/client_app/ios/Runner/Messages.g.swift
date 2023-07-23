@@ -66,7 +66,8 @@ struct WiFi {
 }
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol WiFiHostApi {
-  func startScan(interval: Int64) throws
+  func startScan() throws -> Bool
+  func stopScan() throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -76,18 +77,29 @@ class WiFiHostApiSetup {
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: WiFiHostApi?) {
     let startScanChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.WiFiHostApi.startScan", binaryMessenger: binaryMessenger)
     if let api = api {
-      startScanChannel.setMessageHandler { message, reply in
-        let args = message as! [Any?]
-        let intervalArg = args[0] is Int64 ? args[0] as! Int64 : Int64(args[0] as! Int32)
+      startScanChannel.setMessageHandler { _, reply in
         do {
-          try api.startScan(interval: intervalArg)
-          reply(wrapResult(nil))
+          let result = try api.startScan()
+          reply(wrapResult(result))
         } catch {
           reply(wrapError(error))
         }
       }
     } else {
       startScanChannel.setMessageHandler(nil)
+    }
+    let stopScanChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.WiFiHostApi.stopScan", binaryMessenger: binaryMessenger)
+    if let api = api {
+      stopScanChannel.setMessageHandler { _, reply in
+        do {
+          try api.stopScan()
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      stopScanChannel.setMessageHandler(nil)
     }
   }
 }

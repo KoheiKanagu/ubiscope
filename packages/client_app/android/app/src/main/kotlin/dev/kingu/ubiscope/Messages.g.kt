@@ -73,7 +73,8 @@ data class WiFi (
 }
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface WiFiHostApi {
-  fun startScan(interval: Long)
+  fun startScan(): Boolean
+  fun stopScan()
 
   companion object {
     /** The codec used by WiFiHostApi. */
@@ -86,12 +87,26 @@ interface WiFiHostApi {
       run {
         val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.WiFiHostApi.startScan", codec)
         if (api != null) {
-          channel.setMessageHandler { message, reply ->
-            val args = message as List<Any?>
-            val intervalArg = args[0].let { if (it is Int) it.toLong() else it as Long }
+          channel.setMessageHandler { _, reply ->
             var wrapped: List<Any?>
             try {
-              api.startScan(intervalArg)
+              wrapped = listOf<Any?>(api.startScan())
+            } catch (exception: Throwable) {
+              wrapped = wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.WiFiHostApi.stopScan", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            var wrapped: List<Any?>
+            try {
+              api.stopScan()
               wrapped = listOf<Any?>(null)
             } catch (exception: Throwable) {
               wrapped = wrapError(exception)

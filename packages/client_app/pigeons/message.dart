@@ -2,7 +2,7 @@ import 'package:pigeon/pigeon.dart';
 
 @ConfigurePigeon(
   PigeonOptions(
-    dartOut: 'lib/src/message.g.dart',
+    dartOut: 'lib/gen/message.g.dart',
     swiftOut: 'ios/Runner/Messages.g.swift',
     kotlinOptions: KotlinOptions(
       package: 'dev.kingu.ubiscope',
@@ -27,7 +27,9 @@ class WiFi {
 
 @HostApi()
 abstract class WiFiHostApi {
-  void startScan(int interval);
+  bool startScan();
+
+  void stopScan();
 }
 
 @FlutterApi()
