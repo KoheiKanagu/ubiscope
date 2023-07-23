@@ -27,12 +27,15 @@ class WiFi {
 
 @HostApi()
 abstract class WiFiHostApi {
+  bool isScanThrottleEnabled();
+
   bool startScan();
 
   void stopScan();
 }
 
 @FlutterApi()
+// ignore: one_member_abstracts
 abstract class WiFiFlutterApi {
   void onReceiveWiFiList(List<WiFi> results);
 }

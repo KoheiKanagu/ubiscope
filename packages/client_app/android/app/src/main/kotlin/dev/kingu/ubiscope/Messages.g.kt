@@ -73,6 +73,7 @@ data class WiFi (
 }
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface WiFiHostApi {
+  fun isScanThrottleEnabled(): Boolean
   fun startScan(): Boolean
   fun stopScan()
 
@@ -84,6 +85,22 @@ interface WiFiHostApi {
     /** Sets up an instance of `WiFiHostApi` to handle messages through the `binaryMessenger`. */
     @Suppress("UNCHECKED_CAST")
     fun setUp(binaryMessenger: BinaryMessenger, api: WiFiHostApi?) {
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.WiFiHostApi.isScanThrottleEnabled", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            var wrapped: List<Any?>
+            try {
+              wrapped = listOf<Any?>(api.isScanThrottleEnabled())
+            } catch (exception: Throwable) {
+              wrapped = wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
       run {
         val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.WiFiHostApi.startScan", codec)
         if (api != null) {

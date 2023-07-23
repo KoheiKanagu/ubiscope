@@ -11,16 +11,33 @@ import android.os.Build
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 
-private class WiFiHostApiImplementation(
-    private val wifiManager: WifiManager?
+private class WiFiHostApiImpl(
+    private val wifiManager: WifiManager
 ) : WiFiHostApi {
+
+    override fun isScanThrottleEnabled(): Boolean {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return wifiManager.isScanThrottleEnabled
+        }
+        return false
+    }
+
+    var repeatScan: Boolean = false
+
     override fun startScan(): Boolean {
-        return wifiManager?.startScan() ?: false
+        repeatScan = true
+        return wifiManager.startScan()
+    }
+
+    override fun stopScan() {
+        repeatScan = false
     }
 }
 
-
 class MainActivity : FlutterActivity() {
+
+    private var wifiHostApi: WiFiHostApiImpl? = null
+
     private var wifiFlutterApi: WiFiFlutterApi? = null
 
     private var wifiManager: WifiManager? = null
@@ -28,7 +45,6 @@ class MainActivity : FlutterActivity() {
     private val wifiScanReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val success = intent?.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false) ?: false
-            println("hoge: onReceive")
 
             if (success && wifiManager != null) {
                 if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
@@ -54,6 +70,10 @@ class MainActivity : FlutterActivity() {
                 }
 
                 wifiFlutterApi!!.onReceiveWiFiList(results) {}
+
+                if (wifiHostApi!!.repeatScan) {
+                    wifiHostApi!!.startScan();
+                }
             }
         }
     }
@@ -62,16 +82,18 @@ class MainActivity : FlutterActivity() {
         super.configureFlutterEngine(flutterEngine)
 
         wifiFlutterApi = WiFiFlutterApi(flutterEngine.dartExecutor.binaryMessenger)
-        wifiManager = getSystemService(Context.WIFI_SERVICE) as WifiManager?
 
-        WiFiHostApi.setUp(
-            flutterEngine.dartExecutor.binaryMessenger, WiFiHostApiImplementation(wifiManager)
-        )
+        wifiManager = getSystemService(Context.WIFI_SERVICE) as WifiManager?
+        if (wifiManager == null) {
+            throw Exception("WiFiManager is null")
+        }
+
+        wifiHostApi = WiFiHostApiImpl(wifiManager!!)
+
+        WiFiHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, wifiHostApi)
 
         val intentFilter = IntentFilter()
         intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
         registerReceiver(wifiScanReceiver, intentFilter)
-
-        println("hoge")
     }
 }

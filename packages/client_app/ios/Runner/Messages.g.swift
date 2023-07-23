@@ -66,6 +66,7 @@ struct WiFi {
 }
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol WiFiHostApi {
+  func isScanThrottleEnabled() throws -> Bool
   func startScan() throws -> Bool
   func stopScan() throws
 }
@@ -75,6 +76,19 @@ class WiFiHostApiSetup {
   /// The codec used by WiFiHostApi.
   /// Sets up an instance of `WiFiHostApi` to handle messages through the `binaryMessenger`.
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: WiFiHostApi?) {
+    let isScanThrottleEnabledChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.WiFiHostApi.isScanThrottleEnabled", binaryMessenger: binaryMessenger)
+    if let api = api {
+      isScanThrottleEnabledChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.isScanThrottleEnabled()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      isScanThrottleEnabledChannel.setMessageHandler(nil)
+    }
     let startScanChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.WiFiHostApi.startScan", binaryMessenger: binaryMessenger)
     if let api = api {
       startScanChannel.setMessageHandler { _, reply in
