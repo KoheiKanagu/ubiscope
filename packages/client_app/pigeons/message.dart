@@ -13,6 +13,7 @@ import 'package:pigeon/pigeon.dart';
 )
 class WiFi {
   const WiFi({
+    required this.timestamp,
     required this.ssid,
     required this.bssid,
     required this.rssi,
@@ -22,6 +23,9 @@ class WiFi {
     required this.centerFreq1,
     required this.channelWidth,
   });
+
+  /// unix time in milliseconds
+  final int timestamp;
 
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#SSID
   final String ssid;

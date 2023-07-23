@@ -37,6 +37,8 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
 
 /// Generated class from Pigeon that represents data sent in messages.
 struct WiFi {
+  /// unix time in milliseconds
+  var timestamp: Int64
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#SSID
   var ssid: String
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#BSSID
@@ -55,16 +57,18 @@ struct WiFi {
   var channelWidth: Int64
 
   static func fromList(_ list: [Any?]) -> WiFi? {
-    let ssid = list[0] as! String
-    let bssid = list[1] as! String
-    let rssi = list[2] is Int64 ? list[2] as! Int64 : Int64(list[2] as! Int32)
-    let frequency = list[3] is Int64 ? list[3] as! Int64 : Int64(list[3] as! Int32)
-    let capabilities = list[4] as! String
-    let centerFreq0 = list[5] is Int64 ? list[5] as! Int64 : Int64(list[5] as! Int32)
-    let centerFreq1 = list[6] is Int64 ? list[6] as! Int64 : Int64(list[6] as! Int32)
-    let channelWidth = list[7] is Int64 ? list[7] as! Int64 : Int64(list[7] as! Int32)
+    let timestamp = list[0] is Int64 ? list[0] as! Int64 : Int64(list[0] as! Int32)
+    let ssid = list[1] as! String
+    let bssid = list[2] as! String
+    let rssi = list[3] is Int64 ? list[3] as! Int64 : Int64(list[3] as! Int32)
+    let frequency = list[4] is Int64 ? list[4] as! Int64 : Int64(list[4] as! Int32)
+    let capabilities = list[5] as! String
+    let centerFreq0 = list[6] is Int64 ? list[6] as! Int64 : Int64(list[6] as! Int32)
+    let centerFreq1 = list[7] is Int64 ? list[7] as! Int64 : Int64(list[7] as! Int32)
+    let channelWidth = list[8] is Int64 ? list[8] as! Int64 : Int64(list[8] as! Int32)
 
     return WiFi(
+      timestamp: timestamp,
       ssid: ssid,
       bssid: bssid,
       rssi: rssi,
@@ -77,6 +81,7 @@ struct WiFi {
   }
   func toList() -> [Any?] {
     return [
+      timestamp,
       ssid,
       bssid,
       rssi,

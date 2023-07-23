@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 
 class WiFi {
   WiFi({
+    required this.timestamp,
     required this.ssid,
     required this.bssid,
     required this.rssi,
@@ -20,6 +21,9 @@ class WiFi {
     required this.centerFreq1,
     required this.channelWidth,
   });
+
+  /// unix time in milliseconds
+  int timestamp;
 
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#SSID
   String ssid;
@@ -47,6 +51,7 @@ class WiFi {
 
   Object encode() {
     return <Object?>[
+      timestamp,
       ssid,
       bssid,
       rssi,
@@ -61,14 +66,15 @@ class WiFi {
   static WiFi decode(Object result) {
     result as List<Object?>;
     return WiFi(
-      ssid: result[0]! as String,
-      bssid: result[1]! as String,
-      rssi: result[2]! as int,
-      frequency: result[3]! as int,
-      capabilities: result[4]! as String,
-      centerFreq0: result[5]! as int,
-      centerFreq1: result[6]! as int,
-      channelWidth: result[7]! as int,
+      timestamp: result[0]! as int,
+      ssid: result[1]! as String,
+      bssid: result[2]! as String,
+      rssi: result[3]! as int,
+      frequency: result[4]! as int,
+      capabilities: result[5]! as String,
+      centerFreq0: result[6]! as int,
+      centerFreq1: result[7]! as int,
+      channelWidth: result[8]! as int,
     );
   }
 }

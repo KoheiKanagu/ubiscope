@@ -87,6 +87,9 @@ class MapsBottomSheet extends HookConsumerWidget {
                       Text('centerFreq0: ${e.centerFreq0}'),
                       Text('centerFreq1: ${e.centerFreq1}'),
                       Text('channelWidth: ${e.channelWidth}'),
+                      Text(
+                        'timestamp: ${DateTime.fromMillisecondsSinceEpoch(e.timestamp)}',
+                      ),
                     ],
                   ),
                 ),

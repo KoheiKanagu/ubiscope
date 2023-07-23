@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiManager
 import android.os.Build
+import android.os.SystemClock
 import androidx.core.content.ContextCompat.getSystemService
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
@@ -55,6 +56,7 @@ class MainActivity : FlutterActivity() {
 
                 val results = wifiManager!!.scanResults.map {
                     WiFi(
+                        timestamp = System.currentTimeMillis() - SystemClock.elapsedRealtime() + (it.timestamp / 1000),
                         ssid = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                             it.wifiSsid.toString()
                         } else {
