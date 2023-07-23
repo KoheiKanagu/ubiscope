@@ -90,7 +90,6 @@ class MainActivity : FlutterActivity() {
         }
 
         wifiHostApi = WiFiHostApiImpl(wifiManager!!)
-
         WiFiHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, wifiHostApi)
 
         val intentFilter = IntentFilter()
