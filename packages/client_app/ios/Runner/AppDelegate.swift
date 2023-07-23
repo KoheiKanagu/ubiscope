@@ -44,7 +44,6 @@ private class WiFiHostApiImpl: WiFiHostApi {
     }
     
     func stopScan() throws {
-        
     }
 }
 
