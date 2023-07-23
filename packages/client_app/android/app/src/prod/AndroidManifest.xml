@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dev.kingu.ubiscope">
-    <application>
+
+    <application android:label="ubiscope">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBL5zuzB75oESi0Ex7ngw_71nelh5g0SO4"
-        />
+            android:value="AIzaSyBL5zuzB75oESi0Ex7ngw_71nelh5g0SO4" />
     </application>
 </manifest>
