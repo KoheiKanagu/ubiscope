@@ -85,4 +85,5 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'org.altbeacon:android-beacon-library:2.19.6'
 }
