@@ -35,7 +35,7 @@ dependencies:
       ref: indoor
       path: packages/google_maps_flutter/google_maps_flutter
       # path: /Users/kingu/Develop/packages/packages/google_maps_flutter/google_maps_flutter # for develop
-  hooks_riverpod: ^2.3.6
+  hooks_riverpod: ^2.3.7
   intl: any
   json_annotation: ^4.8.1
   package_info_plus: ^4.0.2
@@ -53,8 +53,8 @@ dev_dependencies:
   json_serializable: ^6.7.1
   mockito: ^5.4.2
   pedantic_mono: ^1.23.0
-  riverpod_generator: ^2.2.3
-  riverpod_lint: ^1.3.2
+  riverpod_generator: ^2.2.4
+  riverpod_lint: ^1.4.0
   test: any
 
 flutter:
