@@ -46,30 +46,65 @@ class FlutterError (
 
 /** Generated class from Pigeon that represents data sent in messages. */
 data class WiFi (
-  /** unix time in milliseconds */
-  val timestamp: Long,
-  /** https://developer.android.com/reference/android/net/wifi/ScanResult#SSID */
+  /**
+   * A timestamp representing when the beacon was observed.
+   * ISO 8601 formatted string
+   */
+  val timestamp: String,
+  /**
+   * The network name.
+   *
+   * https://developer.android.com/reference/android/net/wifi/ScanResult#SSID
+   */
   val ssid: String,
-  /** https://developer.android.com/reference/android/net/wifi/ScanResult#BSSID */
+  /**
+   * The address of the access point.
+   *
+   * https://developer.android.com/reference/android/net/wifi/ScanResult#BSSID
+   */
   val bssid: String,
-  /** https://developer.android.com/reference/android/net/wifi/ScanResult#level */
+  /**
+   * The detected signal level in dBm, also known as the RSSI.
+   *
+   * https://developer.android.com/reference/android/net/wifi/ScanResult#level
+   */
   val rssi: Long,
-  /** https://developer.android.com/reference/android/net/wifi/ScanResult#frequency */
+  /**
+   * The center frequency of the primary 20 MHz frequency (in MHz) of the channel over which the client is communicating with the access point.
+   *
+   * https://developer.android.com/reference/android/net/wifi/ScanResult#frequency
+   */
   val frequency: Long,
-  /** https://developer.android.com/reference/android/net/wifi/ScanResult#capabilities */
+  /**
+   * Describes the authentication, key management, and encryption schemes supported by the access point.
+   *
+   * https://developer.android.com/reference/android/net/wifi/ScanResult#capabilities
+   */
   val capabilities: String,
-  /** https://developer.android.com/reference/android/net/wifi/ScanResult#centerFreq0 */
+  /**
+   * Not used if the AP bandwidth is 20 MHz If the AP use 40, 80, 160 or 320MHz, this is the center frequency (in MHz) if the AP use 80 + 80 MHz, this is the center frequency of the first segment (in MHz)
+   *
+   * https://developer.android.com/reference/android/net/wifi/ScanResult#centerFreq0
+   */
   val centerFreq0: Long,
-  /** https://developer.android.com/reference/android/net/wifi/ScanResult#centerFreq1 */
+  /**
+   * Only used if the AP bandwidth is 80 + 80 MHz if the AP use 80 + 80 MHz, this is the center frequency of the second segment (in MHz)
+   *
+   * https://developer.android.com/reference/android/net/wifi/ScanResult#centerFreq1
+   */
   val centerFreq1: Long,
-  /** https://developer.android.com/reference/android/net/wifi/ScanResult#channelWidth */
+  /**
+   * AP Channel bandwidth
+   *
+   * https://developer.android.com/reference/android/net/wifi/ScanResult#channelWidth
+   */
   val channelWidth: Long
 
 ) {
   companion object {
     @Suppress("UNCHECKED_CAST")
     fun fromList(list: List<Any?>): WiFi {
-      val timestamp = list[0].let { if (it is Int) it.toLong() else it as Long }
+      val timestamp = list[0] as String
       val ssid = list[1] as String
       val bssid = list[2] as String
       val rssi = list[3].let { if (it is Int) it.toLong() else it as Long }
@@ -92,6 +127,80 @@ data class WiFi (
       centerFreq0,
       centerFreq1,
       channelWidth,
+    )
+  }
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class Beacon (
+  /**
+   * The UUID that the observed beacon transmitted.
+   *
+   * https://developer.apple.com/documentation/corelocation/clbeacon/3183017-uuid
+   */
+  val uuid: String,
+  /**
+   * The major value that the observed beacon transmitted.
+   *
+   * https://developer.apple.com/documentation/corelocation/clbeacon/1621418-major
+   */
+  val major: Long,
+  /**
+   * The minor value that the observed beacon transmitted.
+   *
+   * https://developer.apple.com/documentation/corelocation/clbeacon/1621558-minor
+   */
+  val minor: Long,
+  /**
+   * The received signal strength of the beacon, measured in decibels.
+   * May be 0 for some reason. It is a specification of CoreLocation.
+   *
+   * https://developer.apple.com/documentation/corelocation/clbeacon/1621557-rssi
+   */
+  val rssi: Long,
+  /**
+   * A timestamp representing when the beacon was observed.
+   * ISO 8601 formatted string
+   *
+   * https://developer.apple.com/documentation/corelocation/clbeacon/3183021-timestamp
+   */
+  val timestamp: String,
+  /**
+   * The accuracy of the proximity value, measured in meters from the beacon.
+   *
+   * https://developer.apple.com/documentation/corelocation/clbeacon/1621551-accuracy
+   */
+  val accuracy: Double,
+  /**
+   * Constants that reflect the relative distance to a beacon.
+   *
+   * https://developer.apple.com/documentation/corelocation/clproximity
+   */
+  val proximity: Long
+
+) {
+  companion object {
+    @Suppress("UNCHECKED_CAST")
+    fun fromList(list: List<Any?>): Beacon {
+      val uuid = list[0] as String
+      val major = list[1].let { if (it is Int) it.toLong() else it as Long }
+      val minor = list[2].let { if (it is Int) it.toLong() else it as Long }
+      val rssi = list[3].let { if (it is Int) it.toLong() else it as Long }
+      val timestamp = list[4] as String
+      val accuracy = list[5] as Double
+      val proximity = list[6].let { if (it is Int) it.toLong() else it as Long }
+      return Beacon(uuid, major, minor, rssi, timestamp, accuracy, proximity)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf<Any?>(
+      uuid,
+      major,
+      minor,
+      rssi,
+      timestamp,
+      accuracy,
+      proximity,
     )
   }
 }
@@ -193,8 +302,106 @@ class WiFiFlutterApi(private val binaryMessenger: BinaryMessenger) {
       WiFiFlutterApiCodec
     }
   }
-  fun onReceiveWiFiList(resultsArg: List<WiFi>, callback: () -> Unit) {
-    val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.WiFiFlutterApi.onReceiveWiFiList", codec)
+  fun onReceived(resultsArg: List<WiFi>, callback: () -> Unit) {
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.WiFiFlutterApi.onReceived", codec)
+    channel.send(listOf(resultsArg)) {
+      callback()
+    }
+  }
+}
+/** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+interface BeaconHostApi {
+  /**
+   * start scanning beacons
+   *
+   * [uuid] is required
+   * [major] and [minor] are optional. If not specified, all majors and minors are targeted.
+   */
+  fun startScan(uuid: String, major: Long?, minor: Long?): Boolean
+  fun stopScan()
+
+  companion object {
+    /** The codec used by BeaconHostApi. */
+    val codec: MessageCodec<Any?> by lazy {
+      StandardMessageCodec()
+    }
+    /** Sets up an instance of `BeaconHostApi` to handle messages through the `binaryMessenger`. */
+    @Suppress("UNCHECKED_CAST")
+    fun setUp(binaryMessenger: BinaryMessenger, api: BeaconHostApi?) {
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.BeaconHostApi.startScan", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val uuidArg = args[0] as String
+            val majorArg = args[1].let { if (it is Int) it.toLong() else it as Long? }
+            val minorArg = args[2].let { if (it is Int) it.toLong() else it as Long? }
+            var wrapped: List<Any?>
+            try {
+              wrapped = listOf<Any?>(api.startScan(uuidArg, majorArg, minorArg))
+            } catch (exception: Throwable) {
+              wrapped = wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.BeaconHostApi.stopScan", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            var wrapped: List<Any?>
+            try {
+              api.stopScan()
+              wrapped = listOf<Any?>(null)
+            } catch (exception: Throwable) {
+              wrapped = wrapError(exception)
+            }
+            reply.reply(wrapped)
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+    }
+  }
+}
+@Suppress("UNCHECKED_CAST")
+private object BeaconFlutterApiCodec : StandardMessageCodec() {
+  override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
+    return when (type) {
+      128.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          Beacon.fromList(it)
+        }
+      }
+      else -> super.readValueOfType(type, buffer)
+    }
+  }
+  override fun writeValue(stream: ByteArrayOutputStream, value: Any?)   {
+    when (value) {
+      is Beacon -> {
+        stream.write(128)
+        writeValue(stream, value.toList())
+      }
+      else -> super.writeValue(stream, value)
+    }
+  }
+}
+
+/** Generated class from Pigeon that represents Flutter messages that can be called from Kotlin. */
+@Suppress("UNCHECKED_CAST")
+class BeaconFlutterApi(private val binaryMessenger: BinaryMessenger) {
+  companion object {
+    /** The codec used by BeaconFlutterApi. */
+    val codec: MessageCodec<Any?> by lazy {
+      BeaconFlutterApiCodec
+    }
+  }
+  fun onReceived(resultsArg: List<Beacon>, callback: () -> Unit) {
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.BeaconFlutterApi.onReceived", codec)
     channel.send(listOf(resultsArg)) {
       callback()
     }

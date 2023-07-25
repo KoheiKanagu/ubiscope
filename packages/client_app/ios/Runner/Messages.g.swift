@@ -37,27 +37,44 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
 
 /// Generated class from Pigeon that represents data sent in messages.
 struct WiFi {
-  /// unix time in milliseconds
-  var timestamp: Int64
+  /// A timestamp representing when the beacon was observed.
+  /// ISO 8601 formatted string
+  var timestamp: String
+  /// The network name.
+  ///
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#SSID
   var ssid: String
+  /// The address of the access point.
+  ///
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#BSSID
   var bssid: String
+  /// The detected signal level in dBm, also known as the RSSI.
+  ///
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#level
   var rssi: Int64
+  /// The center frequency of the primary 20 MHz frequency (in MHz) of the channel over which the client is communicating with the access point.
+  ///
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#frequency
   var frequency: Int64
+  /// Describes the authentication, key management, and encryption schemes supported by the access point.
+  ///
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#capabilities
   var capabilities: String
+  /// Not used if the AP bandwidth is 20 MHz If the AP use 40, 80, 160 or 320MHz, this is the center frequency (in MHz) if the AP use 80 + 80 MHz, this is the center frequency of the first segment (in MHz)
+  ///
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#centerFreq0
   var centerFreq0: Int64
+  /// Only used if the AP bandwidth is 80 + 80 MHz if the AP use 80 + 80 MHz, this is the center frequency of the second segment (in MHz)
+  ///
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#centerFreq1
   var centerFreq1: Int64
+  /// AP Channel bandwidth
+  ///
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#channelWidth
   var channelWidth: Int64
 
   static func fromList(_ list: [Any?]) -> WiFi? {
-    let timestamp = list[0] is Int64 ? list[0] as! Int64 : Int64(list[0] as! Int32)
+    let timestamp = list[0] as! String
     let ssid = list[1] as! String
     let bssid = list[2] as! String
     let rssi = list[3] is Int64 ? list[3] as! Int64 : Int64(list[3] as! Int32)
@@ -90,6 +107,71 @@ struct WiFi {
       centerFreq0,
       centerFreq1,
       channelWidth,
+    ]
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+struct Beacon {
+  /// The UUID that the observed beacon transmitted.
+  ///
+  /// https://developer.apple.com/documentation/corelocation/clbeacon/3183017-uuid
+  var uuid: String
+  /// The major value that the observed beacon transmitted.
+  ///
+  /// https://developer.apple.com/documentation/corelocation/clbeacon/1621418-major
+  var major: Int64
+  /// The minor value that the observed beacon transmitted.
+  ///
+  /// https://developer.apple.com/documentation/corelocation/clbeacon/1621558-minor
+  var minor: Int64
+  /// The received signal strength of the beacon, measured in decibels.
+  /// May be 0 for some reason. It is a specification of CoreLocation.
+  ///
+  /// https://developer.apple.com/documentation/corelocation/clbeacon/1621557-rssi
+  var rssi: Int64
+  /// A timestamp representing when the beacon was observed.
+  /// ISO 8601 formatted string
+  ///
+  /// https://developer.apple.com/documentation/corelocation/clbeacon/3183021-timestamp
+  var timestamp: String
+  /// The accuracy of the proximity value, measured in meters from the beacon.
+  ///
+  /// https://developer.apple.com/documentation/corelocation/clbeacon/1621551-accuracy
+  var accuracy: Double
+  /// Constants that reflect the relative distance to a beacon.
+  ///
+  /// https://developer.apple.com/documentation/corelocation/clproximity
+  var proximity: Int64
+
+  static func fromList(_ list: [Any?]) -> Beacon? {
+    let uuid = list[0] as! String
+    let major = list[1] is Int64 ? list[1] as! Int64 : Int64(list[1] as! Int32)
+    let minor = list[2] is Int64 ? list[2] as! Int64 : Int64(list[2] as! Int32)
+    let rssi = list[3] is Int64 ? list[3] as! Int64 : Int64(list[3] as! Int32)
+    let timestamp = list[4] as! String
+    let accuracy = list[5] as! Double
+    let proximity = list[6] is Int64 ? list[6] as! Int64 : Int64(list[6] as! Int32)
+
+    return Beacon(
+      uuid: uuid,
+      major: major,
+      minor: minor,
+      rssi: rssi,
+      timestamp: timestamp,
+      accuracy: accuracy,
+      proximity: proximity
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      uuid,
+      major,
+      minor,
+      rssi,
+      timestamp,
+      accuracy,
+      proximity,
     ]
   }
 }
@@ -191,8 +273,111 @@ class WiFiFlutterApi {
   var codec: FlutterStandardMessageCodec {
     return WiFiFlutterApiCodec.shared
   }
-  func onReceiveWiFiList(results resultsArg: [WiFi], completion: @escaping () -> Void) {
-    let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.WiFiFlutterApi.onReceiveWiFiList", binaryMessenger: binaryMessenger, codec: codec)
+  func onReceived(results resultsArg: [WiFi], completion: @escaping () -> Void) {
+    let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.WiFiFlutterApi.onReceived", binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([resultsArg] as [Any?]) { _ in
+      completion()
+    }
+  }
+}
+/// Generated protocol from Pigeon that represents a handler of messages from Flutter.
+protocol BeaconHostApi {
+  /// start scanning beacons
+  ///
+  /// [uuid] is required
+  /// [major] and [minor] are optional. If not specified, all majors and minors are targeted.
+  func startScan(uuid: String, major: Int64?, minor: Int64?) throws -> Bool
+  func stopScan() throws
+}
+
+/// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
+class BeaconHostApiSetup {
+  /// The codec used by BeaconHostApi.
+  /// Sets up an instance of `BeaconHostApi` to handle messages through the `binaryMessenger`.
+  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: BeaconHostApi?) {
+    /// start scanning beacons
+    ///
+    /// [uuid] is required
+    /// [major] and [minor] are optional. If not specified, all majors and minors are targeted.
+    let startScanChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.BeaconHostApi.startScan", binaryMessenger: binaryMessenger)
+    if let api = api {
+      startScanChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let uuidArg = args[0] as! String
+        let majorArg: Int64? = args[1] is NSNull ? nil : (args[1] is Int64? ? args[1] as! Int64? : Int64(args[1] as! Int32))
+        let minorArg: Int64? = args[2] is NSNull ? nil : (args[2] is Int64? ? args[2] as! Int64? : Int64(args[2] as! Int32))
+        do {
+          let result = try api.startScan(uuid: uuidArg, major: majorArg, minor: minorArg)
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      startScanChannel.setMessageHandler(nil)
+    }
+    let stopScanChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.BeaconHostApi.stopScan", binaryMessenger: binaryMessenger)
+    if let api = api {
+      stopScanChannel.setMessageHandler { _, reply in
+        do {
+          try api.stopScan()
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      stopScanChannel.setMessageHandler(nil)
+    }
+  }
+}
+private class BeaconFlutterApiCodecReader: FlutterStandardReader {
+  override func readValue(ofType type: UInt8) -> Any? {
+    switch type {
+      case 128:
+        return Beacon.fromList(self.readValue() as! [Any?])
+      default:
+        return super.readValue(ofType: type)
+    }
+  }
+}
+
+private class BeaconFlutterApiCodecWriter: FlutterStandardWriter {
+  override func writeValue(_ value: Any) {
+    if let value = value as? Beacon {
+      super.writeByte(128)
+      super.writeValue(value.toList())
+    } else {
+      super.writeValue(value)
+    }
+  }
+}
+
+private class BeaconFlutterApiCodecReaderWriter: FlutterStandardReaderWriter {
+  override func reader(with data: Data) -> FlutterStandardReader {
+    return BeaconFlutterApiCodecReader(data: data)
+  }
+
+  override func writer(with data: NSMutableData) -> FlutterStandardWriter {
+    return BeaconFlutterApiCodecWriter(data: data)
+  }
+}
+
+class BeaconFlutterApiCodec: FlutterStandardMessageCodec {
+  static let shared = BeaconFlutterApiCodec(readerWriter: BeaconFlutterApiCodecReaderWriter())
+}
+
+/// Generated class from Pigeon that represents Flutter messages that can be called from Swift.
+class BeaconFlutterApi {
+  private let binaryMessenger: FlutterBinaryMessenger
+  init(binaryMessenger: FlutterBinaryMessenger){
+    self.binaryMessenger = binaryMessenger
+  }
+  var codec: FlutterStandardMessageCodec {
+    return BeaconFlutterApiCodec.shared
+  }
+  func onReceived(results resultsArg: [Beacon], completion: @escaping () -> Void) {
+    let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.BeaconFlutterApi.onReceived", binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([resultsArg] as [Any?]) { _ in
       completion()
     }

@@ -35,7 +35,7 @@ class WiFiScanController extends _$WiFiScanController
     return ref.read(_wiFiHostApiProvider).isScanThrottleEnabled();
   }
 
-  Future<bool> startScan() {
+  Future<void> startScan() {
     return ref.read(_wiFiHostApiProvider).startScan();
   }
 
@@ -44,7 +44,7 @@ class WiFiScanController extends _$WiFiScanController
   }
 
   @override
-  void onReceiveWiFiList(List<WiFi?> results) {
+  void onReceived(List<WiFi?> results) {
     state = results.whereType<WiFi>().toList();
   }
 }

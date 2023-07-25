@@ -70,7 +70,7 @@ class MainActivity : FlutterActivity() {
                     )
                 }
 
-                wifiFlutterApi!!.onReceiveWiFiList(results) {}
+                wifiFlutterApi!!.onReceived(results) {}
 
                 if (wifiHostApi!!.repeatScan) {
                     wifiHostApi!!.startScan();

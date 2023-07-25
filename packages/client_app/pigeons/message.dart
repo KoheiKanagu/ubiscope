@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:pigeon/pigeon.dart';
 
 @ConfigurePigeon(
@@ -24,30 +26,47 @@ class WiFi {
     required this.channelWidth,
   });
 
-  /// unix time in milliseconds
-  final int timestamp;
+  /// A timestamp representing when the beacon was observed.
+  /// ISO 8601 formatted string
+  final String timestamp;
 
+  /// The network name.
+  ///
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#SSID
   final String ssid;
 
+  /// The address of the access point.
+  ///
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#BSSID
   final String bssid;
 
+  /// The detected signal level in dBm, also known as the RSSI.
+  ///
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#level
   final int rssi;
 
+  /// The center frequency of the primary 20 MHz frequency (in MHz) of the channel over which the client is communicating with the access point.
+  ///
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#frequency
   final int frequency;
 
+  /// Describes the authentication, key management, and encryption schemes supported by the access point.
+  ///
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#capabilities
   final String capabilities;
 
+  /// Not used if the AP bandwidth is 20 MHz If the AP use 40, 80, 160 or 320MHz, this is the center frequency (in MHz) if the AP use 80 + 80 MHz, this is the center frequency of the first segment (in MHz)
+  ///
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#centerFreq0
   final int centerFreq0;
 
+  /// Only used if the AP bandwidth is 80 + 80 MHz if the AP use 80 + 80 MHz, this is the center frequency of the second segment (in MHz)
+  ///
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#centerFreq1
   final int centerFreq1;
 
+  /// AP Channel bandwidth
+  ///
   /// https://developer.android.com/reference/android/net/wifi/ScanResult#channelWidth
   final int channelWidth;
 }
@@ -64,5 +83,75 @@ abstract class WiFiHostApi {
 @FlutterApi()
 // ignore: one_member_abstracts
 abstract class WiFiFlutterApi {
-  void onReceiveWiFiList(List<WiFi> results);
+  void onReceived(List<WiFi> results);
+}
+
+class Beacon {
+  Beacon({
+    required this.uuid,
+    required this.major,
+    required this.minor,
+    required this.rssi,
+    required this.timestamp,
+    required this.accuracy,
+    required this.proximity,
+  });
+
+  /// The UUID that the observed beacon transmitted.
+  ///
+  /// https://developer.apple.com/documentation/corelocation/clbeacon/3183017-uuid
+  final String uuid;
+
+  /// The major value that the observed beacon transmitted.
+  ///
+  /// https://developer.apple.com/documentation/corelocation/clbeacon/1621418-major
+  final int major;
+
+  /// The minor value that the observed beacon transmitted.
+  ///
+  /// https://developer.apple.com/documentation/corelocation/clbeacon/1621558-minor
+  final int minor;
+
+  /// The received signal strength of the beacon, measured in decibels.
+  /// May be 0 for some reason. It is a specification of CoreLocation.
+  ///
+  /// https://developer.apple.com/documentation/corelocation/clbeacon/1621557-rssi
+  final int rssi;
+
+  /// A timestamp representing when the beacon was observed.
+  /// ISO 8601 formatted string
+  ///
+  /// https://developer.apple.com/documentation/corelocation/clbeacon/3183021-timestamp
+  final String timestamp;
+
+  /// The accuracy of the proximity value, measured in meters from the beacon.
+  ///
+  /// https://developer.apple.com/documentation/corelocation/clbeacon/1621551-accuracy
+  final double accuracy;
+
+  /// Constants that reflect the relative distance to a beacon.
+  ///
+  /// https://developer.apple.com/documentation/corelocation/clproximity
+  final int proximity;
+}
+
+@HostApi()
+abstract class BeaconHostApi {
+  /// start scanning beacons
+  ///
+  /// [uuid] is required
+  /// [major] and [minor] are optional. If not specified, all majors and minors are targeted.
+  bool startScan(
+    String uuid,
+    int? major,
+    int? minor,
+  );
+
+  void stopScan();
+}
+
+@FlutterApi()
+// ignore: one_member_abstracts
+abstract class BeaconFlutterApi {
+  void onReceived(List<Beacon> results);
 }
