@@ -11,6 +11,11 @@ import android.os.Build
 import android.os.SystemClock
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.util.Date
 
 private class WiFiHostApiImpl(
     private val wifiManager: WifiManager
@@ -52,9 +57,16 @@ class MainActivity : FlutterActivity() {
                     throw Exception("ACCESS_FINE_LOCATION permission denied")
                 }
 
+                ;
+
+
                 val results = wifiManager!!.scanResults.map {
                     WiFi(
-                        timestamp = System.currentTimeMillis() - SystemClock.elapsedRealtime() + (it.timestamp / 1000),
+                        timestamp = LocalDateTime.ofEpochSecond(
+                            (System.currentTimeMillis() - SystemClock.elapsedRealtime() + (it.timestamp / 1000)) / 1000,
+                            0,
+                            ZoneOffset.UTC
+                        ).format(DateTimeFormatter.ISO_DATE_TIME),
                         ssid = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                             it.wifiSsid.toString()
                         } else {
