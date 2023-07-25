@@ -18,7 +18,7 @@ def flutter_root
   unless File.exist?(generated_xcode_build_settings_path)
     raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure flutter pub get is executed first"
   end
-
+  
   File.foreach(generated_xcode_build_settings_path) do |line|
     matches = line.match(/FLUTTER_ROOT\=(.*)/)
     return matches[1].strip if matches
@@ -34,7 +34,7 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
   pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '10.12.0'
-
+  
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
 
@@ -44,6 +44,14 @@ post_install do |installer|
     target.build_configurations.each do |config|
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
       config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+      
+      # https://github.com/Baseflow/flutter-permission-handler/tree/main/permission_handler
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
+      '$(inherited)',
+      'PERMISSION_LOCATION=1',
+      # 'PERMISSION_NOTIFICATIONS=1',
+      # 'PERMISSION_SENSORS=1',
+      ]
     end
   end
 end
