@@ -40,6 +40,19 @@ private class WiFiHostApiImpl(
     }
 }
 
+private class BeaconHostApiImpl(
+
+) : BeaconHostApi {
+    override fun startScan(uuid: String, major: Long?, minor: Long?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun stopScan() {
+        TODO("Not yet implemented")
+    }
+
+}
+
 class MainActivity : FlutterActivity() {
 
     private var wifiHostApi: WiFiHostApiImpl? = null
@@ -47,6 +60,10 @@ class MainActivity : FlutterActivity() {
     private var wifiFlutterApi: WiFiFlutterApi? = null
 
     private var wifiManager: WifiManager? = null
+
+    private var beaconHostApi: BeaconHostApiImpl? = null
+
+    private var beaconFlutterApi: BeaconFlutterApi? = null
 
     private val wifiScanReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -56,9 +73,6 @@ class MainActivity : FlutterActivity() {
                 if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
                     throw Exception("ACCESS_FINE_LOCATION permission denied")
                 }
-
-                ;
-
 
                 val results = wifiManager!!.scanResults.map {
                     WiFi(
@@ -94,6 +108,7 @@ class MainActivity : FlutterActivity() {
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
 
+        // Setup the WiFi APIs
         wifiFlutterApi = WiFiFlutterApi(flutterEngine.dartExecutor.binaryMessenger)
 
         wifiManager = getSystemService(Context.WIFI_SERVICE) as WifiManager?
@@ -107,5 +122,11 @@ class MainActivity : FlutterActivity() {
         val intentFilter = IntentFilter()
         intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
         registerReceiver(wifiScanReceiver, intentFilter)
+
+        // Setup the Beacon APIs
+        beaconFlutterApi = BeaconFlutterApi(flutterEngine.dartExecutor.binaryMessenger)
+
+        beaconHostApi = BeaconHostApiImpl()
+        BeaconHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, beaconHostApi)
     }
 }
