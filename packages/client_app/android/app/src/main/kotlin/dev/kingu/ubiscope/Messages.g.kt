@@ -44,6 +44,16 @@ class FlutterError (
   val details: Any? = null
 ) : Throwable()
 
+enum class BeaconType(val raw: Int) {
+  IBEACON(0);
+
+  companion object {
+    fun ofRaw(raw: Int): BeaconType? {
+      return values().firstOrNull { it.raw == raw }
+    }
+  }
+}
+
 /** Generated class from Pigeon that represents data sent in messages. */
 data class WiFi (
   /**
@@ -136,47 +146,75 @@ data class Beacon (
   /**
    * The UUID that the observed beacon transmitted.
    *
-   * https://developer.apple.com/documentation/corelocation/clbeacon/3183017-uuid
+   * for iOS: https://developer.apple.com/documentation/corelocation/clbeacon/3183017-uuid
+   * for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getId1()
    */
   val uuid: String,
   /**
    * The major value that the observed beacon transmitted.
    *
-   * https://developer.apple.com/documentation/corelocation/clbeacon/1621418-major
+   * for iOS: https://developer.apple.com/documentation/corelocation/clbeacon/1621418-major
+   * for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getId2()
    */
   val major: Long,
   /**
    * The minor value that the observed beacon transmitted.
    *
-   * https://developer.apple.com/documentation/corelocation/clbeacon/1621558-minor
+   * for iOS: https://developer.apple.com/documentation/corelocation/clbeacon/1621558-minor
+   * for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getId3()
    */
   val minor: Long,
   /**
    * The received signal strength of the beacon, measured in decibels.
-   * May be 0 for some reason. It is a specification of CoreLocation.
+   * May be 0 for some reason. It is a specification of Core Location.
    *
-   * https://developer.apple.com/documentation/corelocation/clbeacon/1621557-rssi
+   * for iOS: https://developer.apple.com/documentation/corelocation/clbeacon/1621557-rssi
+   * for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getRssi()
    */
   val rssi: Long,
   /**
    * A timestamp representing when the beacon was observed.
    * ISO 8601 formatted string
    *
-   * https://developer.apple.com/documentation/corelocation/clbeacon/3183021-timestamp
+   * for iOS: https://developer.apple.com/documentation/corelocation/clbeacon/3183021-timestamp
+   * for Android:
    */
   val timestamp: String,
   /**
    * The accuracy of the proximity value, measured in meters from the beacon.
    *
-   * https://developer.apple.com/documentation/corelocation/clbeacon/1621551-accuracy
+   * for iOS: https://developer.apple.com/documentation/corelocation/clbeacon/1621551-accuracy
+   * for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getDistance()
    */
   val accuracy: Double,
   /**
    * Constants that reflect the relative distance to a beacon.
    *
-   * https://developer.apple.com/documentation/corelocation/clproximity
+   * for iOS: https://developer.apple.com/documentation/corelocation/clproximity
+   * for Android: Always returns null.
    */
-  val proximity: Long
+  val proximity: Long? = null,
+  /**
+   * The received signal strength of the beacon from 1 meter away, measured in decibels.
+   *
+   * for iOS: Always returns null. beacause it cannot be obtained with Core Location.
+   * for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getTxPower()
+   */
+  val txPower: Long? = null,
+  /**
+   * The Bluetooth address of the beacon.
+   *
+   * for iOS: Always returns null. beacause it cannot be obtained with Core Location.
+   * for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getBluetoothAddress()
+   */
+  val bluetoothAddress: String? = null,
+  /**
+   * The type of beacon.
+   *
+   * for iOS: Always returns [BeaconType.iBeacon].
+   * for Android: Always returns [BeaconType.iBeacon].
+   */
+  val type: BeaconType
 
 ) {
   companion object {
@@ -188,8 +226,11 @@ data class Beacon (
       val rssi = list[3].let { if (it is Int) it.toLong() else it as Long }
       val timestamp = list[4] as String
       val accuracy = list[5] as Double
-      val proximity = list[6].let { if (it is Int) it.toLong() else it as Long }
-      return Beacon(uuid, major, minor, rssi, timestamp, accuracy, proximity)
+      val proximity = list[6].let { if (it is Int) it.toLong() else it as Long? }
+      val txPower = list[7].let { if (it is Int) it.toLong() else it as Long? }
+      val bluetoothAddress = list[8] as String?
+      val type = BeaconType.ofRaw(list[9] as Int)!!
+      return Beacon(uuid, major, minor, rssi, timestamp, accuracy, proximity, txPower, bluetoothAddress, type)
     }
   }
   fun toList(): List<Any?> {
@@ -201,6 +242,9 @@ data class Beacon (
       timestamp,
       accuracy,
       proximity,
+      txPower,
+      bluetoothAddress,
+      type.raw,
     )
   }
 }

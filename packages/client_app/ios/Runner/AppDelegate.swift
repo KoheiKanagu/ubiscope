@@ -56,7 +56,10 @@ import GoogleMaps
                     rssi: Int64(e.rssi),
                     timestamp: e.timestamp.ISO8601Format(),
                     accuracy: e.accuracy,
-                    proximity: Int64(e.proximity.rawValue)
+                    proximity: Int64(e.proximity.rawValue),
+                    txPower: nil,
+                    bluetoothAddress: nil,
+                    type: BeaconType.iBeacon
                 )
             },
             completion: {}

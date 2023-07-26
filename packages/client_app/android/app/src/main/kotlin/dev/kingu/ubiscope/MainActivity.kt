@@ -9,13 +9,19 @@ import android.content.pm.PackageManager
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.SystemClock
+import androidx.core.content.ContextCompat.getSystemService
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
-import java.time.Instant
+import org.altbeacon.beacon.Beacon
+import org.altbeacon.beacon.BeaconManager
+import org.altbeacon.beacon.BeaconParser
+import org.altbeacon.beacon.Identifier
+import org.altbeacon.beacon.RangeNotifier
+import org.altbeacon.beacon.Region
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
-import java.util.Date
+
 
 private class WiFiHostApiImpl(
     private val wifiManager: WifiManager
@@ -41,19 +47,26 @@ private class WiFiHostApiImpl(
 }
 
 private class BeaconHostApiImpl(
-
+    private val beaconManager: BeaconManager
 ) : BeaconHostApi {
+
+    private var region: Region? = null
+
     override fun startScan(uuid: String, major: Long?, minor: Long?): Boolean {
-        TODO("Not yet implemented")
+//        region = Region("dev.kingu.ubiscope.BeaconHostApiImpl", Identifier.parse(uuid), null, null)
+        region = Region("dev.kingu.ubiscope.BeaconHostApiImpl", null, null, null)
+        beaconManager.startRangingBeacons(region!!)
+        return true;
     }
 
     override fun stopScan() {
-        TODO("Not yet implemented")
+        if (region != null) {
+            beaconManager.stopRangingBeacons(region!!)
+        }
     }
-
 }
 
-class MainActivity : FlutterActivity() {
+class MainActivity : FlutterActivity(), RangeNotifier {
 
     private var wifiHostApi: WiFiHostApiImpl? = null
 
@@ -64,6 +77,8 @@ class MainActivity : FlutterActivity() {
     private var beaconHostApi: BeaconHostApiImpl? = null
 
     private var beaconFlutterApi: BeaconFlutterApi? = null
+
+    private val iBeaconFormat = "m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"
 
     private val wifiScanReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -126,7 +141,34 @@ class MainActivity : FlutterActivity() {
         // Setup the Beacon APIs
         beaconFlutterApi = BeaconFlutterApi(flutterEngine.dartExecutor.binaryMessenger)
 
-        beaconHostApi = BeaconHostApiImpl()
+        val beaconManager = BeaconManager.getInstanceForApplication(this)
+        beaconManager.addRangeNotifier(this)
+        beaconManager.beaconParsers.add(BeaconParser().setBeaconLayout(iBeaconFormat))
+
+        beaconHostApi = BeaconHostApiImpl(beaconManager)
         BeaconHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, beaconHostApi)
+    }
+
+    override fun didRangeBeaconsInRegion(beacons: MutableCollection<Beacon>?, region: Region?) {
+        val results = beacons?.map {
+            dev.kingu.ubiscope.Beacon(
+                uuid = it.id1.toString(),
+                major = it.id2.toInt().toLong(),
+                minor = it.id3.toInt().toLong(),
+                rssi = it.rssi.toLong(),
+                timestamp = LocalDateTime.ofEpochSecond(
+                    it.firstCycleDetectionTimestamp / 1000 / 1000, 0, ZoneOffset.UTC
+                ).format(DateTimeFormatter.ISO_DATE_TIME),
+                accuracy = it.distance,
+                proximity = null,
+                txPower = it.txPower.toLong(),
+                bluetoothAddress = it.bluetoothAddress,
+                type = BeaconType.IBEACON,
+            )
+        }
+
+        if (results != null) {
+            beaconFlutterApi?.onReceived(results) {}
+        }
     }
 }

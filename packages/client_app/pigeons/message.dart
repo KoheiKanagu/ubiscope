@@ -95,44 +95,77 @@ class Beacon {
     required this.timestamp,
     required this.accuracy,
     required this.proximity,
+    required this.txPower,
+    required this.bluetoothAddress,
+    required this.type,
   });
 
   /// The UUID that the observed beacon transmitted.
   ///
-  /// https://developer.apple.com/documentation/corelocation/clbeacon/3183017-uuid
+  /// for iOS: https://developer.apple.com/documentation/corelocation/clbeacon/3183017-uuid
+  /// for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getId1()
   final String uuid;
 
   /// The major value that the observed beacon transmitted.
   ///
-  /// https://developer.apple.com/documentation/corelocation/clbeacon/1621418-major
+  /// for iOS: https://developer.apple.com/documentation/corelocation/clbeacon/1621418-major
+  /// for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getId2()
   final int major;
 
   /// The minor value that the observed beacon transmitted.
   ///
-  /// https://developer.apple.com/documentation/corelocation/clbeacon/1621558-minor
+  /// for iOS: https://developer.apple.com/documentation/corelocation/clbeacon/1621558-minor
+  /// for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getId3()
   final int minor;
 
   /// The received signal strength of the beacon, measured in decibels.
-  /// May be 0 for some reason. It is a specification of CoreLocation.
+  /// May be 0 for some reason. It is a specification of Core Location.
   ///
-  /// https://developer.apple.com/documentation/corelocation/clbeacon/1621557-rssi
+  /// for iOS: https://developer.apple.com/documentation/corelocation/clbeacon/1621557-rssi
+  /// for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getRssi()
   final int rssi;
 
   /// A timestamp representing when the beacon was observed.
   /// ISO 8601 formatted string
   ///
-  /// https://developer.apple.com/documentation/corelocation/clbeacon/3183021-timestamp
+  /// for iOS: https://developer.apple.com/documentation/corelocation/clbeacon/3183021-timestamp
+  /// for Android:
   final String timestamp;
 
   /// The accuracy of the proximity value, measured in meters from the beacon.
   ///
-  /// https://developer.apple.com/documentation/corelocation/clbeacon/1621551-accuracy
+  /// for iOS: https://developer.apple.com/documentation/corelocation/clbeacon/1621551-accuracy
+  /// for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getDistance()
   final double accuracy;
 
   /// Constants that reflect the relative distance to a beacon.
   ///
-  /// https://developer.apple.com/documentation/corelocation/clproximity
-  final int proximity;
+  /// for iOS: https://developer.apple.com/documentation/corelocation/clproximity
+  /// for Android: Always returns null.
+  final int? proximity;
+
+  /// The received signal strength of the beacon from 1 meter away, measured in decibels.
+  ///
+  /// for iOS: Always returns null. beacause it cannot be obtained with Core Location.
+  /// for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getTxPower()
+  final int? txPower;
+
+  /// The Bluetooth address of the beacon.
+  ///
+  /// for iOS: Always returns null. beacause it cannot be obtained with Core Location.
+  /// for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getBluetoothAddress()
+  final String? bluetoothAddress;
+
+  /// The type of beacon.
+  ///
+  /// for iOS: Always returns [BeaconType.iBeacon].
+  /// for Android: Always returns [BeaconType.iBeacon].
+  final BeaconType type;
+}
+
+enum BeaconType {
+  iBeacon,
+  ;
 }
 
 @HostApi()

@@ -35,6 +35,10 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
   return value as! T?
 }
 
+enum BeaconType: Int {
+  case iBeacon = 0
+}
+
 /// Generated class from Pigeon that represents data sent in messages.
 struct WiFi {
   /// A timestamp representing when the beacon was observed.
@@ -115,34 +119,56 @@ struct WiFi {
 struct Beacon {
   /// The UUID that the observed beacon transmitted.
   ///
-  /// https://developer.apple.com/documentation/corelocation/clbeacon/3183017-uuid
+  /// for iOS: https://developer.apple.com/documentation/corelocation/clbeacon/3183017-uuid
+  /// for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getId1()
   var uuid: String
   /// The major value that the observed beacon transmitted.
   ///
-  /// https://developer.apple.com/documentation/corelocation/clbeacon/1621418-major
+  /// for iOS: https://developer.apple.com/documentation/corelocation/clbeacon/1621418-major
+  /// for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getId2()
   var major: Int64
   /// The minor value that the observed beacon transmitted.
   ///
-  /// https://developer.apple.com/documentation/corelocation/clbeacon/1621558-minor
+  /// for iOS: https://developer.apple.com/documentation/corelocation/clbeacon/1621558-minor
+  /// for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getId3()
   var minor: Int64
   /// The received signal strength of the beacon, measured in decibels.
-  /// May be 0 for some reason. It is a specification of CoreLocation.
+  /// May be 0 for some reason. It is a specification of Core Location.
   ///
-  /// https://developer.apple.com/documentation/corelocation/clbeacon/1621557-rssi
+  /// for iOS: https://developer.apple.com/documentation/corelocation/clbeacon/1621557-rssi
+  /// for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getRssi()
   var rssi: Int64
   /// A timestamp representing when the beacon was observed.
   /// ISO 8601 formatted string
   ///
-  /// https://developer.apple.com/documentation/corelocation/clbeacon/3183021-timestamp
+  /// for iOS: https://developer.apple.com/documentation/corelocation/clbeacon/3183021-timestamp
+  /// for Android:
   var timestamp: String
   /// The accuracy of the proximity value, measured in meters from the beacon.
   ///
-  /// https://developer.apple.com/documentation/corelocation/clbeacon/1621551-accuracy
+  /// for iOS: https://developer.apple.com/documentation/corelocation/clbeacon/1621551-accuracy
+  /// for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getDistance()
   var accuracy: Double
   /// Constants that reflect the relative distance to a beacon.
   ///
-  /// https://developer.apple.com/documentation/corelocation/clproximity
-  var proximity: Int64
+  /// for iOS: https://developer.apple.com/documentation/corelocation/clproximity
+  /// for Android: Always returns null.
+  var proximity: Int64? = nil
+  /// The received signal strength of the beacon from 1 meter away, measured in decibels.
+  ///
+  /// for iOS: Always returns null. beacause it cannot be obtained with Core Location.
+  /// for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getTxPower()
+  var txPower: Int64? = nil
+  /// The Bluetooth address of the beacon.
+  ///
+  /// for iOS: Always returns null. beacause it cannot be obtained with Core Location.
+  /// for Android: https://altbeacon.github.io/android-beacon-library/javadoc/org/altbeacon/beacon/Beacon.html#getBluetoothAddress()
+  var bluetoothAddress: String? = nil
+  /// The type of beacon.
+  ///
+  /// for iOS: Always returns [BeaconType.iBeacon].
+  /// for Android: Always returns [BeaconType.iBeacon].
+  var type: BeaconType
 
   static func fromList(_ list: [Any?]) -> Beacon? {
     let uuid = list[0] as! String
@@ -151,7 +177,10 @@ struct Beacon {
     let rssi = list[3] is Int64 ? list[3] as! Int64 : Int64(list[3] as! Int32)
     let timestamp = list[4] as! String
     let accuracy = list[5] as! Double
-    let proximity = list[6] is Int64 ? list[6] as! Int64 : Int64(list[6] as! Int32)
+    let proximity: Int64? = list[6] is NSNull ? nil : (list[6] is Int64? ? list[6] as! Int64? : Int64(list[6] as! Int32))
+    let txPower: Int64? = list[7] is NSNull ? nil : (list[7] is Int64? ? list[7] as! Int64? : Int64(list[7] as! Int32))
+    let bluetoothAddress: String? = nilOrValue(list[8])
+    let type = BeaconType(rawValue: list[9] as! Int)!
 
     return Beacon(
       uuid: uuid,
@@ -160,7 +189,10 @@ struct Beacon {
       rssi: rssi,
       timestamp: timestamp,
       accuracy: accuracy,
-      proximity: proximity
+      proximity: proximity,
+      txPower: txPower,
+      bluetoothAddress: bluetoothAddress,
+      type: type
     )
   }
   func toList() -> [Any?] {
@@ -172,6 +204,9 @@ struct Beacon {
       timestamp,
       accuracy,
       proximity,
+      txPower,
+      bluetoothAddress,
+      type.rawValue,
     ]
   }
 }
