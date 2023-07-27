@@ -321,24 +321,24 @@ class _WiFiFlutterApiCodec extends StandardMessageCodec {
 abstract class WiFiFlutterApi {
   static const MessageCodec<Object?> codec = _WiFiFlutterApiCodec();
 
-  void onReceived(List<WiFi?> results);
+  void onEvent(List<WiFi?> results);
 
   static void setup(WiFiFlutterApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.WiFiFlutterApi.onReceived', codec,
+          'dev.flutter.pigeon.WiFiFlutterApi.onEvent', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         channel.setMessageHandler(null);
       } else {
         channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.WiFiFlutterApi.onReceived was null.');
+          'Argument for dev.flutter.pigeon.WiFiFlutterApi.onEvent was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final List<WiFi?>? arg_results = (args[0] as List<Object?>?)?.cast<WiFi?>();
           assert(arg_results != null,
-              'Argument for dev.flutter.pigeon.WiFiFlutterApi.onReceived was null, expected non-null List<WiFi?>.');
-          api.onReceived(arg_results!);
+              'Argument for dev.flutter.pigeon.WiFiFlutterApi.onEvent was null, expected non-null List<WiFi?>.');
+          api.onEvent(arg_results!);
           return;
         });
       }
@@ -436,24 +436,24 @@ class _BeaconFlutterApiCodec extends StandardMessageCodec {
 abstract class BeaconFlutterApi {
   static const MessageCodec<Object?> codec = _BeaconFlutterApiCodec();
 
-  void onReceived(List<Beacon?> results);
+  void onEvent(List<Beacon?> results);
 
   static void setup(BeaconFlutterApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.BeaconFlutterApi.onReceived', codec,
+          'dev.flutter.pigeon.BeaconFlutterApi.onEvent', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         channel.setMessageHandler(null);
       } else {
         channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.BeaconFlutterApi.onReceived was null.');
+          'Argument for dev.flutter.pigeon.BeaconFlutterApi.onEvent was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final List<Beacon?>? arg_results = (args[0] as List<Object?>?)?.cast<Beacon?>();
           assert(arg_results != null,
-              'Argument for dev.flutter.pigeon.BeaconFlutterApi.onReceived was null, expected non-null List<Beacon?>.');
-          api.onReceived(arg_results!);
+              'Argument for dev.flutter.pigeon.BeaconFlutterApi.onEvent was null, expected non-null List<Beacon?>.');
+          api.onEvent(arg_results!);
           return;
         });
       }

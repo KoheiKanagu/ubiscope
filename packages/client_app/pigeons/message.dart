@@ -83,7 +83,7 @@ abstract class WiFiHostApi {
 @FlutterApi()
 // ignore: one_member_abstracts
 abstract class WiFiFlutterApi {
-  void onReceived(List<WiFi> results);
+  void onEvent(List<WiFi> results);
 }
 
 class Beacon {
@@ -186,5 +186,5 @@ abstract class BeaconHostApi {
 @FlutterApi()
 // ignore: one_member_abstracts
 abstract class BeaconFlutterApi {
-  void onReceived(List<Beacon> results);
+  void onEvent(List<Beacon> results);
 }

@@ -308,8 +308,8 @@ class WiFiFlutterApi {
   var codec: FlutterStandardMessageCodec {
     return WiFiFlutterApiCodec.shared
   }
-  func onReceived(results resultsArg: [WiFi], completion: @escaping () -> Void) {
-    let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.WiFiFlutterApi.onReceived", binaryMessenger: binaryMessenger, codec: codec)
+  func onEvent(results resultsArg: [WiFi], completion: @escaping () -> Void) {
+    let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.WiFiFlutterApi.onEvent", binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([resultsArg] as [Any?]) { _ in
       completion()
     }
@@ -411,8 +411,8 @@ class BeaconFlutterApi {
   var codec: FlutterStandardMessageCodec {
     return BeaconFlutterApiCodec.shared
   }
-  func onReceived(results resultsArg: [Beacon], completion: @escaping () -> Void) {
-    let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.BeaconFlutterApi.onReceived", binaryMessenger: binaryMessenger, codec: codec)
+  func onEvent(results resultsArg: [Beacon], completion: @escaping () -> Void) {
+    let channel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.BeaconFlutterApi.onEvent", binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([resultsArg] as [Any?]) { _ in
       completion()
     }

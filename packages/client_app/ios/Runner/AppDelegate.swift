@@ -47,7 +47,7 @@ import GoogleMaps
     }
     
     func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
-        beaconFlutterApi?.onReceived(
+        beaconFlutterApi?.onEvent(
             results: beacons.map { e in
                 Beacon(
                     uuid: e.uuid.uuidString,

@@ -49,7 +49,7 @@ class BeaconScanController extends _$BeaconScanController
   }
 
   @override
-  void onReceived(List<Beacon?> results) {
+  void onEvent(List<Beacon?> results) {
     state = results.whereType<Beacon>().toList();
   }
 }

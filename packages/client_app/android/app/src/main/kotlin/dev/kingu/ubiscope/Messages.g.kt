@@ -346,8 +346,8 @@ class WiFiFlutterApi(private val binaryMessenger: BinaryMessenger) {
       WiFiFlutterApiCodec
     }
   }
-  fun onReceived(resultsArg: List<WiFi>, callback: () -> Unit) {
-    val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.WiFiFlutterApi.onReceived", codec)
+  fun onEvent(resultsArg: List<WiFi>, callback: () -> Unit) {
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.WiFiFlutterApi.onEvent", codec)
     channel.send(listOf(resultsArg)) {
       callback()
     }
@@ -444,8 +444,8 @@ class BeaconFlutterApi(private val binaryMessenger: BinaryMessenger) {
       BeaconFlutterApiCodec
     }
   }
-  fun onReceived(resultsArg: List<Beacon>, callback: () -> Unit) {
-    val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.BeaconFlutterApi.onReceived", codec)
+  fun onEvent(resultsArg: List<Beacon>, callback: () -> Unit) {
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.BeaconFlutterApi.onEvent", codec)
     channel.send(listOf(resultsArg)) {
       callback()
     }

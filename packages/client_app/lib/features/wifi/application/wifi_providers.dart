@@ -44,7 +44,7 @@ class WiFiScanController extends _$WiFiScanController
   }
 
   @override
-  void onReceived(List<WiFi?> results) {
+  void onEvent(List<WiFi?> results) {
     state = results.whereType<WiFi>().toList();
   }
 }

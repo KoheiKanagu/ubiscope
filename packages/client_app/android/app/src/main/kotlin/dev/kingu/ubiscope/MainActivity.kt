@@ -111,7 +111,7 @@ class MainActivity : FlutterActivity(), RangeNotifier {
                     )
                 }
 
-                wifiFlutterApi!!.onReceived(results) {}
+                wifiFlutterApi!!.onEvent(results) {}
 
                 if (wifiHostApi!!.repeatScan) {
                     wifiHostApi!!.startScan();
@@ -168,7 +168,7 @@ class MainActivity : FlutterActivity(), RangeNotifier {
         }
 
         if (results != null) {
-            beaconFlutterApi?.onReceived(results) {}
+            beaconFlutterApi?.onEvent(results) {}
         }
     }
 }
