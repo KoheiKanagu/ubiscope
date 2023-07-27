@@ -87,7 +87,7 @@ abstract class WiFiFlutterApi {
 }
 
 class Beacon {
-  Beacon({
+  const Beacon({
     required this.uuid,
     required this.major,
     required this.minor,
