@@ -1,3 +1,4 @@
+import 'package:client_app/features/events/application/event_probiders.dart';
 import 'package:client_app/gen/message.g.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -16,6 +17,7 @@ WiFiHostApi _wiFiHostApi(
   keepAlive: true,
 )
 class WiFiScanController extends _$WiFiScanController
+    with EventControllerBase
     implements WiFiFlutterApi {
   @override
   List<WiFi> build() {
@@ -23,28 +25,31 @@ class WiFiScanController extends _$WiFiScanController
     return [];
   }
 
+  @override
   Future<PermissionStatus> checkPermission() {
     return Permission.location.status;
   }
 
+  @override
   Future<PermissionStatus> requestPermission() {
     return Permission.location.request();
+  }
+
+  @override
+  Future<void> stop() {
+    return ref.read(_wiFiHostApiProvider).stopScan();
   }
 
   Future<bool> isScanThrottleEnabled() {
     return ref.read(_wiFiHostApiProvider).isScanThrottleEnabled();
   }
 
-  Future<void> startScan() {
-    return ref.read(_wiFiHostApiProvider).startScan();
-  }
-
-  Future<void> stopScan() {
-    return ref.read(_wiFiHostApiProvider).stopScan();
-  }
-
   @override
   void onEvent(List<WiFi?> results) {
     state = results.whereType<WiFi>().toList();
+  }
+
+  Future<bool> start() {
+    return ref.read(_wiFiHostApiProvider).startScan();
   }
 }

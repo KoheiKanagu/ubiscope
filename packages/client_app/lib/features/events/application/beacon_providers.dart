@@ -1,3 +1,4 @@
+import 'package:client_app/features/events/application/event_probiders.dart';
 import 'package:client_app/gen/message.g.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -17,6 +18,7 @@ BeaconHostApi _beaconHostApi(
 )
 @riverpod
 class BeaconScanController extends _$BeaconScanController
+    with EventControllerBase
     implements BeaconFlutterApi {
   @override
   List<Beacon> build() {
@@ -24,15 +26,27 @@ class BeaconScanController extends _$BeaconScanController
     return [];
   }
 
+  @override
   Future<PermissionStatus> checkPermission() {
     return Permission.bluetooth.status;
   }
 
+  @override
   Future<PermissionStatus> requestPermission() {
     return Permission.bluetooth.request();
   }
 
-  Future<bool> startScan({
+  @override
+  Future<void> stop() {
+    return ref.read(_beaconHostApiProvider).stopScan();
+  }
+
+  @override
+  void onEvent(List<Beacon?> results) {
+    state = results.whereType<Beacon>().toList();
+  }
+
+  Future<bool> start({
     required String uuid,
     int? major,
     int? minor,
@@ -42,14 +56,5 @@ class BeaconScanController extends _$BeaconScanController
           major,
           minor,
         );
-  }
-
-  Future<void> stopScan() {
-    return ref.read(_beaconHostApiProvider).stopScan();
-  }
-
-  @override
-  void onEvent(List<Beacon?> results) {
-    state = results.whereType<Beacon>().toList();
   }
 }

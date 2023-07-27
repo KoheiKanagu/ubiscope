@@ -23,7 +23,7 @@ final _wiFiHostApiProvider = Provider<WiFiHostApi>.internal(
 
 typedef _WiFiHostApiRef = ProviderRef<WiFiHostApi>;
 String _$wiFiScanControllerHash() =>
-    r'48fcb2b6b7f76fe1cf462d3a73ab7cc8a1aecae6';
+    r'5a4390bab4b03670679b8f98afc50ae0172e55a4';
 
 /// See also [WiFiScanController].
 @ProviderFor(WiFiScanController)

@@ -1,5 +1,5 @@
-import 'package:client_app/features/beacon/application/beacon_providers.dart';
-import 'package:client_app/features/wifi/application/wifi_providers.dart';
+import 'package:client_app/features/events/application/beacon_providers.dart';
+import 'package:client_app/features/events/application/wifi_providers.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -67,18 +67,18 @@ class MapsBottomSheet extends HookConsumerWidget {
           ),
           ElevatedButton(
             onPressed: () async {
-              await ref.read(wiFiScanControllerProvider.notifier).startScan();
+              await ref.read(wiFiScanControllerProvider.notifier).start();
               await ref
                   .read(beaconScanControllerProvider.notifier)
-                  .startScan(uuid: 'E02CC25E-0049-4185-832C-3A65DB755D01');
+                  .start(uuid: 'E02CC25E-0049-4185-832C-3A65DB755D01');
               logger.d('startScan');
             },
             child: const Text('startScan'),
           ),
           ElevatedButton(
             onPressed: () {
-              ref.read(wiFiScanControllerProvider.notifier).stopScan();
-              ref.read(beaconScanControllerProvider.notifier).stopScan();
+              ref.read(wiFiScanControllerProvider.notifier).stop();
+              ref.read(beaconScanControllerProvider.notifier).stop();
             },
             child: const Text('stopScan'),
           ),
