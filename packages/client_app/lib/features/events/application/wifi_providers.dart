@@ -60,11 +60,11 @@ class WiFiScanController extends _$WiFiScanController
                   '${rand.nextInt(16).toRadixString(16)}'
                   '${rand.nextInt(16).toRadixString(16)}',
               rssi: (rand.nextInt(42) + 48) * -1, // -42 ~ -90
-              frequency: 2412,
-              capabilities: '[WPA2-PSK-CCMP][ESS]',
-              centerFreq0: 2412,
+              frequency: 5640,
+              capabilities: '[WPA2-PSK-CCMP][RSN-PSK+SAE-CCMP][ESS][WPS]',
+              centerFreq0: 5610,
               centerFreq1: 0,
-              channelWidth: 20,
+              channelWidth: 2,
             ),
           );
         },
