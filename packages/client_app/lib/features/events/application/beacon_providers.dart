@@ -58,7 +58,7 @@ class BeaconScanController extends _$BeaconScanController
       throw ArgumentError('uuid is required on iOS.');
     }
 
-    if (ref.read(deviceInfoIsPhysicalDeviceProvider)) {
+    if (!ref.read(deviceInfoIsPhysicalDeviceProvider)) {
       logger.w('Start Beacon scan simulation.');
 
       return startSimulation<List<Beacon?>>(

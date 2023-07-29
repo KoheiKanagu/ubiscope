@@ -43,7 +43,7 @@ class WiFiScanController extends _$WiFiScanController
   Future<bool> start([
     void arg,
   ]) async {
-    if (ref.read(deviceInfoIsPhysicalDeviceProvider)) {
+    if (!ref.read(deviceInfoIsPhysicalDeviceProvider)) {
       logger.w('Start WiFi scan simulation.');
 
       return startSimulation<List<WiFi?>>(
