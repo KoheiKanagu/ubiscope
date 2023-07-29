@@ -222,8 +222,7 @@ class WiFiHostApi {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.WiFiHostApi.isScanThrottleEnabled', codec,
         binaryMessenger: _binaryMessenger);
-    final List<Object?>? replyList =
-        await channel.send(null) as List<Object?>?;
+    final List<Object?>? replyList = await channel.send(null) as List<Object?>?;
     if (replyList == null) {
       throw PlatformException(
         code: 'channel-error',
@@ -249,8 +248,7 @@ class WiFiHostApi {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.WiFiHostApi.startScan', codec,
         binaryMessenger: _binaryMessenger);
-    final List<Object?>? replyList =
-        await channel.send(null) as List<Object?>?;
+    final List<Object?>? replyList = await channel.send(null) as List<Object?>?;
     if (replyList == null) {
       throw PlatformException(
         code: 'channel-error',
@@ -276,8 +274,7 @@ class WiFiHostApi {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.WiFiHostApi.stopScan', codec,
         binaryMessenger: _binaryMessenger);
-    final List<Object?>? replyList =
-        await channel.send(null) as List<Object?>?;
+    final List<Object?>? replyList = await channel.send(null) as List<Object?>?;
     if (replyList == null) {
       throw PlatformException(
         code: 'channel-error',
@@ -310,7 +307,7 @@ class _WiFiFlutterApiCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 128: 
+      case 128:
         return WiFi.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -333,9 +330,10 @@ abstract class WiFiFlutterApi {
       } else {
         channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.WiFiFlutterApi.onEvent was null.');
+              'Argument for dev.flutter.pigeon.WiFiFlutterApi.onEvent was null.');
           final List<Object?> args = (message as List<Object?>?)!;
-          final List<WiFi?>? arg_results = (args[0] as List<Object?>?)?.cast<WiFi?>();
+          final List<WiFi?>? arg_results =
+              (args[0] as List<Object?>?)?.cast<WiFi?>();
           assert(arg_results != null,
               'Argument for dev.flutter.pigeon.WiFiFlutterApi.onEvent was null, expected non-null List<WiFi?>.');
           api.onEvent(arg_results!);
@@ -360,12 +358,13 @@ class BeaconHostApi {
   ///
   /// [uuid] is optional, but required on Apple devices.
   /// [major] and [minor] are optional. If not specified, all majors and minors are targeted.
-  Future<bool> startScan(String? arg_uuid, int? arg_major, int? arg_minor) async {
+  Future<bool> startScan(
+      String? arg_uuid, int? arg_major, int? arg_minor) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.BeaconHostApi.startScan', codec,
         binaryMessenger: _binaryMessenger);
-    final List<Object?>? replyList =
-        await channel.send(<Object?>[arg_uuid, arg_major, arg_minor]) as List<Object?>?;
+    final List<Object?>? replyList = await channel
+        .send(<Object?>[arg_uuid, arg_major, arg_minor]) as List<Object?>?;
     if (replyList == null) {
       throw PlatformException(
         code: 'channel-error',
@@ -391,8 +390,7 @@ class BeaconHostApi {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.BeaconHostApi.stopScan', codec,
         binaryMessenger: _binaryMessenger);
-    final List<Object?>? replyList =
-        await channel.send(null) as List<Object?>?;
+    final List<Object?>? replyList = await channel.send(null) as List<Object?>?;
     if (replyList == null) {
       throw PlatformException(
         code: 'channel-error',
@@ -425,7 +423,7 @@ class _BeaconFlutterApiCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 128: 
+      case 128:
         return Beacon.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -448,9 +446,10 @@ abstract class BeaconFlutterApi {
       } else {
         channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.BeaconFlutterApi.onEvent was null.');
+              'Argument for dev.flutter.pigeon.BeaconFlutterApi.onEvent was null.');
           final List<Object?> args = (message as List<Object?>?)!;
-          final List<Beacon?>? arg_results = (args[0] as List<Object?>?)?.cast<Beacon?>();
+          final List<Beacon?>? arg_results =
+              (args[0] as List<Object?>?)?.cast<Beacon?>();
           assert(arg_results != null,
               'Argument for dev.flutter.pigeon.BeaconFlutterApi.onEvent was null, expected non-null List<Beacon?>.');
           api.onEvent(arg_results!);

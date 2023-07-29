@@ -24,7 +24,7 @@ final _beaconHostApiProvider = Provider<BeaconHostApi>.internal(
 
 typedef _BeaconHostApiRef = ProviderRef<BeaconHostApi>;
 String _$beaconScanControllerHash() =>
-    r'055dce73331432a6c01f10ecacc9dfff68ef466a';
+    r'075efb74b22286b1dc19ccdd9c752adc643f724e';
 
 /// See also [BeaconScanController].
 @ProviderFor(BeaconScanController)
