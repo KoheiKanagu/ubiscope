@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: type=lint
+// ignore_for_file: non_constant_identifier_names, require_trailing_commas, cast_nullable_to_non_nullable, lines_longer_than_80_chars
 
 part of 'beacon_providers.dart';
 
