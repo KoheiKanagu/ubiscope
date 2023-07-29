@@ -66,9 +66,12 @@ scripts:
       dependsOn: golden_toolkit
 
   build_runner:build:
-    exec: |
+    run: |
       fvm dart pub get
       fvm dart pub run build_runner build --delete-conflicting-outputs
+    exec:
+      concurrency: 1
+      orderDependents: true
     packageFilters:
       flutter: true
       dependsOn: build_runner
