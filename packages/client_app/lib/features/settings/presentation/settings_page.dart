@@ -68,7 +68,7 @@ class SettingsPage extends HookConsumerWidget {
                 applicationName: ref.watch(packageInfoAppNameProvider),
                 applicationVersion: ref.watch(packageInfoVersionProvider),
                 applicationLegalese: '©️ 2023 kingu.dev',
-                applicationIcon: Assets.images.appIcon.image(),
+                applicationIcon: Assets.images.icon.image(),
               );
             },
             trailing: Icon(
