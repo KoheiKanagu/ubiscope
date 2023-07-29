@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'device_info_providers.g.dart';
 
 @riverpod
-DeviceInfoPlugin deviceInfoPlugin(
+BaseDeviceInfo deviceInfoPlugin(
   DeviceInfoPluginRef ref,
 ) =>
     throw UnimplementedError();

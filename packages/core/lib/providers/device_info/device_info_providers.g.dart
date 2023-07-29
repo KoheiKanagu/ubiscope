@@ -8,11 +8,11 @@ part of 'device_info_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$deviceInfoPluginHash() => r'c0c31e36f915e17269fb7c51f6e54ce399ce1d36';
+String _$deviceInfoPluginHash() => r'32be967314ed3aa3de8c4c398c263872021e9de8';
 
 /// See also [deviceInfoPlugin].
 @ProviderFor(deviceInfoPlugin)
-final deviceInfoPluginProvider = AutoDisposeProvider<DeviceInfoPlugin>.internal(
+final deviceInfoPluginProvider = AutoDisposeProvider<BaseDeviceInfo>.internal(
   deviceInfoPlugin,
   name: r'deviceInfoPluginProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,7 +22,7 @@ final deviceInfoPluginProvider = AutoDisposeProvider<DeviceInfoPlugin>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef DeviceInfoPluginRef = AutoDisposeProviderRef<DeviceInfoPlugin>;
+typedef DeviceInfoPluginRef = AutoDisposeProviderRef<BaseDeviceInfo>;
 String _$deviceInfoIsPhysicalDeviceHash() =>
     r'c8dfd69e4f03b57d0172b629726c33d5b5370091';
 
