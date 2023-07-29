@@ -1,5 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:client_app/features/configure/application/package_info_providers.dart';
+import 'package:client_app/gen/assets.gen.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -29,8 +30,7 @@ class SettingsPage extends HookConsumerWidget {
             title: const Text('Bug Report and Feature Request'),
             onTap: () {
               launchUrlString(
-                // TODO(kingu): #62
-                'https://example.com',
+                'https://github.com/KoheiKanagu/ubiscope/issues/new/choose',
               );
             },
             trailing: Icon(
@@ -44,8 +44,9 @@ class SettingsPage extends HookConsumerWidget {
               Icons.open_in_new,
             ),
             onTap: () {
-              // TODO(kingu): #62
-              launchUrlString('https://example.com');
+              launchUrlString(
+                'https://github.com/KoheiKanagu/ubiscope/assets/privacy_policy.md',
+              );
             },
           ),
           ListTile(
@@ -54,8 +55,9 @@ class SettingsPage extends HookConsumerWidget {
               Icons.open_in_new,
             ),
             onTap: () {
-              // TODO(kingu): #62
-              launchUrlString('https://example.com');
+              launchUrlString(
+                'https://github.com/KoheiKanagu/ubiscope/assets/terms_of_service.md',
+              );
             },
           ),
           ListTile(
@@ -66,8 +68,7 @@ class SettingsPage extends HookConsumerWidget {
                 applicationName: ref.watch(packageInfoAppNameProvider),
                 applicationVersion: ref.watch(packageInfoVersionProvider),
                 applicationLegalese: '©️ 2023 kingu.dev',
-                // TODO(kingu): #59
-                applicationIcon: const FlutterLogo(),
+                applicationIcon: Assets.images.appIcon.image(),
               );
             },
             trailing: Icon(
