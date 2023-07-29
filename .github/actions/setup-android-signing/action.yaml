@@ -15,8 +15,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v3
-
     ### Decode ###
     - name: Decode signingConfigs.gradle
       shell: bash
