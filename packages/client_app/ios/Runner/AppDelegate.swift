@@ -92,42 +92,45 @@ private class BeaconHostApiImpl: BeaconHostApi {
         self.locationManager = locationManager
     }
     
-    
-    func startScan(uuid: String, major: Int64?, minor: Int64?) throws -> Bool {
-        if(identity != nil) {
-            locationManager?.stopRangingBeacons(satisfying: identity!)
+    func startScan(uuid: String?, major: Int64?, minor: Int64?) throws -> Bool {
+        try stopScan()
+        
+        guard let target = UUID(uuidString: uuid ?? "") else {
+            return false
         }
         
-        let target = UUID(uuidString: uuid)
+        let identity: CLBeaconIdentityConstraint?
         
-        if(target != nil && major != nil && minor != nil) {
+        if let major = major, let minor = minor {
             identity = CLBeaconIdentityConstraint(
-                uuid: target!,
-                major: CLBeaconMajorValue(major!),
-                minor: CLBeaconMinorValue(minor!)
+                uuid: target,
+                major: CLBeaconMajorValue(major),
+                minor: CLBeaconMinorValue(minor)
             )
-        } else if (target != nil && major != nil) {
+        } else if let major = major {
             identity = CLBeaconIdentityConstraint(
-                uuid: target!,
-                major: CLBeaconMajorValue(major!)
+                uuid: target,
+                major: CLBeaconMajorValue(major)
             )
-        } else if (target != nil) {
+        } else {
             identity = CLBeaconIdentityConstraint(
-                uuid: target!
+                uuid: target
             )
         }
         
-        if(identity == nil) {
-            return false;
+        guard let beaconIdentity = identity else {
+            return false
         }
         
-        locationManager?.startRangingBeacons(satisfying: identity!)
-        return true;
+        locationManager?.startRangingBeacons(satisfying: beaconIdentity)
+        return true
     }
     
     func stopScan() throws {
         if(identity != nil) {
             locationManager?.stopRangingBeacons(satisfying: identity!)
         }
+        
+        identity = nil
     }
 }

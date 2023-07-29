@@ -172,10 +172,10 @@ enum BeaconType {
 abstract class BeaconHostApi {
   /// start scanning beacons
   ///
-  /// [uuid] is required
+  /// [uuid] is optional, but required on Apple devices.
   /// [major] and [minor] are optional. If not specified, all majors and minors are targeted.
   bool startScan(
-    String uuid,
+    String? uuid,
     int? major,
     int? minor,
   );

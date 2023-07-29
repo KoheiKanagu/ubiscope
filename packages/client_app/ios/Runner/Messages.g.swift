@@ -319,9 +319,9 @@ class WiFiFlutterApi {
 protocol BeaconHostApi {
   /// start scanning beacons
   ///
-  /// [uuid] is required
+  /// [uuid] is optional, but required on Apple devices.
   /// [major] and [minor] are optional. If not specified, all majors and minors are targeted.
-  func startScan(uuid: String, major: Int64?, minor: Int64?) throws -> Bool
+  func startScan(uuid: String?, major: Int64?, minor: Int64?) throws -> Bool
   func stopScan() throws
 }
 
@@ -332,13 +332,13 @@ class BeaconHostApiSetup {
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: BeaconHostApi?) {
     /// start scanning beacons
     ///
-    /// [uuid] is required
+    /// [uuid] is optional, but required on Apple devices.
     /// [major] and [minor] are optional. If not specified, all majors and minors are targeted.
     let startScanChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.BeaconHostApi.startScan", binaryMessenger: binaryMessenger)
     if let api = api {
       startScanChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
-        let uuidArg = args[0] as! String
+        let uuidArg: String? = nilOrValue(args[0])
         let majorArg: Int64? = args[1] is NSNull ? nil : (args[1] is Int64? ? args[1] as! Int64? : Int64(args[1] as! Int32))
         let minorArg: Int64? = args[2] is NSNull ? nil : (args[2] is Int64? ? args[2] as! Int64? : Int64(args[2] as! Int32))
         do {

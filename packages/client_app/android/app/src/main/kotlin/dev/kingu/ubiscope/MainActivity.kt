@@ -52,9 +52,15 @@ private class BeaconHostApiImpl(
 
     private var region: Region? = null
 
-    override fun startScan(uuid: String, major: Long?, minor: Long?): Boolean {
-//        region = Region("dev.kingu.ubiscope.BeaconHostApiImpl", Identifier.parse(uuid), null, null)
-        region = Region("dev.kingu.ubiscope.BeaconHostApiImpl", null, null, null)
+    override fun startScan(uuid: String?, major: Long?, minor: Long?): Boolean {
+        val uuidIdentifier = if (uuid != null) Identifier.parse(uuid) else null
+        val majorIdentifier = if (major != null) Identifier.fromInt(major.toInt()) else null
+        val minorIdentifier = if (minor != null) Identifier.fromInt(minor.toInt()) else null
+
+        region = Region(
+            "dev.kingu.ubiscope.BeaconHostApiImpl", uuidIdentifier, majorIdentifier, minorIdentifier
+        )
+
         beaconManager.startRangingBeacons(region!!)
         return true;
     }

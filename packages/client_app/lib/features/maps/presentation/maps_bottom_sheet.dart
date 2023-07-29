@@ -68,9 +68,14 @@ class MapsBottomSheet extends HookConsumerWidget {
           ElevatedButton(
             onPressed: () async {
               await ref.read(wiFiScanControllerProvider.notifier).start();
-              await ref
-                  .read(beaconScanControllerProvider.notifier)
-                  .start(uuid: 'E02CC25E-0049-4185-832C-3A65DB755D01');
+              await ref.read(beaconScanControllerProvider.notifier).start(
+                (
+                  uuid: 'E02CC25E-0049-4185-832C-3A65DB755D01',
+                  major: null,
+                  minor: null,
+                ),
+              );
+
               logger.d('startScan');
             },
             child: const Text('startScan'),

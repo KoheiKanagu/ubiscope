@@ -358,9 +358,9 @@ class BeaconHostApi {
 
   /// start scanning beacons
   ///
-  /// [uuid] is required
+  /// [uuid] is optional, but required on Apple devices.
   /// [major] and [minor] are optional. If not specified, all majors and minors are targeted.
-  Future<bool> startScan(String arg_uuid, int? arg_major, int? arg_minor) async {
+  Future<bool> startScan(String? arg_uuid, int? arg_major, int? arg_minor) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.BeaconHostApi.startScan', codec,
         binaryMessenger: _binaryMessenger);

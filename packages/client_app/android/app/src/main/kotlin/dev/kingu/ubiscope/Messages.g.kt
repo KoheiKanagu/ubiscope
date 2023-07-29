@@ -358,10 +358,10 @@ interface BeaconHostApi {
   /**
    * start scanning beacons
    *
-   * [uuid] is required
+   * [uuid] is optional, but required on Apple devices.
    * [major] and [minor] are optional. If not specified, all majors and minors are targeted.
    */
-  fun startScan(uuid: String, major: Long?, minor: Long?): Boolean
+  fun startScan(uuid: String?, major: Long?, minor: Long?): Boolean
   fun stopScan()
 
   companion object {
@@ -377,7 +377,7 @@ interface BeaconHostApi {
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
-            val uuidArg = args[0] as String
+            val uuidArg = args[0] as String?
             val majorArg = args[1].let { if (it is Int) it.toLong() else it as Long? }
             val minorArg = args[2].let { if (it is Int) it.toLong() else it as Long? }
             var wrapped: List<Any?>
