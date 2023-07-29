@@ -19,10 +19,6 @@ scripts:
       fvm dart format .
       fvm flutter analyze .
 
-      git diff --exit-code
-    exec:
-      concurrency: 1
-
   pub:get:
     run: |
       fvm dart pub get

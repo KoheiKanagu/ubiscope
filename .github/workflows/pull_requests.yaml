@@ -28,6 +28,7 @@ jobs:
       - name: Analyze
         run: |
           melos run analyze --no-select
+          git diff --exit-code
 
   test:
     timeout-minutes: 30
