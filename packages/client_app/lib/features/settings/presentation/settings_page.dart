@@ -65,10 +65,15 @@ class SettingsPage extends HookConsumerWidget {
             onTap: () {
               showLicensePage(
                 context: context,
-                applicationName: ref.watch(packageInfoAppNameProvider),
+                applicationName: '𝕌𝕓𝕚𝕤𝕔𝕠𝕡𝕖',
                 applicationVersion: ref.watch(packageInfoVersionProvider),
                 applicationLegalese: '©️ 2023 kingu.dev',
-                applicationIcon: Assets.images.icon.image(),
+                applicationIcon: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Assets.images.icon.image(
+                    width: 114,
+                  ),
+                ),
               );
             },
             trailing: Icon(
