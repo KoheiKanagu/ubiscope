@@ -18,6 +18,9 @@ scripts:
       fvm dart pub run build_runner build --delete-conflicting-outputs
       fvm dart format .
       fvm flutter analyze .
+    exec:
+      concurrency: 1
+      orderDependents: true
 
   pub:get:
     run: |
