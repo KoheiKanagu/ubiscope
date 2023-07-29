@@ -51,7 +51,7 @@ android {
 
     defaultConfig {
         applicationId "dev.kingu.ubiscope.app"
-        minSdkVersion 23
+        minSdkVersion 28
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -85,4 +85,5 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'org.altbeacon:android-beacon-library:2.19.6'
 }

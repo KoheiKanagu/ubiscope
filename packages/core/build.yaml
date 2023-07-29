@@ -4,7 +4,11 @@ targets:
       source_gen|combining_builder:
         options:
           ignore_for_file:
-            - type=lint
+            - require_trailing_commas
+            - non_constant_identifier_names
+            - require_trailing_commas
+            - cast_nullable_to_non_nullable
+            - lines_longer_than_80_chars
         generate_for:
           include:
             - lib/features/*/domain/**.dart
@@ -12,6 +16,7 @@ targets:
             - lib/routing/**.dart
             - lib/constants/**.dart
             - lib/models/**.dart
+            - lib/providers/**/**.dart
       json_serializable:
         options:
           checked: true

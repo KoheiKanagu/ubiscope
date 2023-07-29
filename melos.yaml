@@ -16,12 +16,12 @@ scripts:
     run: |
       fvm dart pub get
       fvm dart pub run build_runner build --delete-conflicting-outputs
+      fvm dart fix --apply lib
       fvm dart format .
       fvm flutter analyze .
-
-      git diff --exit-code
     exec:
       concurrency: 1
+      orderDependents: true
 
   pub:get:
     run: |
@@ -66,9 +66,12 @@ scripts:
       dependsOn: golden_toolkit
 
   build_runner:build:
-    exec: |
+    run: |
       fvm dart pub get
       fvm dart pub run build_runner build --delete-conflicting-outputs
+    exec:
+      concurrency: 1
+      orderDependents: true
     packageFilters:
       flutter: true
       dependsOn: build_runner
@@ -205,3 +208,10 @@ scripts:
       ./flutterfire_configure.sh
     packageFilters:
       fileExists: flutterfire_configure.sh
+
+  pigeon:
+    exec: |
+      fvm dart run pigeon \
+        --input pigeons/message.dart
+    packageFilters:
+      dependsOn: pigeon
