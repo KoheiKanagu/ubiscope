@@ -181,10 +181,10 @@ packages:
     dependency: "direct main"
     description:
       name: cloud_firestore
-      sha256: "035b91f66b60dab5eefcc217accc734020234f79d963b075699920b95334a755"
+      sha256: f1a06ad4499ed9ab73703560d44893e6b9e66ce3923c9121f4ef3981c972057f
       url: "https://pub.dev"
     source: hosted
-    version: "4.8.3"
+    version: "4.8.4"
   cloud_firestore_platform_interface:
     dependency: transitive
     description:
@@ -420,26 +420,26 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_auth
-      sha256: acfbe55bc23e94ccc7228b7fc7b9abc0005597c1de226f6e3a0103ac29728fbe
+      sha256: "49fd35ce06f2530dd460e5dc123235731cb61dd7c76b0af4b6e190404880d04d"
       url: "https://pub.dev"
     source: hosted
-    version: "4.7.1"
+    version: "4.7.2"
   firebase_auth_platform_interface:
     dependency: transitive
     description:
       name: firebase_auth_platform_interface
-      sha256: "4ab0a8997994db2b76bf0652689d7908ca935a99314857c683251bc23d31c287"
+      sha256: "817f3ceb84ef5e9adaaf50cf7a19255f6ffcdd12c6f9e9aa4cf00fc7f2eb3cfb"
       url: "https://pub.dev"
     source: hosted
-    version: "6.16.0"
+    version: "6.16.1"
   firebase_auth_web:
     dependency: transitive
     description:
       name: firebase_auth_web
-      sha256: "2e694a612a0739c0cf5f426d515dda37ee5827bab211d16e76bcad6a082925eb"
+      sha256: e9044778287f1ff8f9f4cee7e247b03ec87bb8977e0e65ad27dc337e196132e8
       url: "https://pub.dev"
     source: hosted
-    version: "5.6.1"
+    version: "5.6.2"
   firebase_core:
     dependency: "direct main"
     description:
@@ -553,10 +553,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_hooks
-      sha256: "6a126f703b89499818d73305e4ce1e3de33b4ae1c5512e3b8eab4b986f46774c"
+      sha256: "9eab8fd7aa752c3c1c0a364f9825851d410eb935243411682f4b1b0a4c569d71"
       url: "https://pub.dev"
     source: hosted
-    version: "0.18.6"
+    version: "0.20.0"
   flutter_lints:
     dependency: transitive
     description:
@@ -648,10 +648,10 @@ packages:
     dependency: "direct dev"
     description:
       name: go_router_builder
-      sha256: "6b5626b7cb259e9335bb766ab6aeeaf6534eb9076f0472060029c5f3d17461de"
+      sha256: df2034629637d0c7c380aba5daa2f91be4733f2d632e7dff0b082d5ff3155068
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.2"
+    version: "2.2.4"
   google_maps:
     dependency: transitive
     description:
@@ -665,16 +665,16 @@ packages:
     description:
       path: "packages/google_maps_flutter/google_maps_flutter"
       ref: indoor
-      resolved-ref: "51104fd6ba67d03df67a4f557cc794263c2cd71d"
+      resolved-ref: "294b1029ba8e083ed256cab206f36f8db2d87623"
       url: "https://github.com/KoheiKanagu/packages"
     source: git
-    version: "2.3.1"
+    version: "2.4.0"
   google_maps_flutter_android:
     dependency: transitive
     description:
       path: "packages/google_maps_flutter/google_maps_flutter_android"
       ref: indoor
-      resolved-ref: "51104fd6ba67d03df67a4f557cc794263c2cd71d"
+      resolved-ref: "294b1029ba8e083ed256cab206f36f8db2d87623"
       url: "https://github.com/KoheiKanagu/packages"
     source: git
     version: "2.4.15"
@@ -683,7 +683,7 @@ packages:
     description:
       path: "packages/google_maps_flutter/google_maps_flutter_ios"
       ref: indoor
-      resolved-ref: "51104fd6ba67d03df67a4f557cc794263c2cd71d"
+      resolved-ref: "294b1029ba8e083ed256cab206f36f8db2d87623"
       url: "https://github.com/KoheiKanagu/packages"
     source: git
     version: "2.2.3"
@@ -692,7 +692,7 @@ packages:
     description:
       path: "packages/google_maps_flutter/google_maps_flutter_platform_interface"
       ref: indoor
-      resolved-ref: "51104fd6ba67d03df67a4f557cc794263c2cd71d"
+      resolved-ref: "294b1029ba8e083ed256cab206f36f8db2d87623"
       url: "https://github.com/KoheiKanagu/packages"
     source: git
     version: "2.4.0"
@@ -701,10 +701,10 @@ packages:
     description:
       path: "packages/google_maps_flutter/google_maps_flutter_web"
       ref: indoor
-      resolved-ref: "51104fd6ba67d03df67a4f557cc794263c2cd71d"
+      resolved-ref: "294b1029ba8e083ed256cab206f36f8db2d87623"
       url: "https://github.com/KoheiKanagu/packages"
     source: git
-    version: "0.5.1"
+    version: "0.5.2"
   graphs:
     dependency: transitive
     description:
@@ -717,10 +717,10 @@ packages:
     dependency: "direct main"
     description:
       name: hooks_riverpod
-      sha256: be68cf7653fcab798500f9047ac58c3f109287a1595012412f4a0d654a9bb9c5
+      sha256: "117edbe7e5cfc02e31a94f97e2acd4581f54bc37fcda9dce1f606f8ac851ba24"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.6"
+    version: "2.3.7"
   hotreloader:
     dependency: transitive
     description:
@@ -969,14 +969,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.7"
-  path_to_regexp:
-    dependency: transitive
-    description:
-      name: path_to_regexp
-      sha256: "169d78fbd55e61ea8873bcca545979f559d22238f66facdd7ef30870c7f53327"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.0"
   pedantic_mono:
     dependency: "direct dev"
     description:
@@ -1117,18 +1109,18 @@ packages:
     dependency: "direct dev"
     description:
       name: riverpod_generator
-      sha256: cd0595de57ccf5d944ff4b0f68289e11ac6a2eff1e3dfd1d884a43f6f3bcee5e
+      sha256: "691180275664a5420c87d72c1ed26ef8404d32b823807540172bfd1660425376"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.3"
+    version: "2.2.4"
   riverpod_lint:
     dependency: "direct dev"
     description:
       name: riverpod_lint
-      sha256: "043ff016011be4c5887b3239bfbca05d284bdb68db0a5363cee0242b7567e250"
+      sha256: "17ad319914ac6863c64524e598913c0f17e30688aca8f5b7509e96d6e372d493"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.2"
+    version: "1.4.0"
   roggle:
     dependency: transitive
     description:
@@ -1506,10 +1498,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: dfdf0136e0aa7a1b474ea133e67cb0154a0acd2599c4f3ada3b49d38d38793ee
+      sha256: f2add6fa510d3ae152903412227bda57d0d5a8da61d2c39c1fb022c9429a41c0
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.5"
+    version: "5.0.6"
   win32_registry:
     dependency: transitive
     description:
