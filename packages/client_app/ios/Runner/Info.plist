@@ -51,5 +51,7 @@
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We use your location to scan for iBeacons.</string>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-3095994149570460~6699367888</string>
 </dict>
 </plist>

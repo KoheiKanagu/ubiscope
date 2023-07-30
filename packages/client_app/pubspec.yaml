@@ -36,6 +36,7 @@ dependencies:
       ref: indoor
       path: packages/google_maps_flutter/google_maps_flutter
       # path: /Users/kingu/Develop/packages/packages/google_maps_flutter/google_maps_flutter # for develop
+  google_mobile_ads: ^3.0.0
   hooks_riverpod: ^2.3.6
   intl: any
   json_annotation: ^4.8.1
