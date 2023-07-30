@@ -12,14 +12,16 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final (_, packageInfo, deviceInfo) = (
+  final (_, _, packageInfo, deviceInfo) = (
     await Firebase.initializeApp(),
+    await MobileAds.instance.initialize(),
     await PackageInfo.fromPlatform(),
     await DeviceInfoPlugin().deviceInfo,
   );
