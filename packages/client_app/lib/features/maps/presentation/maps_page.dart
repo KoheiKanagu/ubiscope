@@ -1,7 +1,9 @@
+import 'package:animations/animations.dart';
 import 'package:client_app/features/ads/presentation/my_banner_ad.dart';
 import 'package:client_app/features/maps/application/maps_providers.dart';
 import 'package:client_app/features/maps/presentation/maps_bottom_sheet.dart';
-import 'package:client_app/features/settings/application/settings_page_route.dart';
+import 'package:client_app/features/settings/presentation/settings_page.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -20,13 +22,20 @@ class MapsPage extends HookConsumerWidget {
       floatingActionButton: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          const Gap(kToolbarHeight),
-          FloatingActionButton.small(
-            onPressed: () {
-              const SettingsPageRoute().push<void>(context);
-            },
-            child: const Icon(
-              Icons.settings,
+          const Gap(kToolbarHeight + 8),
+          MyOutlineWidget(
+            radius: 24,
+            child: OpenContainer(
+              closedShape: const CircleBorder(),
+              closedElevation: 0,
+              closedBuilder: (_, openContainer) => IconButton(
+                onPressed: () => openContainer(),
+                color: Theme.of(context).primaryColor,
+                icon: const Icon(
+                  Icons.settings,
+                ),
+              ),
+              openBuilder: (_, __) => const SettingsPage(),
             ),
           ),
         ],
