@@ -18,6 +18,13 @@ class MapsPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    switch (Theme.of(context).brightness) {
+      case Brightness.light:
+        ref.watch(mapsControllerProvider.notifier).disableNightMode();
+      case Brightness.dark:
+        ref.watch(mapsControllerProvider.notifier).enableNightMode();
+    }
+
     return Scaffold(
       floatingActionButton: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
