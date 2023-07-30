@@ -9,7 +9,7 @@ class MyOutlineWidget extends StatelessWidget {
 
   final Widget child;
 
-  final CircleBorder? shape;
+  final ShapeBorder? shape;
 
   @override
   Widget build(BuildContext context) {
@@ -18,18 +18,32 @@ class MyOutlineWidget extends StatelessWidget {
       width: 1.5,
     );
 
-    return Material(
-      elevation: 8,
-      shape: shape,
+    return DecoratedBox(
+      decoration: ShapeDecoration(
+        shape: shape ??
+            RoundedRectangleBorder(
+              side: side,
+            ),
+        shadows: [
+          BoxShadow(
+            color: Theme.of(context).colorScheme.shadow.withOpacity(0.2),
+            spreadRadius: 2,
+            blurRadius: 4,
+          ),
+        ],
+      ),
       child: DecoratedBox(
         decoration: ShapeDecoration(
           color: Theme.of(context).colorScheme.background,
-          shape: shape?.copyWith(
-                side: side,
-              ) ??
-              RoundedRectangleBorder(
+          shape: switch (shape) {
+            final CircleBorder e => e.copyWith(
                 side: side,
               ),
+            final e => e ??
+                RoundedRectangleBorder(
+                  side: side,
+                ),
+          },
           shadows: [
             BoxShadow(
               color: Theme.of(context).colorScheme.outline,
