@@ -27,7 +27,6 @@ class MyApp extends HookConsumerWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      themeMode: ThemeMode.dark,
       theme: ThemeData(
         useMaterial3: true,
         fontFamily: FontFamily.notoSansJP,
