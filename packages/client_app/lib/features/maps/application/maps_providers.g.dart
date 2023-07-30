@@ -8,7 +8,7 @@ part of 'maps_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$mapsControllerHash() => r'94d8c9aa734273a6b01e8414f8cdb13e7c86f0a4';
+String _$mapsControllerHash() => r'305f49af37ae23b1ebcdbd4deb95c042216f8bdd';
 
 /// See also [MapsController].
 @ProviderFor(MapsController)

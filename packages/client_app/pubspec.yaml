@@ -66,6 +66,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/google_maps/
   fonts:
     - family: Noto Sans JP
       fonts:

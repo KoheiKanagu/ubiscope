@@ -1,3 +1,5 @@
+import 'package:client_app/gen/assets.gen.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -19,6 +21,17 @@ class MapsController extends _$MapsController {
 
   void onMapCreated(GoogleMapController controller) {
     state = AsyncValue.data(controller);
+  }
+
+  Future<void> enableNightMode() async {
+    final style = await rootBundle.loadString(
+      Assets.googleMaps.mapStyleNight,
+    );
+    await state.asData?.value.setMapStyle(style);
+  }
+
+  Future<void> disableNightMode() async {
+    await state.asData?.value.setMapStyle(null);
   }
 }
 
