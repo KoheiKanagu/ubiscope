@@ -1,3 +1,4 @@
+export 'common_widgets/my_outline_widget.dart';
 export 'common_widgets/show_my_progress_indicator.dart';
 export 'constants/app_env.dart';
 export 'constants/global_keys.dart';

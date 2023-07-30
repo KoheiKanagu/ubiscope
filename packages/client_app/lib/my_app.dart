@@ -1,3 +1,4 @@
+import 'package:client_app/gen/color_schemes.g.dart';
 import 'package:client_app/gen/fonts.gen.dart';
 import 'package:client_app/routing/initial_location_type.dart';
 import 'package:client_app/routing/my_go_router.dart';
@@ -29,9 +30,12 @@ class MyApp extends HookConsumerWidget {
       theme: ThemeData(
         useMaterial3: true,
         fontFamily: FontFamily.notoSansJP,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF01ADB9),
-        ),
+        colorScheme: lightColorScheme,
+      ),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        fontFamily: FontFamily.notoSansJP,
+        colorScheme: darkColorScheme,
       ),
       routerConfig: ref.watch(myGoRouterProvider(initialLocationType)),
     );
