@@ -17,15 +17,15 @@ class MapsPageFloatingActionButton extends HookConsumerWidget {
       children: [
         const Gap(kToolbarHeight + 8),
         MyOutlineWidget(
-          radius: 24,
+          shape: const CircleBorder(),
           child: OpenContainer(
             closedShape: const CircleBorder(),
             closedElevation: 0,
-            closedBuilder: (_, openContainer) => IconButton(
+            closedBuilder: (_, openContainer) => IconButton.filledTonal(
               onPressed: () => openContainer(),
-              color: Theme.of(context).primaryColor,
               icon: const Icon(
                 Icons.settings,
+                size: 32,
               ),
             ),
             openBuilder: (_, __) => const SettingsPage(),

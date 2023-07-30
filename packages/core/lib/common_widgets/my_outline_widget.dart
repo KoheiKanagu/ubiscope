@@ -4,28 +4,32 @@ class MyOutlineWidget extends StatelessWidget {
   const MyOutlineWidget({
     super.key,
     required this.child,
-    this.radius = 0,
+    this.shape,
   });
 
   final Widget child;
 
-  final double radius;
+  final CircleBorder? shape;
 
   @override
   Widget build(BuildContext context) {
+    final side = BorderSide(
+      color: Theme.of(context).colorScheme.surface,
+      width: 1.5,
+    );
+
     return Material(
       elevation: 8,
-      shape: radius > 0 ? const CircleBorder() : null,
+      shape: shape,
       child: DecoratedBox(
         decoration: ShapeDecoration(
           color: Theme.of(context).colorScheme.background,
-          shape: RoundedRectangleBorder(
-            side: BorderSide(
-              color: Theme.of(context).colorScheme.surface,
-              width: 1.5,
-            ),
-            borderRadius: BorderRadius.circular(radius),
-          ),
+          shape: shape?.copyWith(
+                side: side,
+              ) ??
+              RoundedRectangleBorder(
+                side: side,
+              ),
           shadows: [
             BoxShadow(
               color: Theme.of(context).colorScheme.outline,
