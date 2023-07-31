@@ -1,4 +1,3 @@
-import 'package:client_app/constants/firebase_providers.dart';
 import 'package:client_app/features/maps/application/maps_page_route.dart'
     as maps_page_route;
 import 'package:client_app/features/settings/application/settings_page_route.dart'
@@ -6,6 +5,8 @@ import 'package:client_app/features/settings/application/settings_page_route.dar
 import 'package:client_app/routing/initial_location_type.dart';
 import 'package:client_app/routing/my_navigator_observer.dart';
 import 'package:core/core.dart';
+import 'package:core/features/auth/application/auth_page_route.dart'
+    as auth_page_route;
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ final myGoRouterProvider =
   (ref, arg) => GoRouter(
     navigatorKey: rootNavigatorStateKey,
     routes: [
+      ...auth_page_route.$appRoutes,
       ...maps_page_route.$appRoutes,
       ...settings_page_route.$appRoutes,
     ],

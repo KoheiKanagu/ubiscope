@@ -1,15 +1,18 @@
 import 'dart:async';
 
-import 'package:client_app/constants/firebase_providers.dart';
 import 'package:client_app/features/configure/application/package_info_providers.dart';
 import 'package:client_app/my_app.dart';
 import 'package:client_app/routing/initial_location_type.dart';
 import 'package:core/core.dart';
 import 'package:core/providers/device_info/device_info_providers.dart';
+import 'package:core/providers/firebase/firebase_providers.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:device_preview/device_preview.dart';
-import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:firebase_app_check/firebase_app_check.dart' hide AppleProvider;
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+import 'package:firebase_ui_oauth_apple/firebase_ui_oauth_apple.dart';
+import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -76,6 +79,8 @@ Future<void> main() async {
         "packageInfoNameProvider doesn't match currentAppEnv",
       );
   }
+
+  setupFirebaseUIAuth();
 
   logger.d('check auth');
   final isSignedIn =
