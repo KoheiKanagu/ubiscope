@@ -215,3 +215,9 @@ scripts:
         --input pigeons/message.dart
     packageFilters:
       dependsOn: pigeon
+
+  clean:
+    exec: |
+      fvm flutter clean
+    packageFilters:
+      flutter: true
