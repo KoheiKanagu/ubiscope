@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "301249130862-6ig4sn487287bjt230n1sup1femnp9fj.apps.googleusercontent.com",
+          "client_id": "301249130862-6k3blhia0eskbv6kk7tccf3qukjqj1ek.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.kingu.ubiscope.app",
+            "certificate_hash": "8093e78a2893b3ab16659397f5eac8fa33f3d278"
+          }
+        },
+        {
+          "client_id": "301249130862-lgat1osplrs4lq4r1a6a0opvjr4epgjn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
