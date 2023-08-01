@@ -12,6 +12,7 @@ class SignInPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SignInScreen(
       auth: ref.watch(firebaseAuthProvider),
+      showAuthActionSwitch: false,
     );
   }
 }

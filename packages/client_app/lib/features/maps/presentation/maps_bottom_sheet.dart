@@ -24,18 +24,6 @@ class MapsBottomSheet extends HookConsumerWidget {
         controller: controller,
         padding: EdgeInsets.zero,
         children: [
-          ElevatedButton(
-            onPressed: () {
-              const SignInPageRoute().push<void>(context);
-            },
-            child: const Text('SignInPageRoute'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              const ProfilePageRoute().push<void>(context);
-            },
-            child: const Text('ProfilePageRoute'),
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 12,

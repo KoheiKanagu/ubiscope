@@ -21,6 +21,13 @@ class SettingsPage extends HookConsumerWidget {
       body: ListView(
         children: [
           ListTile(
+            title: const Text('Account'),
+            onTap: () {
+              const ProfilePageRoute().push<void>(context);
+            },
+          ),
+          const Divider(),
+          ListTile(
             title: const Text('App Version'),
             subtitle: Text(
               ref.watch(packageInfoVersionProvider),

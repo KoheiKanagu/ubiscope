@@ -1,5 +1,7 @@
 import 'package:client_app/features/maps/application/maps_page_route.dart'
     as maps_page_route;
+import 'package:client_app/features/onboarding/application/onboarding_page_route.dart'
+    as onboarding_page_route;
 import 'package:client_app/features/settings/application/settings_page_route.dart'
     as settings_page_route;
 import 'package:client_app/routing/initial_location_type.dart';
@@ -21,6 +23,7 @@ final myGoRouterProvider =
       ...auth_page_route.$appRoutes,
       ...maps_page_route.$appRoutes,
       ...settings_page_route.$appRoutes,
+      ...onboarding_page_route.$appRoutes,
     ],
     errorBuilder: (context, state) {
       logger.e(

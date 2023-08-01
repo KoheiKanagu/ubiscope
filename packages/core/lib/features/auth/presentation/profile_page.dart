@@ -12,7 +12,7 @@ class ProfilePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ProfileScreen(
       auth: ref.watch(firebaseAuthProvider),
-      actions: [],
+      actions: const [],
     );
   }
 }

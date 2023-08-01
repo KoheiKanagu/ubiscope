@@ -1,4 +1,5 @@
 import 'package:client_app/features/maps/application/maps_page_route.dart';
+import 'package:client_app/features/onboarding/application/onboarding_page_route.dart';
 
 enum InitialLocationType {
   signOut,
@@ -8,7 +9,7 @@ enum InitialLocationType {
   String get location {
     switch (this) {
       case InitialLocationType.signOut:
-        return const MapsPageRoute().location;
+        return const OnboardingPageRoute().location;
 
       case InitialLocationType.signIn:
         return const MapsPageRoute().location;
