@@ -8,12 +8,14 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          const SignInPageRoute().push<void>(context);
-        },
-        child: const Text('Sign In'),
+    return Scaffold(
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            const SignInPageRoute().push<void>(context);
+          },
+          child: const Text('Sign In'),
+        ),
       ),
     );
   }
