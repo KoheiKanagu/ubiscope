@@ -1,7 +1,7 @@
 import { auth, firestore } from "firebase-admin";
 import { FieldValue } from "firebase-admin/firestore";
 import { logger } from "firebase-functions/v1";
-import functions from "./utils/baseFunctions";
+import functions from ".";
 import { CollectionPaths } from "./utils/collection_paths";
 
 export const deleteUser = functions().https.onCall(async (data, context) => {

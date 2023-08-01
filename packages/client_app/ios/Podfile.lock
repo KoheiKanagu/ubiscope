@@ -10,6 +10,10 @@ PODS:
     - firebase_core
     - Flutter
     - nanopb (< 2.30910.0, >= 2.30908.0)
+  - cloud_functions (4.3.4):
+    - Firebase/Functions (= 10.12.0)
+    - firebase_core
+    - Flutter
   - desktop_webview_auth (0.0.1):
     - Flutter
   - device_info_plus (0.0.1):
@@ -33,6 +37,9 @@ PODS:
   - Firebase/Firestore (10.12.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 10.12.0)
+  - Firebase/Functions (10.12.0):
+    - Firebase/CoreOnly
+    - FirebaseFunctions (~> 10.12.0)
   - Firebase/Performance (10.12.0):
     - Firebase/CoreOnly
     - FirebasePerformance (~> 10.12.0)
@@ -95,6 +102,7 @@ PODS:
     - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
     - GoogleUtilities/Environment (~> 7.8)
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
+  - FirebaseAuthInterop (10.12.0)
   - FirebaseCore (10.12.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
@@ -121,11 +129,20 @@ PODS:
   - FirebaseFirestore/Base (10.12.0)
   - FirebaseFirestore/WithLeveldb (10.12.0):
     - FirebaseFirestore/Base
+  - FirebaseFunctions (10.12.0):
+    - FirebaseAppCheckInterop (~> 10.10)
+    - FirebaseAuthInterop (~> 10.0)
+    - FirebaseCore (~> 10.0)
+    - FirebaseCoreExtension (~> 10.0)
+    - FirebaseMessagingInterop (~> 10.0)
+    - FirebaseSharedSwift (~> 10.0)
+    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
   - FirebaseInstallations (10.12.0):
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/UserDefaults (~> 7.8)
     - PromisesObjC (~> 2.1)
+  - FirebaseMessagingInterop (10.12.0)
   - FirebasePerformance (10.12.0):
     - FirebaseCore (~> 10.5)
     - FirebaseInstallations (~> 10.0)
@@ -150,6 +167,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.10)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesSwift (~> 2.1)
+  - FirebaseSharedSwift (10.12.0)
   - Flutter (1.0.0)
   - Google-Mobile-Ads-SDK (10.4.0):
     - GoogleAppMeasurement (< 11.0, >= 7.0)
@@ -244,6 +262,7 @@ PODS:
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
+  - cloud_functions (from `.symlinks/plugins/cloud_functions/ios`)
   - desktop_webview_auth (from `.symlinks/plugins/desktop_webview_auth/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
@@ -273,15 +292,19 @@ SPEC REPOS:
     - FirebaseAppCheck
     - FirebaseAppCheckInterop
     - FirebaseAuth
+    - FirebaseAuthInterop
     - FirebaseCore
     - FirebaseCoreExtension
     - FirebaseCoreInternal
     - FirebaseCrashlytics
     - FirebaseDynamicLinks
+    - FirebaseFunctions
     - FirebaseInstallations
+    - FirebaseMessagingInterop
     - FirebasePerformance
     - FirebaseRemoteConfig
     - FirebaseSessions
+    - FirebaseSharedSwift
     - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleDataTransport
@@ -298,6 +321,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
+  cloud_functions:
+    :path: ".symlinks/plugins/cloud_functions/ios"
   desktop_webview_auth:
     :path: ".symlinks/plugins/desktop_webview_auth/ios"
   device_info_plus:
@@ -346,6 +371,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   cloud_firestore: 005e157ad342dbfb2e461cb111a9020aa71bfb22
+  cloud_functions: 3c404e6abc226da2c7a5a3f2b67678d1c60f3e3d
   desktop_webview_auth: d645139460ef203d50bd0cdb33356785dd939cce
   device_info_plus: 7545d84d8d1b896cb16a4ff98c19f07ec4b298ea
   Firebase: 07150e75d142fb9399f6777fa56a187b17f833a0
@@ -361,16 +387,20 @@ SPEC CHECKSUMS:
   FirebaseAppCheck: c5e49dadf9c9cbabf0066074af938e032a0cce48
   FirebaseAppCheckInterop: f95a4feb9089867aff1a4bdc2ce309137e07736a
   FirebaseAuth: a66c1e14ec58f41d154a4b41ce1a23ea00ad4805
+  FirebaseAuthInterop: 047153f3c2928822032190aa5194e332670a0d66
   FirebaseCore: f86a1394906b97ac445ae49c92552a9425831bed
   FirebaseCoreExtension: 0ce5ac36042001cfa233ce7bfa28e5c313cf80f4
   FirebaseCoreInternal: 950500ad8a08963657f6d8c67b579740c06d6aa1
   FirebaseCrashlytics: c4d111b7430c49744c74bcc6346ea00868661ac8
   FirebaseDynamicLinks: 1a387da899779e5ef34f4d6f8bdba882f90d0e67
   FirebaseFirestore: 8d9dd05bb50e0891ebe4fdd9bd0f9b9d22ea5556
+  FirebaseFunctions: d49c7920b289d85029882927e4056ad04a906e19
   FirebaseInstallations: 7b99ef103f013624444c614397038219c45f8e63
+  FirebaseMessagingInterop: 9009d471dc63cb9e5a7d170e7c107fb78c469f19
   FirebasePerformance: 1a63c51c9d14fc1190b0970d5aab96672cb0bce6
   FirebaseRemoteConfig: bc7f260e6596956fafbb532443c19bd3c30f5258
   FirebaseSessions: a4ee211eeb31a2224cd8d9d4e30a0fccde9aa00c
+  FirebaseSharedSwift: c4eb72d435973c77d6f155f05c963933dcba35a7
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   Google-Mobile-Ads-SDK: 32fe7836431a06a29f7734ae092b600137c8108d
   google_maps_flutter_ios: abdac20d6ce8931f6ebc5f46616df241bfaa2cfd
