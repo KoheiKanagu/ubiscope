@@ -9,7 +9,7 @@ part of 'auth_providers.dart';
 // **************************************************************************
 
 String _$firebaseUserControllerHash() =>
-    r'c0be6a076ef94828508021338f30245388438de5';
+    r'35b1d0059d559c1b8d16a7048eee7f3e64699c1e';
 
 /// See also [FirebaseUserController].
 @ProviderFor(FirebaseUserController)
