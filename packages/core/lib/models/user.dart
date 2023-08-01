@@ -2,25 +2,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'users.freezed.dart';
-part 'users.g.dart';
+part 'user.freezed.dart';
+part 'user.g.dart';
 
 @freezed
-class Users with _$Users {
-  const factory Users({
+class User with _$User {
+  const factory User({
     @TimestampConverter() Timestamp? createdAt,
     @TimestampConverter() Timestamp? updatedAt,
     @Default(false) bool deleted,
-  }) = _Users;
+  }) = _User;
 
-  factory Users.fromJson(Json json) => _$UsersFromJson(json);
+  factory User.fromJson(Json json) => _$UserFromJson(json);
 
-  static FromFirestore<Users> get fromFirestore =>
-      (snapshot, _) => Users.fromJson(
+  static FromFirestore<User> get fromFirestore =>
+      (snapshot, _) => User.fromJson(
             snapshot.data() ?? {},
           );
 
-  static ToFirestore<Users> get toFirestore =>
+  static ToFirestore<User> get toFirestore =>
       (data, _) => TimestampConverter.updateServerTimestamp(
             data.toJson(),
           );

@@ -102,5 +102,21 @@ final firebasePerformanceProvider =
 );
 
 typedef FirebasePerformanceRef = AutoDisposeProviderRef<FirebasePerformance>;
+String _$firebaseFunctionsHash() => r'6ff7cfa912e67c80c87069204494eb6ebd8d3e70';
+
+/// See also [firebaseFunctions].
+@ProviderFor(firebaseFunctions)
+final firebaseFunctionsProvider =
+    AutoDisposeProvider<FirebaseFunctions>.internal(
+  firebaseFunctions,
+  name: r'firebaseFunctionsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$firebaseFunctionsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FirebaseFunctionsRef = AutoDisposeProviderRef<FirebaseFunctions>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

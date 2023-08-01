@@ -128,7 +128,7 @@ class ProfilePage extends HookConsumerWidget {
                 return;
               }
 
-              // TODO
+              await ref.read(firebaseUserControllerProvider.notifier).signOut();
             },
             icon: const Icon(Icons.logout),
             label: const Text('Sign out'),
@@ -160,8 +160,9 @@ class ProfilePage extends HookConsumerWidget {
 
               showMyProgressIndicator(rootContext!);
 
-              // TODO(kingu): #60
-              await Future<void>.delayed(const Duration(seconds: 2));
+              await ref
+                  .read(firebaseUserControllerProvider.notifier)
+                  .deleteAll();
               GoRouter.of(rootContext!).pop();
             },
           ),

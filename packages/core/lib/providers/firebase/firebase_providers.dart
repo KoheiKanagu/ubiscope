@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,3 +30,7 @@ FirebaseAnalytics firebaseAnalytics(FirebaseAnalyticsRef _) =>
 @riverpod
 FirebasePerformance firebasePerformance(FirebasePerformanceRef _) =>
     FirebasePerformance.instance;
+
+@riverpod
+FirebaseFunctions firebaseFunctions(FirebaseFunctionsRef _) =>
+    FirebaseFunctions.instance;

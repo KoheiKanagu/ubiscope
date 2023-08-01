@@ -6,7 +6,7 @@ export 'constants/typedefs.dart';
 export 'features/auth/application/auth_page_route.dart';
 export 'features/auth/application/auth_providers.dart';
 export 'models/measurement_results_data.dart';
-export 'models/users.dart';
+export 'models/user.dart';
 export 'providers/firebase/firebase_providers.dart';
 export 'utils/blob_converter.dart';
 export 'utils/geo_point_converter.dart';
