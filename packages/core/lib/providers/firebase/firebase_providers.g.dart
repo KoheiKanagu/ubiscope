@@ -8,6 +8,20 @@ part of 'firebase_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$firebaseAppHash() => r'25c8aecf383630b29494154af81c7741d4ca8555';
+
+/// See also [firebaseApp].
+@ProviderFor(firebaseApp)
+final firebaseAppProvider = AutoDisposeProvider<FirebaseApp>.internal(
+  firebaseApp,
+  name: r'firebaseAppProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$firebaseAppHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FirebaseAppRef = AutoDisposeProviderRef<FirebaseApp>;
 String _$firebaseCrashlyticsHash() =>
     r'f87044428d388e194a686cd6a25e6c3101364813';
 

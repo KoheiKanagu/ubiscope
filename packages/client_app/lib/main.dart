@@ -5,14 +5,10 @@ import 'package:client_app/my_app.dart';
 import 'package:client_app/routing/initial_location_type.dart';
 import 'package:core/core.dart';
 import 'package:core/providers/device_info/device_info_providers.dart';
-import 'package:core/providers/firebase/firebase_providers.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_app_check/firebase_app_check.dart' hide AppleProvider;
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
-import 'package:firebase_ui_oauth_apple/firebase_ui_oauth_apple.dart';
-import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -22,7 +18,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final (_, _, packageInfo, deviceInfo) = (
+  final (firebaseApp, _, packageInfo, deviceInfo) = (
     await Firebase.initializeApp(),
     await MobileAds.instance.initialize(),
     await PackageInfo.fromPlatform(),
@@ -34,6 +30,9 @@ Future<void> main() async {
       ProviderLogger(),
     ],
     overrides: [
+      firebaseAppProvider.overrideWithValue(
+        firebaseApp,
+      ),
       packageInfoProvider.overrideWithValue(
         packageInfo,
       ),
@@ -80,7 +79,7 @@ Future<void> main() async {
       );
   }
 
-  setupFirebaseUIAuth();
+  setupFirebaseUIAuth(firebaseApp);
 
   logger.d('check auth');
   final isSignedIn =

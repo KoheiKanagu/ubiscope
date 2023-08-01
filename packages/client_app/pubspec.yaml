@@ -71,3 +71,6 @@ flutter:
     - family: Noto Sans JP
       fonts:
         - asset: assets/fonts/NotoSansJP-Regular.ttf
+    - family: SocialIcons
+      fonts:
+        - asset: packages/firebase_ui_auth/fonts/SocialIcons.ttf
