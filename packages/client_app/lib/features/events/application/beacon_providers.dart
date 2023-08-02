@@ -5,7 +5,6 @@ import 'dart:math';
 import 'package:client_app/features/events/application/event_probiders.dart';
 import 'package:client_app/gen/message.g.dart';
 import 'package:core/core.dart';
-import 'package:core/providers/device_info/device_info_providers.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

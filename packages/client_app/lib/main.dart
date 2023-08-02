@@ -4,7 +4,6 @@ import 'package:client_app/features/configure/application/package_info_providers
 import 'package:client_app/my_app.dart';
 import 'package:client_app/routing/initial_location_type.dart';
 import 'package:core/core.dart';
-import 'package:core/providers/device_info/device_info_providers.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_app_check/firebase_app_check.dart' hide AppleProvider;
