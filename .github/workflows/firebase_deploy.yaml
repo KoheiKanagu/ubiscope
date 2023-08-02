@@ -55,11 +55,11 @@ jobs:
         working-directory: packages/${{ inputs.package }}
         run: |
           firebase use dev --debug
-          firebase deploy --force --debug
+          firebase deploy --force
 
       - name: Deploy Prod
         if: inputs.env == 'prod'
         working-directory: packages/${{ inputs.package }}
         run: |
           firebase use prod --debug
-          firebase deploy --force --debug
+          firebase deploy --force
