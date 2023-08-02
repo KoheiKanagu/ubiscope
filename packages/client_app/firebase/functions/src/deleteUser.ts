@@ -7,23 +7,23 @@ import { CollectionPaths } from "./utils/collection_paths";
 export const deleteUser = functions().https.onCall(async (data, context) => {
   const uid = context.auth?.uid;
   if (!uid) {
-    throw new Error("undefined uid");
+    throw new Error("uid is not found");
   }
 
-  logger.info("will delete user is", uid);
+  logger.info(`uid: ${uid}`);
 
   await auth().deleteUser(uid);
-  logger.info("deleted user");
+  logger.info(`delete user: ${uid}`);
 
   const collection = firestore().collection(CollectionPaths.USERS);
 
   await firestore().runTransaction((transaction) => {
     transaction.update(
-      collection.doc(uid),
+      collection.doc(uid), //
       {
         updatedAt: FieldValue.serverTimestamp(),
         isDeleted: true,
-      } //
+      }
     );
     return Promise.resolve();
   });
