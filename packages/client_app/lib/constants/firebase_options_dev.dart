@@ -63,6 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '636244043019',
     projectId: 'ubiscope-dev',
     storageBucket: 'ubiscope-dev.appspot.com',
+    androidClientId:
+        '636244043019-be00rki79l1nug0iamjbt4v8pmiu54vi.apps.googleusercontent.com',
     iosClientId:
         '636244043019-6r22av360bj4sgeen1vp8eustu01b96l.apps.googleusercontent.com',
     iosBundleId: 'dev.kingu.ubiscope.app.dev',

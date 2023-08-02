@@ -2,17 +2,17 @@
 
 // ignore_for_file: require_trailing_commas, non_constant_identifier_names, cast_nullable_to_non_nullable, lines_longer_than_80_chars
 
-part of 'users.dart';
+part of 'user.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Users _$$_UsersFromJson(Map<String, dynamic> json) => $checkedCreate(
-      r'_$_Users',
+_$_User _$$_UserFromJson(Map<String, dynamic> json) => $checkedCreate(
+      r'_$_User',
       json,
       ($checkedConvert) {
-        final val = _$_Users(
+        final val = _$_User(
           createdAt: $checkedConvert(
               'createdAt', (v) => const TimestampConverter().fromJson(v)),
           updatedAt: $checkedConvert(
@@ -23,7 +23,7 @@ _$_Users _$$_UsersFromJson(Map<String, dynamic> json) => $checkedCreate(
       },
     );
 
-Map<String, dynamic> _$$_UsersToJson(_$_Users instance) => <String, dynamic>{
+Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
       'deleted': instance.deleted,

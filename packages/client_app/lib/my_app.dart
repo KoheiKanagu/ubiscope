@@ -1,6 +1,5 @@
 import 'package:client_app/gen/color_schemes.g.dart';
 import 'package:client_app/gen/fonts.gen.dart';
-import 'package:client_app/routing/initial_location_type.dart';
 import 'package:client_app/routing/my_go_router.dart';
 import 'package:core/core.dart';
 import 'package:device_preview/device_preview.dart';
@@ -11,10 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class MyApp extends HookConsumerWidget {
   const MyApp({
     super.key,
-    required this.initialLocationType,
   });
-
-  final InitialLocationType initialLocationType;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,7 +33,7 @@ class MyApp extends HookConsumerWidget {
         fontFamily: FontFamily.notoSansJP,
         colorScheme: darkColorScheme,
       ),
-      routerConfig: ref.watch(myGoRouterProvider(initialLocationType)),
+      routerConfig: ref.watch(myGoRouterProvider),
     );
   }
 }

@@ -29,6 +29,10 @@ updates:
         patterns:
           - "hooks_riverpod"
           - "riverpod_*"
+      go_router:
+        patterns:
+          - "go_router"
+          - "go_router_builder"
 
   - package-ecosystem: "pub"
     directory: "/packages/client_app"
@@ -64,3 +68,24 @@ updates:
       time: "04:00"
       timezone: "Asia/Tokyo"
     open-pull-requests-limit: 100
+
+  - package-ecosystem: "npm"
+    directory: "/packages/client_app/firebase/functions"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+      timezone: "Asia/Tokyo"
+    groups:
+      eslint:
+        patterns:
+          - "@typescript-eslint/*"
+          - "eslint*"
+      jest:
+        patterns:
+          - "@swc/jest"
+          - "@types/jest"
+          - "jest"
+      firebase:
+        patterns:
+          - "firebase_*"
+          - "@firebase/*"

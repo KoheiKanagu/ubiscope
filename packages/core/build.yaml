@@ -16,7 +16,7 @@ targets:
             - lib/routing/**.dart
             - lib/constants/**.dart
             - lib/models/**.dart
-            - lib/providers/**/**.dart
+            - lib/providers/**.dart
       json_serializable:
         options:
           checked: true

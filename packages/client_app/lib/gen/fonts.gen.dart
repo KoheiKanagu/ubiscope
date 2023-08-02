@@ -12,4 +12,7 @@ class FontFamily {
 
   /// Font family: Noto Sans JP
   static const String notoSansJP = 'Noto Sans JP';
+
+  /// Font family: SocialIcons
+  static const String socialIcons = 'SocialIcons';
 }

@@ -8,6 +8,20 @@ part of 'firebase_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$firebaseAppHash() => r'25c8aecf383630b29494154af81c7741d4ca8555';
+
+/// See also [firebaseApp].
+@ProviderFor(firebaseApp)
+final firebaseAppProvider = AutoDisposeProvider<FirebaseApp>.internal(
+  firebaseApp,
+  name: r'firebaseAppProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$firebaseAppHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FirebaseAppRef = AutoDisposeProviderRef<FirebaseApp>;
 String _$firebaseCrashlyticsHash() =>
     r'f87044428d388e194a686cd6a25e6c3101364813';
 
@@ -88,5 +102,21 @@ final firebasePerformanceProvider =
 );
 
 typedef FirebasePerformanceRef = AutoDisposeProviderRef<FirebasePerformance>;
+String _$firebaseFunctionsHash() => r'6ff7cfa912e67c80c87069204494eb6ebd8d3e70';
+
+/// See also [firebaseFunctions].
+@ProviderFor(firebaseFunctions)
+final firebaseFunctionsProvider =
+    AutoDisposeProvider<FirebaseFunctions>.internal(
+  firebaseFunctions,
+  name: r'firebaseFunctionsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$firebaseFunctionsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FirebaseFunctionsRef = AutoDisposeProviderRef<FirebaseFunctions>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member
