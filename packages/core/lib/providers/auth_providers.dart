@@ -1,4 +1,4 @@
-import 'package:core/providers/firebase/firebase_providers.dart';
+import 'package:core/providers/firebase_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide OAuthProvider;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
