@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:client_app/features/configure/application/package_info_providers.dart';
 import 'package:client_app/my_app.dart';
-import 'package:client_app/routing/initial_location_type.dart';
 import 'package:core/core.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:device_preview/device_preview.dart';
@@ -80,12 +79,6 @@ Future<void> main() async {
 
   setupFirebaseUIAuth(firebaseApp);
 
-  logger.d('check auth');
-  final isSignedIn =
-      (await container.read(firebaseAuthProvider).authStateChanges().first) !=
-          null;
-  logger.d('check auth: $isSignedIn');
-
   runApp(
     UncontrolledProviderScope(
       container: container,
@@ -106,11 +99,7 @@ Future<void> main() async {
             screenSize: const Size(1242 / 3, 2208 / 3),
           ),
         ],
-        builder: (_) => MyApp(
-          initialLocationType: InitialLocationType.build(
-            isSignedIn: isSignedIn,
-          ),
-        ),
+        builder: (_) => const MyApp(),
       ),
     ),
   );
