@@ -7,6 +7,8 @@ on:
       - ".github/**"
       - "packages/*/ios/**"
       - "packages/*/android/**"
+      - "packages/*/firebase/**"
+      - "packages/*/firebase.json"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
