@@ -5,6 +5,7 @@ on:
   pull_request:
     paths:
       - "packages/*/firebase/**"
+      - "packages/*/firebase.json"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

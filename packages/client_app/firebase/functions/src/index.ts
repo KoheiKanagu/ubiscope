@@ -31,5 +31,4 @@ const functions = () =>
 export default functions;
 
 export { deleteUser } from "./deleteUser";
-export { onCreateAuthUser } from "./onCreateAuthUser";
 export { beforeUserCreated } from "./beforeUserCreated";
