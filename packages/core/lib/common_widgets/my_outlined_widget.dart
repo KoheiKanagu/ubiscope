@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MyOutlineWidget extends StatelessWidget {
-  const MyOutlineWidget({
+class MyOutlinedWidget extends StatelessWidget {
+  const MyOutlinedWidget({
     super.key,
     required this.child,
     this.shape,
@@ -47,7 +47,7 @@ class MyOutlineWidget extends StatelessWidget {
           shadows: [
             BoxShadow(
               color: Theme.of(context).colorScheme.outline,
-              spreadRadius: 0.5,
+              spreadRadius: 0.2,
             ),
           ],
         ),

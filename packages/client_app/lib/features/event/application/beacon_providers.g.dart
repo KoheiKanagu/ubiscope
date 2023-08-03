@@ -23,8 +23,26 @@ final _beaconHostApiProvider = Provider<BeaconHostApi>.internal(
 );
 
 typedef _BeaconHostApiRef = ProviderRef<BeaconHostApi>;
+String _$beaconScanPermissionControllerHash() =>
+    r'd66955275659845772c9220e7009dd4463567146';
+
+/// See also [BeaconScanPermissionController].
+@ProviderFor(BeaconScanPermissionController)
+final beaconScanPermissionControllerProvider = AutoDisposeNotifierProvider<
+    BeaconScanPermissionController, PermissionStatus>.internal(
+  BeaconScanPermissionController.new,
+  name: r'beaconScanPermissionControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$beaconScanPermissionControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$BeaconScanPermissionController
+    = AutoDisposeNotifier<PermissionStatus>;
 String _$beaconScanControllerHash() =>
-    r'075efb74b22286b1dc19ccdd9c752adc643f724e';
+    r'b09fc8b2d124b419b641c2d3929185a19469707e';
 
 /// See also [BeaconScanController].
 @ProviderFor(BeaconScanController)

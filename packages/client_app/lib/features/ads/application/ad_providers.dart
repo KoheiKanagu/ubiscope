@@ -11,10 +11,10 @@ part 'ad_providers.g.dart';
 @riverpod
 class BannerAdController extends _$BannerAdController {
   @override
-  AsyncValue<BannerAd> build(
+  Future<BannerAd> build(
     Orientation orientation,
     int width,
-  ) {
+  ) async {
     final String adUnitId;
 
     if (Platform.isIOS) {
@@ -29,35 +29,31 @@ class BannerAdController extends _$BannerAdController {
       adUnitId = '';
     }
 
-    AdSize.getAnchoredAdaptiveBannerAdSize(
+    final size = await AdSize.getAnchoredAdaptiveBannerAdSize(
       orientation,
       width,
-    ).then((value) {
-      if (value == null) {
-        return;
-      }
+    );
+    if (size == null) {
+      throw Exception('size is null');
+    }
 
-      BannerAd(
-        size: value,
-        adUnitId: adUnitId,
-        listener: BannerAdListener(
-          onAdLoaded: (ad) {
-            logger.d('onAdLoaded: $ad');
-            state = AsyncValue.data(ad as BannerAd);
-          },
-          onAdFailedToLoad: (ad, error) {
-            logger.w('onAdFailedToLoad: $ad, $error');
-            ad.dispose();
-          },
-        ),
-        request: const AdRequest(),
-      ).load();
-    });
+    final bannerAd = BannerAd(
+      size: size,
+      adUnitId: adUnitId,
+      listener: BannerAdListener(
+        onAdFailedToLoad: (ad, error) {
+          logger.w('onAdFailedToLoad: $ad, $error');
+          ad.dispose();
+        },
+      ),
+      request: const AdRequest(),
+    );
+    await bannerAd.load();
 
     ref.onDispose(() {
       state.asData?.value.dispose();
     });
 
-    return const AsyncValue.loading();
+    return bannerAd;
   }
 }

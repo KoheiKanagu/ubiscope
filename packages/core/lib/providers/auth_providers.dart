@@ -6,9 +6,22 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_oauth/firebase_ui_oauth.dart';
 import 'package:firebase_ui_oauth_apple/firebase_ui_oauth_apple.dart';
 import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_providers.g.dart';
+
+class AppleProviderOnAndroid extends AppleProvider {
+  // なぜかAndroidをサポートしていないのでオーバーライドする
+  // https://github.com/firebase/flutterfire/issues/10788
+  @override
+  bool supportsPlatform(TargetPlatform platform) {
+    return kIsWeb ||
+        platform == TargetPlatform.iOS ||
+        platform == TargetPlatform.macOS ||
+        platform == TargetPlatform.android;
+  }
+}
 
 List<OAuthProvider> get firebaseUIAuthProviders => [
       GoogleProvider(
@@ -18,11 +31,7 @@ List<OAuthProvider> get firebaseUIAuthProviders => [
           'email',
         ],
       ),
-      AppleProvider(
-        scopes: {
-          'email',
-        },
-      ),
+      AppleProviderOnAndroid(),
     ];
 
 void setupFirebaseUIAuth(FirebaseApp app) {
@@ -31,6 +40,12 @@ void setupFirebaseUIAuth(FirebaseApp app) {
     app: app,
   );
 }
+
+@riverpod
+String? firebaseUserUid(
+  FirebaseUserUidRef ref,
+) =>
+    ref.watch(firebaseUserControllerProvider).asData?.value?.uid;
 
 @riverpod
 class FirebaseUserController extends _$FirebaseUserController {

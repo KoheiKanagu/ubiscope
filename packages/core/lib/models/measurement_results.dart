@@ -12,6 +12,9 @@ class MeasurementResults with _$MeasurementResults {
     @TimestampConverter() Timestamp? updatedAt,
     @Default(false) bool deleted,
 
+    // Unique ID for each measurement
+    required String datasetId,
+
     /// The time the measurement was taken
     @TimestampConverter() required Timestamp? measuredAt,
 

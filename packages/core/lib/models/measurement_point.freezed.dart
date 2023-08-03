@@ -31,14 +31,12 @@ mixin _$MeasurementPoint {
 
   /// The location of the measurement point
   @GeoPointConverter()
-  GeoPoint get location => throw _privateConstructorUsedError;
+  ({String geohash, GeoPoint geopoint, String? level, String? levelShort})
+      get location => throw _privateConstructorUsedError;
 
-  /// The level of the measurement point
-  String get level => throw _privateConstructorUsedError;
-
-  /// Array of types of measurements completed
-  /// [MeasurementResultsData]type
-  List<String> get measuredTypes => throw _privateConstructorUsedError;
+  /// Map of measurement type to dataset ID
+  Map<MeasurementType, String?> get measuredTypes =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -57,9 +55,14 @@ abstract class $MeasurementPointCopyWith<$Res> {
       @TimestampConverter() Timestamp? updatedAt,
       bool deleted,
       String createdBy,
-      @GeoPointConverter() GeoPoint location,
-      String level,
-      List<String> measuredTypes});
+      @GeoPointConverter()
+      ({
+        String geohash,
+        GeoPoint geopoint,
+        String? level,
+        String? levelShort
+      }) location,
+      Map<MeasurementType, String?> measuredTypes});
 }
 
 /// @nodoc
@@ -80,7 +83,6 @@ class _$MeasurementPointCopyWithImpl<$Res, $Val extends MeasurementPoint>
     Object? deleted = null,
     Object? createdBy = null,
     Object? location = null,
-    Object? level = null,
     Object? measuredTypes = null,
   }) {
     return _then(_value.copyWith(
@@ -103,15 +105,16 @@ class _$MeasurementPointCopyWithImpl<$Res, $Val extends MeasurementPoint>
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as GeoPoint,
-      level: null == level
-          ? _value.level
-          : level // ignore: cast_nullable_to_non_nullable
-              as String,
+              as ({
+              String geohash,
+              GeoPoint geopoint,
+              String? level,
+              String? levelShort
+            }),
       measuredTypes: null == measuredTypes
           ? _value.measuredTypes
           : measuredTypes // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as Map<MeasurementType, String?>,
     ) as $Val);
   }
 }
@@ -129,9 +132,14 @@ abstract class _$$_MeasurementPointCopyWith<$Res>
       @TimestampConverter() Timestamp? updatedAt,
       bool deleted,
       String createdBy,
-      @GeoPointConverter() GeoPoint location,
-      String level,
-      List<String> measuredTypes});
+      @GeoPointConverter()
+      ({
+        String geohash,
+        GeoPoint geopoint,
+        String? level,
+        String? levelShort
+      }) location,
+      Map<MeasurementType, String?> measuredTypes});
 }
 
 /// @nodoc
@@ -150,7 +158,6 @@ class __$$_MeasurementPointCopyWithImpl<$Res>
     Object? deleted = null,
     Object? createdBy = null,
     Object? location = null,
-    Object? level = null,
     Object? measuredTypes = null,
   }) {
     return _then(_$_MeasurementPoint(
@@ -173,31 +180,32 @@ class __$$_MeasurementPointCopyWithImpl<$Res>
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as GeoPoint,
-      level: null == level
-          ? _value.level
-          : level // ignore: cast_nullable_to_non_nullable
-              as String,
+              as ({
+              String geohash,
+              GeoPoint geopoint,
+              String? level,
+              String? levelShort
+            }),
       measuredTypes: null == measuredTypes
           ? _value._measuredTypes
           : measuredTypes // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as Map<MeasurementType, String?>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_MeasurementPoint implements _MeasurementPoint {
+class _$_MeasurementPoint extends _MeasurementPoint {
   const _$_MeasurementPoint(
       {@TimestampConverter() this.createdAt,
       @TimestampConverter() this.updatedAt,
       this.deleted = false,
       required this.createdBy,
       @GeoPointConverter() required this.location,
-      required this.level,
-      final List<String> measuredTypes = const []})
-      : _measuredTypes = measuredTypes;
+      final Map<MeasurementType, String?> measuredTypes = const {}})
+      : _measuredTypes = measuredTypes,
+        super._();
 
   factory _$_MeasurementPoint.fromJson(Map<String, dynamic> json) =>
       _$$_MeasurementPointFromJson(json);
@@ -219,29 +227,28 @@ class _$_MeasurementPoint implements _MeasurementPoint {
   /// The location of the measurement point
   @override
   @GeoPointConverter()
-  final GeoPoint location;
+  final ({
+    String geohash,
+    GeoPoint geopoint,
+    String? level,
+    String? levelShort
+  }) location;
 
-  /// The level of the measurement point
-  @override
-  final String level;
+  /// Map of measurement type to dataset ID
+  final Map<MeasurementType, String?> _measuredTypes;
 
-  /// Array of types of measurements completed
-  /// [MeasurementResultsData]type
-  final List<String> _measuredTypes;
-
-  /// Array of types of measurements completed
-  /// [MeasurementResultsData]type
+  /// Map of measurement type to dataset ID
   @override
   @JsonKey()
-  List<String> get measuredTypes {
-    if (_measuredTypes is EqualUnmodifiableListView) return _measuredTypes;
+  Map<MeasurementType, String?> get measuredTypes {
+    if (_measuredTypes is EqualUnmodifiableMapView) return _measuredTypes;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_measuredTypes);
+    return EqualUnmodifiableMapView(_measuredTypes);
   }
 
   @override
   String toString() {
-    return 'MeasurementPoint(createdAt: $createdAt, updatedAt: $updatedAt, deleted: $deleted, createdBy: $createdBy, location: $location, level: $level, measuredTypes: $measuredTypes)';
+    return 'MeasurementPoint(createdAt: $createdAt, updatedAt: $updatedAt, deleted: $deleted, createdBy: $createdBy, location: $location, measuredTypes: $measuredTypes)';
   }
 
   @override
@@ -258,22 +265,14 @@ class _$_MeasurementPoint implements _MeasurementPoint {
                 other.createdBy == createdBy) &&
             (identical(other.location, location) ||
                 other.location == location) &&
-            (identical(other.level, level) || other.level == level) &&
             const DeepCollectionEquality()
                 .equals(other._measuredTypes, _measuredTypes));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      createdAt,
-      updatedAt,
-      deleted,
-      createdBy,
-      location,
-      level,
-      const DeepCollectionEquality().hash(_measuredTypes));
+  int get hashCode => Object.hash(runtimeType, createdAt, updatedAt, deleted,
+      createdBy, location, const DeepCollectionEquality().hash(_measuredTypes));
 
   @JsonKey(ignore: true)
   @override
@@ -289,15 +288,21 @@ class _$_MeasurementPoint implements _MeasurementPoint {
   }
 }
 
-abstract class _MeasurementPoint implements MeasurementPoint {
+abstract class _MeasurementPoint extends MeasurementPoint {
   const factory _MeasurementPoint(
       {@TimestampConverter() final Timestamp? createdAt,
       @TimestampConverter() final Timestamp? updatedAt,
       final bool deleted,
       required final String createdBy,
-      @GeoPointConverter() required final GeoPoint location,
-      required final String level,
-      final List<String> measuredTypes}) = _$_MeasurementPoint;
+      @GeoPointConverter()
+      required final ({
+        String geohash,
+        GeoPoint geopoint,
+        String? level,
+        String? levelShort
+      }) location,
+      final Map<MeasurementType, String?> measuredTypes}) = _$_MeasurementPoint;
+  const _MeasurementPoint._() : super._();
 
   factory _MeasurementPoint.fromJson(Map<String, dynamic> json) =
       _$_MeasurementPoint.fromJson;
@@ -318,16 +323,12 @@ abstract class _MeasurementPoint implements MeasurementPoint {
 
   /// The location of the measurement point
   @GeoPointConverter()
-  GeoPoint get location;
+  ({String geohash, GeoPoint geopoint, String? level, String? levelShort})
+      get location;
   @override
 
-  /// The level of the measurement point
-  String get level;
-  @override
-
-  /// Array of types of measurements completed
-  /// [MeasurementResultsData]type
-  List<String> get measuredTypes;
+  /// Map of measurement type to dataset ID
+  Map<MeasurementType, String?> get measuredTypes;
   @override
   @JsonKey(ignore: true)
   _$$_MeasurementPointCopyWith<_$_MeasurementPoint> get copyWith =>

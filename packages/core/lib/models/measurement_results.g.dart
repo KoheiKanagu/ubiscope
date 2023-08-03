@@ -20,6 +20,7 @@ _$_MeasurementResults _$$_MeasurementResultsFromJson(
           updatedAt: $checkedConvert(
               'updatedAt', (v) => const TimestampConverter().fromJson(v)),
           deleted: $checkedConvert('deleted', (v) => v as bool? ?? false),
+          datasetId: $checkedConvert('datasetId', (v) => v as String),
           measuredAt: $checkedConvert(
               'measuredAt', (v) => const TimestampConverter().fromJson(v)),
           measuredBy: $checkedConvert('measuredBy', (v) => v as String),
@@ -41,6 +42,7 @@ Map<String, dynamic> _$$_MeasurementResultsToJson(
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
       'deleted': instance.deleted,
+      'datasetId': instance.datasetId,
       'measuredAt': const TimestampConverter().toJson(instance.measuredAt),
       'measuredBy': instance.measuredBy,
       'measurementPointId': instance.measurementPointId,
