@@ -24,11 +24,10 @@ runs:
 
     - name: Clone Flutter
       if: inputs.use_local_dart == 'false'
-      uses: actions/checkout@v3
-      with:
-        repository: flutter/flutter
-        ref: ${{ inputs.flutter_branch }}
-        path: ~/fvm/versions/${{ inputs.flutter_branch }}
+      shell: bash
+      working-directory: ~/fvm/versions/${{ inputs.flutter_branch }}
+      run: |
+        git clone https://github.com/flutter/flutter.git -b ${{ inputs.flutter_branch }}
 
     - name: PATH
       if: inputs.use_local_dart == 'false'
