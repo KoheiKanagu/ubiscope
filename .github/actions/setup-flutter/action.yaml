@@ -40,8 +40,6 @@ runs:
     - name: Setup global packages
       shell: bash
       run: |
-        ls -la ~/fvm/versions/beta/bin
-        ls -la ~/.pub-cache/bin
         dart pub global activate melos
         dart pub global activate fvm
         dart pub global activate flutterfire_cli 0.3.0-dev.16 --overwrite
