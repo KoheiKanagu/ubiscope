@@ -19,7 +19,7 @@ runs:
       if: inputs.use_local_dart == 'false'
       uses: actions/cache@v3.3.1
       with:
-        path: $HOME/fvm/versions
+        path: ~/fvm/versions
         key: flutter-v1
 
     - name: Clone Flutter
@@ -28,14 +28,14 @@ runs:
       with:
         repository: flutter/flutter
         ref: ${{ inputs.flutter_branch }}
-        path: $HOME/fvm/versions/${{ inputs.flutter_branch }}
+        path: ~/fvm/versions/${{ inputs.flutter_branch }}
 
     - name: PATH
       if: inputs.use_local_dart == 'false'
       shell: bash
       run: |
-        echo "$HOME/fvm/versions/${{ inputs.flutter_branch }}/bin" >> $GITHUB_PATH
-        echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+        echo "~/fvm/versions/${{ inputs.flutter_branch }}/bin" >> $GITHUB_PATH
+        echo "~/.pub-cache/bin" >> $GITHUB_PATH
 
     - name: Setup global packages
       shell: bash
