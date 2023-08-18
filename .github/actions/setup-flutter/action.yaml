@@ -34,8 +34,8 @@ runs:
       if: inputs.use_local_dart == 'false'
       shell: bash
       run: |
-        echo "$HOME/fvm/versions/${{ inputs.flutter_branch }}/bin" >> $GITHUB_ENV
-        echo "$HOME/.pub-cache/bin" >> $GITHUB_ENV
+        echo "$HOME/fvm/versions/${{ inputs.flutter_branch }}/bin" >> $GITHUB_PATH
+        echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
     - name: Setup global packages
       shell: bash
