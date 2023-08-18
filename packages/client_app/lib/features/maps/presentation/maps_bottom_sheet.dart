@@ -1,4 +1,3 @@
-import 'package:core/common_widgets/my_outlined_widget.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
