@@ -25,9 +25,10 @@ runs:
     - name: Clone Flutter
       if: inputs.use_local_dart == 'false'
       shell: bash
-      working-directory: ~/fvm/versions/${{ inputs.flutter_branch }}
       run: |
-        git clone https://github.com/flutter/flutter.git -b ${{ inputs.flutter_branch }}
+        git clone https://github.com/flutter/flutter.git \
+          -b ${{ inputs.flutter_branch }} \
+          ~/fvm/versions/${{ inputs.flutter_branch }}
 
     - name: PATH
       if: inputs.use_local_dart == 'false'
