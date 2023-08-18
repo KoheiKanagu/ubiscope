@@ -7,6 +7,11 @@ inputs:
     required: true
     default: "false"
 
+  flutter_branch:
+    description: Flutter branch
+    required: false
+    default: "beta"
+
 runs:
   using: "composite"
   steps:
@@ -14,14 +19,23 @@ runs:
       if: inputs.use_local_dart == 'false'
       uses: actions/cache@v3.3.1
       with:
-        path: ~/fvm/versions
+        path: $HOME/fvm/versions
         key: flutter-v1
 
-    - name: Setup Dart SDK
+    - name: Clone Flutter
       if: inputs.use_local_dart == 'false'
-      uses: dart-lang/setup-dart@v1.5.0
+      uses: actions/checkout@v3
       with:
-        sdk: stable
+        repository: flutter/flutter
+        ref: ${{ inputs.flutter_branch }}
+        path: $HOME/fvm/versions/${{ inputs.flutter_branch }}
+
+    - name: PATH
+      if: inputs.use_local_dart == 'false'
+      shell: bash
+      run: |
+        echo "$HOME/fvm/versions/${{ inputs.flutter_branch }}/bin" >> $GITHUB_ENV
+        echo "$HOME/.pub-cache/bin" >> $GITHUB_ENV
 
     - name: Setup global packages
       shell: bash
@@ -30,9 +44,8 @@ runs:
         dart pub global activate fvm
         dart pub global activate flutterfire_cli 0.3.0-dev.16 --overwrite
 
-    - name: Install Flutter
+    - name: Precache
       shell: bash
       run: |
-        fvm install
-        fvm flutter upgrade
+        fvm flutter --version
         fvm flutter precache
