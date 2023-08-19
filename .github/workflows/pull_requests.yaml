@@ -22,8 +22,6 @@ jobs:
       ### Set up ###
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup-flutter
-        with:
-          use_local_dart: false
 
       ### Analyze ###
       - name: Analyze
