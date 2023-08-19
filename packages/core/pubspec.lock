@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: "405666cd3cf0ee0a48d21ec67e65406aad2c726d9fa58840d3375e7bdcd32a07"
+      sha256: ae92f5d747aee634b87f89d9946000c2de774be1d6ac3e58268224348cd0101a
       url: "https://pub.dev"
     source: hosted
-    version: "60.0.0"
+    version: "61.0.0"
   _flutterfire_internals:
     dependency: transitive
     description:
@@ -29,10 +29,10 @@ packages:
     dependency: transitive
     description:
       name: analyzer
-      sha256: "1952250bd005bacb895a01bf1b4dc00e3ba1c526cf47dca54dfe24979c65f5b3"
+      sha256: ea3d8652bda62982addfd92fdc2d0214e5f82e43325104990d4f4c4a2a313562
       url: "https://pub.dev"
     source: hosted
-    version: "5.12.0"
+    version: "5.13.0"
   analyzer_plugin:
     dependency: transitive
     description:
@@ -373,10 +373,10 @@ packages:
     dependency: transitive
     description:
       name: ffi
-      sha256: ed5337a5660c506388a9f012be0288fb38b49020ce2b45fe1f8b8323fe429f99
+      sha256: "7bf0adc28a23d395f19f3f1eb21dd7cfd1dd9f8e1c50051c069122e6853bc878"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.2"
+    version: "2.1.0"
   file:
     dependency: transitive
     description:
@@ -730,7 +730,7 @@ packages:
     description:
       path: "packages/google_maps_flutter/google_maps_flutter"
       ref: indoor
-      resolved-ref: "294b1029ba8e083ed256cab206f36f8db2d87623"
+      resolved-ref: "230c8cda3842311754769d2f2bad1d184efe7534"
       url: "https://github.com/KoheiKanagu/packages"
     source: git
     version: "2.4.0"
@@ -739,16 +739,16 @@ packages:
     description:
       path: "packages/google_maps_flutter/google_maps_flutter_android"
       ref: indoor
-      resolved-ref: "294b1029ba8e083ed256cab206f36f8db2d87623"
+      resolved-ref: "230c8cda3842311754769d2f2bad1d184efe7534"
       url: "https://github.com/KoheiKanagu/packages"
     source: git
-    version: "2.4.15"
+    version: "2.4.16"
   google_maps_flutter_ios:
     dependency: transitive
     description:
       path: "packages/google_maps_flutter/google_maps_flutter_ios"
       ref: indoor
-      resolved-ref: "294b1029ba8e083ed256cab206f36f8db2d87623"
+      resolved-ref: "230c8cda3842311754769d2f2bad1d184efe7534"
       url: "https://github.com/KoheiKanagu/packages"
     source: git
     version: "2.2.3"
@@ -757,7 +757,7 @@ packages:
     description:
       path: "packages/google_maps_flutter/google_maps_flutter_platform_interface"
       ref: indoor
-      resolved-ref: "294b1029ba8e083ed256cab206f36f8db2d87623"
+      resolved-ref: "230c8cda3842311754769d2f2bad1d184efe7534"
       url: "https://github.com/KoheiKanagu/packages"
     source: git
     version: "2.4.0"
@@ -766,10 +766,10 @@ packages:
     description:
       path: "packages/google_maps_flutter/google_maps_flutter_web"
       ref: indoor
-      resolved-ref: "294b1029ba8e083ed256cab206f36f8db2d87623"
+      resolved-ref: "230c8cda3842311754769d2f2bad1d184efe7534"
       url: "https://github.com/KoheiKanagu/packages"
     source: git
-    version: "0.5.2"
+    version: "0.5.3"
   google_sign_in:
     dependency: transitive
     description:
@@ -806,10 +806,10 @@ packages:
     dependency: transitive
     description:
       name: google_sign_in_web
-      sha256: "69b9ce0e760945ff52337921a8b5871592b74c92f85e7632293310701eea68cc"
+      sha256: c4ef88c4033797908b8533e97216f51442909162bafc03dd42e8d1a057561c52
       url: "https://pub.dev"
     source: hosted
-    version: "0.12.0+2"
+    version: "0.12.0+3"
   graphs:
     dependency: transitive
     description:
@@ -958,10 +958,10 @@ packages:
     dependency: transitive
     description:
       name: macos_window_utils
-      sha256: b78a210aa70ca7ccad6e7b7b810fb4689c507f4a46e299214900b2a1eb70ea23
+      sha256: "43a90473f8786f00f07203e6819dab67e032f8896dafa4a6f85fbc71fba32c0b"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.3"
+    version: "1.2.0"
   matcher:
     dependency: transitive
     description:
@@ -1094,10 +1094,10 @@ packages:
     dependency: transitive
     description:
       name: platform
-      sha256: "4a451831508d7d6ca779f7ac6e212b4023dd5a7d08a27a63da33756410e32b76"
+      sha256: "57c07bf82207aee366dfaa3867b3164e4f03a238a461a11b0e8a3a510d51203d"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.0"
+    version: "3.1.1"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -1222,10 +1222,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_foundation
-      sha256: f39696b83e844923b642ce9dd4bd31736c17e697f6731a5adf445b1274cf3cd4
+      sha256: d29753996d8eb8f7619a1f13df6ce65e34bc107bef6330739ed76f18b22310ef
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.2"
+    version: "2.3.3"
   shared_preferences_linux:
     dependency: transitive
     description:
@@ -1347,10 +1347,10 @@ packages:
     dependency: transitive
     description:
       name: state_notifier
-      sha256: "8fe42610f179b843b12371e40db58c9444f8757f8b69d181c97e50787caed289"
+      sha256: b8677376aa54f2d7c58280d5a007f9e8774f1968d1fb1c096adcb4792fba29bb
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.2+1"
+    version: "1.0.0"
   stream_channel:
     dependency: transitive
     description:
@@ -1475,10 +1475,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: ada49637c27973c183dad90beb6bd781eea4c9f5f955d35da172de0af7bd3440
+      sha256: "0fae432c85c4ea880b33b497d32824b97795b04cdaa74d270219572a1f50268d"
       url: "https://pub.dev"
     source: hosted
-    version: "11.8.0"
+    version: "11.9.0"
   watcher:
     dependency: transitive
     description:
