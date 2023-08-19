@@ -89,6 +89,7 @@ scripts:
 
   build:ios:config-only:
     run: |
+      fvm dart pub get
       pod repo update
       rm -rf ios/Podfile.lock
       rm -rf ios/Pods
@@ -224,3 +225,7 @@ scripts:
       fvm flutter clean
     packageFilters:
       flutter: true
+
+  bump_all_deps:
+    run: |
+      fvm dart pub run grinder bump-all-deps
