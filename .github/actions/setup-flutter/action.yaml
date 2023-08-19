@@ -30,9 +30,6 @@ runs:
           -b ${{ inputs.flutter_branch }} \
           ~/fvm/versions/${{ inputs.flutter_branch }}
 
-    - run: which dart
-      shell: bash
-
     - name: PATH
       if: inputs.use_local_dart == 'false'
       shell: bash
@@ -40,29 +37,22 @@ runs:
         echo "~/fvm/versions/${{ inputs.flutter_branch }}/bin" >> $GITHUB_PATH
         echo "~/.pub-cache/bin" >> $GITHUB_PATH
 
-    - name: Setup global packages
-      shell: bash
-      run: |
-        which dart
-        dart --version
-        dart pub global activate melos
-        dart pub global activate fvm
-        dart pub global activate flutterfire_cli 0.3.0-dev.16 --overwrite
-
     - name: Dart Version
       shell: bash
-      run: |
-        which dart
-        dart --version
+      run: dart --version
 
     - name: Flutter Version
       if: always()
       shell: bash
+      run: flutter --version
+
+    - name: Setup global packages
+      shell: bash
       run: |
-        which flutter
-        flutter --version
+        dart pub global activate melos
+        dart pub global activate fvm
+        dart pub global activate flutterfire_cli 0.3.0-dev.16 --overwrite
 
     - name: Precache
       shell: bash
-      run: |
-        flutter precache
+      run: flutter precache
