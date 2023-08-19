@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas, non_constant_identifier_names, cast_nullable_to_non_nullable, lines_longer_than_80_chars
+// ignore_for_file: require_trailing_commas, non_constant_identifier_names, cast_nullable_to_non_nullable, lines_longer_than_80_chars, unnecessary_null_checks, strict_raw_type
 
 part of 'event_capturing_dialog_providers.dart';
 
@@ -9,7 +9,7 @@ part of 'event_capturing_dialog_providers.dart';
 // **************************************************************************
 
 String _$eventMeasurementResultsCounterHash() =>
-    r'dc410e031c3139359c87abb95a52323c2bc8da15';
+    r'7f0035a4693302ad843d6215440027662873cbbd';
 
 /// Copied from Dart SDK
 class _SystemHash {

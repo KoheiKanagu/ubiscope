@@ -9,6 +9,8 @@ targets:
             - require_trailing_commas
             - cast_nullable_to_non_nullable
             - lines_longer_than_80_chars
+            - unnecessary_null_checks
+            - strict_raw_type
         generate_for:
           include:
             - lib/features/*/domain/**.dart
