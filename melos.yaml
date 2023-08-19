@@ -224,3 +224,7 @@ scripts:
       fvm flutter clean
     packageFilters:
       flutter: true
+
+  bump_all_deps:
+    run: |
+      fvm dart pub run grinder bump-all-deps
