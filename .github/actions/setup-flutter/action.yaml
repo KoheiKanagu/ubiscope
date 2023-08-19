@@ -69,13 +69,13 @@ runs:
         dart pub global activate fvm
         dart pub global activate flutterfire_cli 0.3.0-dev.16 --overwrite
 
-    - name: fvm
-      shell: bash
-      run: fvm doctor
-
     - name: fvm install
       shell: bash
       run: fvm install
+
+    - name: fvm
+      shell: bash
+      run: fvm doctor
 
     - name: Precache
       shell: bash
