@@ -57,9 +57,9 @@ runs:
     #   shell: bash
     #   run: dart --version
 
-    # - name: Flutter Version
-    #   shell: bash
-    #   run: flutter --version
+    - name: Flutter
+      shell: bash
+      run: flutter doctor -v
 
     - name: Setup global packages
       shell: bash
