@@ -44,8 +44,19 @@ runs:
         dart pub global activate fvm
         dart pub global activate flutterfire_cli 0.3.0-dev.16 --overwrite
 
+    - name: Dart Version
+      shell: bash
+      run: |
+        which dart
+        dart --version
+
+    - name: Flutter Version
+      shell: bash
+      run: |
+        which flutter
+        flutter --version
+
     - name: Precache
       shell: bash
       run: |
-        fvm flutter --version
-        fvm flutter precache
+        flutter precache
