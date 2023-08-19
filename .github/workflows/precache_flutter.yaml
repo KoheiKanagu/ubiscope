@@ -12,12 +12,3 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup-flutter
-
-      - run: which flutter
-      - run: flutter --version
-
-      - run: which dart
-      - run: dart --version
-
-      - run: which fvm
-      - run: fvm flutter --version
