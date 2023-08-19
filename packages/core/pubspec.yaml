@@ -34,11 +34,11 @@ dependencies:
       url: https://github.com/KoheiKanagu/packages
       ref: indoor
       path: packages/google_maps_flutter/google_maps_flutter
-  hooks_riverpod: ^2.3.7
+  hooks_riverpod: ^2.3.8
   intersperse: ^2.0.0
   json_annotation: ^4.8.1
   package_info_plus: ^4.0.2
-  riverpod_annotation: ^2.1.1
+  riverpod_annotation: ^2.1.2
   roggle: ^0.3.2
   shared_preferences: ^2.2.0
   uuid: ^3.0.7
@@ -53,8 +53,8 @@ dev_dependencies:
   json_serializable: ^6.7.1
   mockito: ^5.4.2
   pedantic_mono: ^1.23.0
-  riverpod_generator: ^2.2.4
-  riverpod_lint: ^1.4.0
+  riverpod_generator: ^2.2.6
+  riverpod_lint: ^2.0.1
   test: any
 
 flutter:
