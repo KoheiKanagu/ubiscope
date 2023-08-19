@@ -32,7 +32,7 @@ runs:
           ~/fvm/versions/${{ inputs.flutter_branch }}
 
     - name: Pull Flutter
-      if: inputs.use_local_dart == 'false' && steps.cache-flutter.outputs.cache-hit == 'true'
+      if: inputs.use_local_dart == 'false'
       shell: bash
       run: |
         cd ~/fvm/versions/${{ inputs.flutter_branch }}
@@ -49,29 +49,26 @@ runs:
       if: inputs.use_local_dart == 'false'
       shell: bash
       run: |
-        echo "~/fvm/versions/${{ inputs.flutter_branch }}/bin" >> $GITHUB_PATH
-        echo "~/fvm/versions/${{ inputs.flutter_branch }}/bin/cache/dart-sdk/bin" >> $GITHUB_PATH
         echo "~/.pub-cache/bin" >> $GITHUB_PATH
 
-    - name: Dart Version
-      shell: bash
-      run: dart --version
+    # - name: Dart Version
+    #   shell: bash
+    #   run: dart --version
 
-    - name: Flutter Version
-      if: always()
-      shell: bash
-      run: flutter --version
+    # - name: Flutter Version
+    #   shell: bash
+    #   run: flutter --version
 
     - name: Setup global packages
       shell: bash
       run: |
-        dart pub global activate melos
-        dart pub global activate fvm
-        dart pub global activate flutterfire_cli 0.3.0-dev.16 --overwrite
+        fvm dart pub global activate melos
+        fvm dart pub global activate fvm
+        fvm dart pub global activate flutterfire_cli 0.3.0-dev.16 --overwrite
 
-    - name: fvm install
-      shell: bash
-      run: fvm install
+    # - name: fvm install
+    #   shell: bash
+    #   run: fvm use ${{ inputs.flutter_branch }}
 
     - name: fvm
       shell: bash
