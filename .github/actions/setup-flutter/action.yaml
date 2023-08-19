@@ -50,6 +50,7 @@ runs:
       shell: bash
       run: |
         echo "~/fvm/versions/${{ inputs.flutter_branch }}/bin" >> $GITHUB_PATH
+        echo "~/fvm/versions/${{ inputs.flutter_branch }}/bin/cache/dart-sdk/bin" >> $GITHUB_PATH
         echo "~/.pub-cache/bin" >> $GITHUB_PATH
 
     # - name: Dart Version
