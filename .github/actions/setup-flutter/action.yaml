@@ -49,6 +49,7 @@ runs:
       if: inputs.use_local_dart == 'false'
       shell: bash
       run: |
+        echo "~/fvm/versions/${{ inputs.flutter_branch }}/bin" >> $GITHUB_PATH
         echo "~/.pub-cache/bin" >> $GITHUB_PATH
 
     # - name: Dart Version
@@ -62,11 +63,9 @@ runs:
     - name: Setup global packages
       shell: bash
       run: |
-        DART_SDK_PATH=~/fvm/versions/${{ inputs.flutter_branch }}/bin/dart
-
-        $DART_SDK_PATH pub global activate melos
-        $DART_SDK_PATH pub global activate fvm
-        $DART_SDK_PATH pub global activate flutterfire_cli 0.3.0-dev.16 --overwrite
+        dart pub global activate melos
+        dart pub global activate fvm
+        dart pub global activate flutterfire_cli 0.3.0-dev.16 --overwrite
 
     # - name: fvm install
     #   shell: bash
