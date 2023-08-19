@@ -16,17 +16,18 @@ class MapsPageFloatingActionButton extends HookConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         const Gap(kToolbarHeight + 8),
-        MyOutlinedElevatedButton(
-          onPressed: () {},
-          child: OpenContainer(
-            closedBuilder: (_, openContainer) => MyOutlinedElevatedButton(
-              onPressed: () => openContainer(),
-              child: const Icon(
-                Icons.settings,
-              ),
+        OpenContainer(
+          closedColor: Colors.transparent,
+          closedShape: const RoundedRectangleBorder(),
+          closedElevation: 0,
+          closedBuilder: (_, openContainer) => MyOutlinedElevatedButton(
+            onPressed: () => openContainer(),
+            child: const Icon(
+              Icons.settings,
             ),
-            openBuilder: (_, __) => const SettingsPage(),
           ),
+          openBuilder: (_, __) => const SettingsPage(),
+          openElevation: 0,
         ),
       ],
     );
