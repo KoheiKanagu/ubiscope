@@ -38,6 +38,13 @@ runs:
         cd ~/fvm/versions/${{ inputs.flutter_branch }}
         git pull
 
+    - name: Cache pub-cache
+      if: inputs.use_local_dart == 'false'
+      uses: actions/cache@v3.3.1
+      with:
+        path: ~/.pub-cache
+        key: pub-cache-v1
+
     - name: PATH
       if: inputs.use_local_dart == 'false'
       shell: bash
@@ -63,4 +70,4 @@ runs:
 
     - name: Precache
       shell: bash
-      run: flutter precache
+      run: fvm flutter precache

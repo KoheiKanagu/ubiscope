@@ -12,3 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup-flutter
+
+      - run: flutter --version
+      - run: dart --version
+
+      - run: fvm flutter --version
+      - run: fvm dart --version
