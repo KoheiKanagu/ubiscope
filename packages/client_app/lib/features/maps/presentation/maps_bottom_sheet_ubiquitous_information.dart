@@ -62,7 +62,7 @@ class MapsBottomSheetUbiquitousInformation extends HookConsumerWidget {
                       .whereNot((e) => e == MeasurementType.unknown)
                       .whereNot(
                         (e) => e == MeasurementType.magnetic,
-                      ) // TODO
+                      ) // TODO(kingu): remove this when implemented
                       .map(
                         (e) => MeasurementTypeChip(
                           e,
