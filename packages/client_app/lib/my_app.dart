@@ -2,7 +2,6 @@ import 'package:client_app/gen/color_schemes.g.dart';
 import 'package:client_app/gen/fonts.gen.dart';
 import 'package:client_app/routing/my_go_router.dart';
 import 'package:core/core.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -16,8 +15,15 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       scaffoldMessengerKey: rootScaffoldMessengerKey,
-      builder: DevicePreview.appBuilder,
-      locale: DevicePreview.locale(context),
+      builder: (context, child) => MediaQueryPreview(context, child)
+          // .disableDynamicIsland()
+          // .textScale05()
+          .textScale10()
+          // .textScale15()
+          // .textScale20()
+          // .darkMode()
+          // .android()
+          .build(),
       localizationsDelegates: const [
         GlobalCupertinoLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -33,7 +39,6 @@ class MyApp extends HookConsumerWidget {
         fontFamily: FontFamily.notoSansJP,
         colorScheme: darkColorScheme,
       ),
-      // themeMode: ThemeMode.dark,
       routerConfig: ref.watch(myGoRouterProvider),
     );
   }

@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 enum AppEnv {
   dev,
   prod,
@@ -21,11 +19,6 @@ enum AppEnv {
   }
 
   bool get isProd => this == AppEnv.prod;
-
-  static const devicePreview = bool.fromEnvironment(
-    'APP_DEVICE_PREVIEW',
-    defaultValue: kDebugMode,
-  );
 
   static const isFirebaseEmulator = bool.fromEnvironment(
     'APP_IS_FIREBASE_EMULATOR',
