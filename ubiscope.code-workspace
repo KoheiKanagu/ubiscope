@@ -21,7 +21,8 @@
     "conventionalCommits.scopes": [
       "client_app",
       "core",
-      "all"
+      "all",
+      "ci"
     ],
     "jest.disabledWorkspaceFolders": [
       "root",
