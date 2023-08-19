@@ -5,7 +5,7 @@ version: 0.0.0+0
 
 environment:
   sdk: ^3.1.0-0
-  flutter: ^3.11.0-0
+  flutter: ^3.13.0-0
 
 dependencies:
   adaptive_dialog: ^1.9.0
