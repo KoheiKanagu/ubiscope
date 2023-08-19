@@ -16,6 +16,7 @@ runs:
   using: "composite"
   steps:
     - name: Cache Flutter
+      id: cache-flutter
       if: inputs.use_local_dart == 'false'
       uses: actions/cache@v3.3.1
       with:
@@ -23,12 +24,19 @@ runs:
         key: flutter-v1
 
     - name: Clone Flutter
-      if: inputs.use_local_dart == 'false'
+      if: inputs.use_local_dart == 'false' && steps.cache-flutter.outputs.cache-hit != 'true'
       shell: bash
       run: |
         git clone https://github.com/flutter/flutter.git \
           -b ${{ inputs.flutter_branch }} \
           ~/fvm/versions/${{ inputs.flutter_branch }}
+
+    - name: Pull Flutter
+      if: inputs.use_local_dart == 'false' && steps.cache-flutter.outputs.cache-hit == 'true'
+      shell: bash
+      run: |
+        cd ~/fvm/versions/${{ inputs.flutter_branch }}
+        git pull
 
     - name: PATH
       if: inputs.use_local_dart == 'false'
