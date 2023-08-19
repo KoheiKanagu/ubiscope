@@ -20,7 +20,7 @@ runs:
       if: inputs.use_local_dart == 'false'
       uses: actions/cache@v3.3.1
       with:
-        path: $HOME/fvm/versions
+        path: ~/fvm/versions
         key: flutter-v1
 
     - name: Clone Flutter
@@ -42,7 +42,7 @@ runs:
       if: inputs.use_local_dart == 'false'
       uses: actions/cache@v3.3.1
       with:
-        path: $HOME/.pub-cache
+        path: ~/.pub-cache
         key: pub-cache-v1
 
     - name: PATH
@@ -50,16 +50,7 @@ runs:
       shell: bash
       run: |
         echo "$HOME/fvm/versions/${{ inputs.flutter_branch }}/bin" >> $GITHUB_PATH
-        echo "$HOME/fvm/versions/${{ inputs.flutter_branch }}/bin/cache/dart-sdk/bin" >> $GITHUB_PATH
         echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-
-    # - name: Dart Version
-    #   shell: bash
-    #   run: dart --version
-
-    - name: Flutter
-      shell: bash
-      run: flutter doctor -v
 
     - name: Setup global packages
       shell: bash
@@ -67,10 +58,6 @@ runs:
         dart pub global activate melos
         dart pub global activate fvm
         dart pub global activate flutterfire_cli 0.3.0-dev.16 --overwrite
-
-    # - name: fvm install
-    #   shell: bash
-    #   run: fvm use ${{ inputs.flutter_branch }}
 
     - name: fvm
       shell: bash
