@@ -16,15 +16,19 @@ class MeasurementPoint with _$MeasurementPoint {
     required String createdBy,
 
     /// The location of the measurement point
-    @GeoPointConverter() required GeoPoint location,
+    @GeoPointConverter()
+    required ({
+      String? level,
+      String? levelShort,
+      GeoPoint geopoint,
+      String geohash,
+    }) location,
 
-    /// The level of the measurement point
-    required String level,
-
-    /// Array of types of measurements completed
-    /// [MeasurementResultsData]type
-    @Default([]) List<String> measuredTypes,
+    /// Map of measurement type to dataset ID
+    @Default({}) Map<MeasurementType, String?> measuredTypes,
   }) = _MeasurementPoint;
+
+  const MeasurementPoint._();
 
   factory MeasurementPoint.fromJson(Json json) =>
       _$MeasurementPointFromJson(json);
@@ -38,4 +42,14 @@ class MeasurementPoint with _$MeasurementPoint {
       (data, _) => TimestampConverter.updateServerTimestamp(
             data.toJson(),
           );
+
+  /// Returns a list of all measurement types that have been measured
+  List<MeasurementType> get measuredTypesCompleted => measuredTypes.entries
+      .where(
+        (e) => e.value != null,
+      )
+      .map(
+        (e) => e.key,
+      )
+      .toList();
 }

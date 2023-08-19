@@ -24,7 +24,9 @@ mixin _$MeasurementResults {
   Timestamp? get createdAt => throw _privateConstructorUsedError;
   @TimestampConverter()
   Timestamp? get updatedAt => throw _privateConstructorUsedError;
-  bool get deleted => throw _privateConstructorUsedError;
+  bool get deleted =>
+      throw _privateConstructorUsedError; // Unique ID for each measurement
+  String get datasetId => throw _privateConstructorUsedError;
 
   /// The time the measurement was taken
   @TimestampConverter()
@@ -58,6 +60,7 @@ abstract class $MeasurementResultsCopyWith<$Res> {
       {@TimestampConverter() Timestamp? createdAt,
       @TimestampConverter() Timestamp? updatedAt,
       bool deleted,
+      String datasetId,
       @TimestampConverter() Timestamp? measuredAt,
       String measuredBy,
       String measurementPointId,
@@ -83,6 +86,7 @@ class _$MeasurementResultsCopyWithImpl<$Res, $Val extends MeasurementResults>
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? deleted = null,
+    Object? datasetId = null,
     Object? measuredAt = freezed,
     Object? measuredBy = null,
     Object? measurementPointId = null,
@@ -102,6 +106,10 @@ class _$MeasurementResultsCopyWithImpl<$Res, $Val extends MeasurementResults>
           ? _value.deleted
           : deleted // ignore: cast_nullable_to_non_nullable
               as bool,
+      datasetId: null == datasetId
+          ? _value.datasetId
+          : datasetId // ignore: cast_nullable_to_non_nullable
+              as String,
       measuredAt: freezed == measuredAt
           ? _value.measuredAt
           : measuredAt // ignore: cast_nullable_to_non_nullable
@@ -146,6 +154,7 @@ abstract class _$$_MeasurementResultsCopyWith<$Res>
       {@TimestampConverter() Timestamp? createdAt,
       @TimestampConverter() Timestamp? updatedAt,
       bool deleted,
+      String datasetId,
       @TimestampConverter() Timestamp? measuredAt,
       String measuredBy,
       String measurementPointId,
@@ -170,6 +179,7 @@ class __$$_MeasurementResultsCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? deleted = null,
+    Object? datasetId = null,
     Object? measuredAt = freezed,
     Object? measuredBy = null,
     Object? measurementPointId = null,
@@ -189,6 +199,10 @@ class __$$_MeasurementResultsCopyWithImpl<$Res>
           ? _value.deleted
           : deleted // ignore: cast_nullable_to_non_nullable
               as bool,
+      datasetId: null == datasetId
+          ? _value.datasetId
+          : datasetId // ignore: cast_nullable_to_non_nullable
+              as String,
       measuredAt: freezed == measuredAt
           ? _value.measuredAt
           : measuredAt // ignore: cast_nullable_to_non_nullable
@@ -220,6 +234,7 @@ class _$_MeasurementResults implements _MeasurementResults {
       {@TimestampConverter() this.createdAt,
       @TimestampConverter() this.updatedAt,
       this.deleted = false,
+      required this.datasetId,
       @TimestampConverter() required this.measuredAt,
       required this.measuredBy,
       required this.measurementPointId,
@@ -238,6 +253,9 @@ class _$_MeasurementResults implements _MeasurementResults {
   @override
   @JsonKey()
   final bool deleted;
+// Unique ID for each measurement
+  @override
+  final String datasetId;
 
   /// The time the measurement was taken
   @override
@@ -262,7 +280,7 @@ class _$_MeasurementResults implements _MeasurementResults {
 
   @override
   String toString() {
-    return 'MeasurementResults(createdAt: $createdAt, updatedAt: $updatedAt, deleted: $deleted, measuredAt: $measuredAt, measuredBy: $measuredBy, measurementPointId: $measurementPointId, scanId: $scanId, data: $data)';
+    return 'MeasurementResults(createdAt: $createdAt, updatedAt: $updatedAt, deleted: $deleted, datasetId: $datasetId, measuredAt: $measuredAt, measuredBy: $measuredBy, measurementPointId: $measurementPointId, scanId: $scanId, data: $data)';
   }
 
   @override
@@ -275,6 +293,8 @@ class _$_MeasurementResults implements _MeasurementResults {
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
             (identical(other.deleted, deleted) || other.deleted == deleted) &&
+            (identical(other.datasetId, datasetId) ||
+                other.datasetId == datasetId) &&
             (identical(other.measuredAt, measuredAt) ||
                 other.measuredAt == measuredAt) &&
             (identical(other.measuredBy, measuredBy) ||
@@ -288,7 +308,7 @@ class _$_MeasurementResults implements _MeasurementResults {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, createdAt, updatedAt, deleted,
-      measuredAt, measuredBy, measurementPointId, scanId, data);
+      datasetId, measuredAt, measuredBy, measurementPointId, scanId, data);
 
   @JsonKey(ignore: true)
   @override
@@ -310,6 +330,7 @@ abstract class _MeasurementResults implements MeasurementResults {
       {@TimestampConverter() final Timestamp? createdAt,
       @TimestampConverter() final Timestamp? updatedAt,
       final bool deleted,
+      required final String datasetId,
       @TimestampConverter() required final Timestamp? measuredAt,
       required final String measuredBy,
       required final String measurementPointId,
@@ -327,6 +348,8 @@ abstract class _MeasurementResults implements MeasurementResults {
   Timestamp? get updatedAt;
   @override
   bool get deleted;
+  @override // Unique ID for each measurement
+  String get datasetId;
   @override
 
   /// The time the measurement was taken

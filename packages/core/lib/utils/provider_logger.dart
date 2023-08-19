@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math' as math;
 
 import 'package:core/core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -14,6 +15,26 @@ class ProviderLogger extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
+    if (provider.name == 'beaconScanControllerProvider' ||
+        provider.name == 'wiFiScanControllerProvider') {
+      return;
+    }
+
+    if (provider.name == 'mapsMeasurementPointMarkersProvider' ||
+        provider.name == 'measurementPointAroundSnapshotsProvider' ||
+        provider.name == 'geohashMeasurementPointSnapshotsProvider') {
+      final value = newValue.toString();
+      logger.d(
+        {
+          'name': provider.name,
+          'runtimeType': provider.runtimeType,
+          'newValue':
+              'newValue: ${value.substring(0, math.min(value.length, 256))}...',
+        },
+      );
+      return;
+    }
+
     logger.d(
       {
         'name': provider.name,

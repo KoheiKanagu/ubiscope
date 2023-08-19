@@ -1,6 +1,6 @@
 {
   users_v1: {
-    uid: {
+    $uid: {
       createdAt: "Timestamp", // FieldValue.serverTimestamp
       updatedAt: "Timestamp", // FieldValue.serverTimestamp
       deleted: false,
@@ -8,31 +8,39 @@
   },
 
   measurement_points_v1: {
-    measurementPointId: {
+    $documentId: {
       createdAt: "Timestamp", // FieldValue.serverTimestamp
       updatedAt: "Timestamp", // FieldValue.serverTimestamp
       deleted: false,
 
       createdBy: "$uid",
 
-      location: [34, 135], // GeoPoint
-      level: "string", // Corresponding string to the getName method of Google Maps SDK's IndoorLevel
+      location: {
+        // Corresponding string to the getName method of Google Maps SDK's IndoorLevel
+        level: "string", // nullable String
+        // Corresponding string to the getShortName method of Google Maps SDK's IndoorLevel
+        levelShort: "string", // nullable String
+        geopoint: [34, 135], // GeoPoint. [latitude, longitude]
+        geohash: "string", // Geohash
+      },
 
-      measuredTypes: [
-        // Array of types of measurements completed
+      measuredTypes: {
+        // Map of measurement type to dataset ID
         // measurement_results_v1.data.type
-        "wiFi",
-        "ble",
-        "magnetic",
-      ],
+        wifi: "$datasetId", // nullable String
+        ibeacon: "$datasetId", // nullable String
+        magnetic: "$datasetId", // nullable String
+      },
     },
   },
 
   measurement_results_v1: {
-    documentId: {
+    $documentId: {
       createdAt: "Timestamp", // FieldValue.serverTimestamp
       updatedAt: "Timestamp", // FieldValue.serverTimestamp
       deleted: false,
+
+      datasetId: "string",
 
       measuredAt: "Timestamp", // Time when the measurement was taken
       measuredBy: "$uid",
@@ -41,22 +49,30 @@
       scanId: "string", // Same value for a single scan
 
       data: {
-        type: "wiFi|ble|magnetic|unknown",
+        type: "wifi|ibeacon|magnetic|unknown",
 
-        // for wiFi
+        // for wifi
+        timestamp: "string", // ISO 8601
         ssid: "string",
         bssid: "string",
         rssi: -75,
         frequency: 2412,
+        capabilities: "string",
+        centerFreq0: 0,
+        centerFreq1: 0,
+        channelWidth: 0,
 
-        // for ble
-        deviceName: "string",
-        macAddress: "string",
-        rssi: -75,
-        txPower: 0,
+        // for ibeacon
         uuid: "string",
         major: 0,
         minor: 0,
+        rssi: -75,
+        timestamp: "string", // ISO 8601
+        accuracy: 0,
+        proximity: 0, // nullable
+        txPower: 0, // nullable
+        bluetoothAddress: "string", // nullable
+        type: "string", // iBeacon
 
         // for magnetic
         recordStartTime: 1689253847000,

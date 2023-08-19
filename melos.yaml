@@ -30,6 +30,7 @@ scripts:
 
   flutter:test:
     exec: |
+      fvm dart pub get
       fvm flutter test \
         --exclude-tags=golden \
         --coverage \
@@ -42,6 +43,7 @@ scripts:
 
   flutter:golden_test:
     exec: |
+      fvm dart pub get
       fvm flutter test \
         --tags=golden \
         --coverage \
@@ -55,6 +57,7 @@ scripts:
 
   flutter:golden_test:update:
     exec: |
+      fvm dart pub get
       fvm flutter test \
         --update-goldens \
         --tags=golden \

@@ -11,21 +11,24 @@ class MyBannerAd extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MyOutlineWidget(
-      child: LayoutBuilder(
-        builder: (context, constraints) => ref
-            .watch(
-              bannerAdControllerProvider(
-                MediaQuery.orientationOf(context),
-                constraints.maxWidth.truncate(),
+    return SafeArea(
+      child: SizedBox(
+        height: kToolbarHeight,
+        child: MyOutlinedWidget(
+          child: ref
+              .watch(
+                bannerAdControllerProvider(
+                  MediaQuery.orientationOf(context),
+                  MediaQuery.sizeOf(context).width.truncate(),
+                ),
+              )
+              .maybeWhen(
+                orElse: SizedBox.shrink,
+                data: (ad) => AdWidget(
+                  ad: ad,
+                ),
               ),
-            )
-            .maybeWhen(
-              orElse: SizedBox.shrink,
-              data: (ad) => AdWidget(
-                ad: ad,
-              ),
-            ),
+        ),
       ),
     );
   }

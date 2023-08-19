@@ -4,7 +4,6 @@ import 'package:client_app/features/configure/application/package_info_providers
 import 'package:client_app/my_app.dart';
 import 'package:core/core.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_app_check/firebase_app_check.dart' hide AppleProvider;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -12,15 +11,23 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final (firebaseApp, _, packageInfo, deviceInfo) = (
+  final (
+    firebaseApp,
+    _,
+    packageInfo,
+    deviceInfo,
+    sharedPreferences,
+  ) = (
     await Firebase.initializeApp(),
     await MobileAds.instance.initialize(),
     await PackageInfo.fromPlatform(),
     await DeviceInfoPlugin().deviceInfo,
+    await SharedPreferences.getInstance(),
   );
 
   final container = ProviderContainer(
@@ -36,6 +43,9 @@ Future<void> main() async {
       ),
       deviceInfoPluginProvider.overrideWithValue(
         deviceInfo,
+      ),
+      sharedPreferencesInstanceProvider.overrideWithValue(
+        sharedPreferences,
       ),
     ],
   );
@@ -82,25 +92,7 @@ Future<void> main() async {
   runApp(
     UncontrolledProviderScope(
       container: container,
-      child: DevicePreview(
-        // ignore: avoid_redundant_argument_values
-        enabled: kDebugMode,
-        devices: [
-          Devices.ios.iPhoneSE,
-          Devices.ios.iPhone13ProMax,
-          Devices.android.mediumPhone.copyWith(
-            pixelRatio: 3,
-            name: 'Pixel 4',
-            screenSize: const Size(1140 / 3, 2280 / 3),
-          ),
-          Devices.ios.iPhoneSE.copyWith(
-            pixelRatio: 3,
-            name: 'iPhone 8 Plus',
-            screenSize: const Size(1242 / 3, 2208 / 3),
-          ),
-        ],
-        builder: (_) => const MyApp(),
-      ),
+      child: const MyApp(),
     ),
   );
 }

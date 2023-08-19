@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas, non_constant_identifier_names, cast_nullable_to_non_nullable, lines_longer_than_80_chars
+// ignore_for_file: require_trailing_commas, non_constant_identifier_names, cast_nullable_to_non_nullable, lines_longer_than_80_chars, unnecessary_null_checks, strict_raw_type
 
 part of 'ad_providers.dart';
 
@@ -9,7 +9,7 @@ part of 'ad_providers.dart';
 // **************************************************************************
 
 String _$bannerAdControllerHash() =>
-    r'e2d7fcc1d9482323e236079fe3a7ae3a4cdb1d66';
+    r'a1396b0b4c0f25795dbfbaddb188586cd3478393';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -33,11 +33,11 @@ class _SystemHash {
 }
 
 abstract class _$BannerAdController
-    extends BuildlessAutoDisposeNotifier<AsyncValue<BannerAd>> {
+    extends BuildlessAutoDisposeAsyncNotifier<BannerAd> {
   late final Orientation orientation;
   late final int width;
 
-  AsyncValue<BannerAd> build(
+  Future<BannerAd> build(
     Orientation orientation,
     int width,
   );
@@ -89,8 +89,8 @@ class BannerAdControllerFamily extends Family<AsyncValue<BannerAd>> {
 }
 
 /// See also [BannerAdController].
-class BannerAdControllerProvider extends AutoDisposeNotifierProviderImpl<
-    BannerAdController, AsyncValue<BannerAd>> {
+class BannerAdControllerProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<BannerAdController, BannerAd> {
   /// See also [BannerAdController].
   BannerAdControllerProvider(
     this.orientation,
@@ -130,7 +130,7 @@ class BannerAdControllerProvider extends AutoDisposeNotifierProviderImpl<
   }
 
   @override
-  AsyncValue<BannerAd> runNotifierBuild(
+  Future<BannerAd> runNotifierBuild(
     covariant BannerAdController notifier,
   ) {
     return notifier.build(

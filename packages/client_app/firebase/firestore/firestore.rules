@@ -12,5 +12,45 @@ service cloud.firestore {
       request.auth.uid == documentId
       ;
     }
+
+    match /measurement_points_v1/{documentId} {
+      allow create: if
+      isSignedIn() &&
+      request.auth.uid == request.resource.data.createdBy &&
+      request.resource.data.deleted == false
+      ;
+
+      allow get, list: if
+      isSignedIn() &&
+      request.auth.uid == resource.data.createdBy &&
+      resource.data.deleted == false
+      ;
+
+      allow update: if
+      isSignedIn() &&
+      request.auth.uid == resource.data.createdBy &&
+      resource.data.deleted == false
+      ;
+    }
+
+    match /measurement_results_v1/{documentId} {
+      allow create: if
+      isSignedIn() &&
+      request.auth.uid == request.resource.data.measuredBy &&
+      request.resource.data.deleted == false
+      ;
+
+      allow get, list: if
+      isSignedIn() &&
+      request.auth.uid == resource.data.measuredBy &&
+      resource.data.deleted == false
+      ;
+
+      allow update: if
+      isSignedIn() &&
+      request.auth.uid == resource.data.measuredBy &&
+      resource.data.deleted == false
+      ;
+    }
   }
 }

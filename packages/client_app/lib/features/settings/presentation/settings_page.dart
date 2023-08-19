@@ -1,4 +1,5 @@
 import 'package:client_app/features/configure/application/package_info_providers.dart';
+import 'package:client_app/features/event/application/event_page_route.dart';
 import 'package:client_app/gen/assets.gen.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,15 @@ class SettingsPage extends HookConsumerWidget {
             ),
             onTap: () {
               const ProfilePageRoute().push<void>(context);
+            },
+          ),
+          ListTile(
+            title: const Text('Event'),
+            trailing: Icon(
+              Icons.adaptive.arrow_forward,
+            ),
+            onTap: () {
+              const EventSettingsPageRoute().push<void>(context);
             },
           ),
           const Divider(),

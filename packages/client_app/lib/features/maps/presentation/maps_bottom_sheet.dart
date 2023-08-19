@@ -1,35 +1,44 @@
-import 'package:client_app/features/events/application/beacon_providers.dart';
-import 'package:client_app/features/events/application/wifi_providers.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MapsBottomSheet extends HookConsumerWidget {
-  const MapsBottomSheet({
+class MapsBottomSheet extends StatelessWidget {
+  const MapsBottomSheet(
+    this.controller, {
     super.key,
-    required this.controller,
+    this.onClose,
+    required this.child,
   });
 
   final ScrollController? controller;
 
+  final Widget child;
+
+  final VoidCallback? onClose;
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return MyOutlineWidget(
+  Widget build(BuildContext context) {
+    return MyOutlinedWidget(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(16),
         ),
       ),
-      child: ListView(
+      child: CustomScrollView(
         controller: controller,
-        padding: EdgeInsets.zero,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 12,
+        slivers: [
+          MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+              ),
             ),
-            child: Center(
-              child: Container(
+            child: SliverAppBar(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(16),
+                ),
+              ),
+              title: Container(
                 height: 4,
                 width: 32,
                 decoration: BoxDecoration(
@@ -37,100 +46,31 @@ class MapsBottomSheet extends HookConsumerWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
+              toolbarHeight: 40,
+              pinned: true,
+              centerTitle: true,
+              actions: [
+                if (onClose != null)
+                  MyCloseIconButton(
+                    onPressed: onClose,
+                  ),
+              ],
+              surfaceTintColor: Theme.of(context).colorScheme.background,
+              shadowColor: Theme.of(context).colorScheme.onBackground,
+              scrolledUnderElevation: 1,
             ),
           ),
-          ElevatedButton(
-            onPressed: () async {
-              final result = await ref
-                  .read(wiFiScanControllerProvider.notifier)
-                  .checkPermission();
-              logger.d('Permission.location.status: $result');
-
-              final result2 = await ref
-                  .read(beaconScanControllerProvider.notifier)
-                  .checkPermission();
-              logger.d('Permission.bluetooth.status: $result2');
-            },
-            child: const Text('checkPermission'),
+          SliverToBoxAdapter(
+            child: child,
           ),
-          ElevatedButton(
-            onPressed: () async {
-              await ref
-                  .read(wiFiScanControllerProvider.notifier)
-                  .requestPermission();
-              await ref
-                  .read(beaconScanControllerProvider.notifier)
-                  .requestPermission();
-            },
-            child: const Text('requestPermission'),
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              await ref.read(wiFiScanControllerProvider.notifier).start();
-              await ref.read(beaconScanControllerProvider.notifier).start(
-                (
-                  uuid: 'E02CC25E-0049-4185-832C-3A65DB755D01',
-                  major: null,
-                  minor: null,
-                ),
-              );
-
-              logger.d('startScan');
-            },
-            child: const Text('startScan'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              ref.read(wiFiScanControllerProvider.notifier).stop();
-              ref.read(beaconScanControllerProvider.notifier).stop();
-            },
-            child: const Text('stopScan'),
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              final result = await ref
-                  .read(wiFiScanControllerProvider.notifier)
-                  .isScanThrottleEnabled();
-              logger.d('isScanThrottleEnabled: $result');
-            },
-            child: const Text('isScanThrottleEnabled'),
-          ),
-          ...ref.watch(beaconScanControllerProvider).map(
-                (e) => ListTile(
-                  title: Column(
-                    children: [
-                      Text('uuid: ${e.uuid}'),
-                      Text('major: ${e.major}'),
-                      Text('minor: ${e.minor}'),
-                      Text('rssi: ${e.rssi}'),
-                      Text(
-                        'timestamp: ${e.timestamp}',
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-          ...ref.watch(wiFiScanControllerProvider).map(
-                (e) => ListTile(
-                  title: Column(
-                    children: [
-                      Text('ssid: ${e.ssid}'),
-                      Text('bssid: ${e.bssid}'),
-                      Text('rssi: ${e.rssi}'),
-                      Text('frequency: ${e.frequency}'),
-                      Text('capabilities: ${e.capabilities}'),
-                      Text('centerFreq0: ${e.centerFreq0}'),
-                      Text('centerFreq1: ${e.centerFreq1}'),
-                      Text('channelWidth: ${e.channelWidth}'),
-                      Text(
-                        'timestamp: ${e.timestamp}',
-                      ),
-                    ],
-                  ),
-                ),
-              ),
         ],
       ),
     );
   }
+}
+
+enum MapsBottomSheetType {
+  ubiquitousInformation,
+  measurementPointDetail,
+  ;
 }

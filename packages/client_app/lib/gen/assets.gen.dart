@@ -9,16 +9,6 @@
 
 import 'package:flutter/widgets.dart';
 
-class $AssetsGoogleMapsGen {
-  const $AssetsGoogleMapsGen();
-
-  /// File path: assets/google_maps/map_style_night.json
-  String get mapStyleNight => 'assets/google_maps/map_style_night.json';
-
-  /// List of all assets
-  List<String> get values => [mapStyleNight];
-}
-
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -32,7 +22,6 @@ class $AssetsImagesGen {
 class Assets {
   Assets._();
 
-  static const $AssetsGoogleMapsGen googleMaps = $AssetsGoogleMapsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 

@@ -1,3 +1,7 @@
+import 'package:client_app/features/event/application/event_page_route.dart'
+    as event_page_router;
+import 'package:client_app/features/event_details/application/event_details_page_route.dart'
+    as event_details_page_router;
 import 'package:client_app/features/maps/application/maps_page_route.dart'
     as maps_page_route;
 import 'package:client_app/features/onboarding/application/onboarding_page_route.dart'
@@ -29,6 +33,8 @@ GoRouter myGoRouter(
         ...maps_page_route.$appRoutes,
         ...settings_page_route.$appRoutes,
         ...onboarding_page_route.$appRoutes,
+        ...event_page_router.$appRoutes,
+        ...event_details_page_router.$appRoutes,
       ],
       errorBuilder: (context, state) {
         logger.e(

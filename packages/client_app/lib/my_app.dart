@@ -33,6 +33,7 @@ class MyApp extends HookConsumerWidget {
         fontFamily: FontFamily.notoSansJP,
         colorScheme: darkColorScheme,
       ),
+      // themeMode: ThemeMode.dark,
       routerConfig: ref.watch(myGoRouterProvider),
     );
   }
