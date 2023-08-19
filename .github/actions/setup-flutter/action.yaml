@@ -20,7 +20,7 @@ runs:
       if: inputs.use_local_dart == 'false'
       uses: actions/cache@v3.3.1
       with:
-        path: ~/fvm/versions
+        path: $HOME/fvm/versions
         key: flutter-v1
 
     - name: Clone Flutter
@@ -29,29 +29,29 @@ runs:
       run: |
         git clone https://github.com/flutter/flutter.git \
           -b ${{ inputs.flutter_branch }} \
-          ~/fvm/versions/${{ inputs.flutter_branch }}
+          $HOME/fvm/versions/${{ inputs.flutter_branch }}
 
     - name: Pull Flutter
       if: inputs.use_local_dart == 'false'
       shell: bash
       run: |
-        cd ~/fvm/versions/${{ inputs.flutter_branch }}
+        cd $HOME/fvm/versions/${{ inputs.flutter_branch }}
         git pull
 
     - name: Cache pub-cache
       if: inputs.use_local_dart == 'false'
       uses: actions/cache@v3.3.1
       with:
-        path: ~/.pub-cache
+        path: $HOME/.pub-cache
         key: pub-cache-v1
 
     - name: PATH
       if: inputs.use_local_dart == 'false'
       shell: bash
       run: |
-        echo "~/fvm/versions/${{ inputs.flutter_branch }}/bin" >> $GITHUB_PATH
-        echo "~/fvm/versions/${{ inputs.flutter_branch }}/bin/cache/dart-sdk/bin" >> $GITHUB_PATH
-        echo "~/.pub-cache/bin" >> $GITHUB_PATH
+        echo "$HOME/fvm/versions/${{ inputs.flutter_branch }}/bin" >> $GITHUB_PATH
+        echo "$HOME/fvm/versions/${{ inputs.flutter_branch }}/bin/cache/dart-sdk/bin" >> $GITHUB_PATH
+        echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
     # - name: Dart Version
     #   shell: bash
