@@ -23,5 +23,6 @@ export 'providers/shared_preferences_providers.dart';
 export 'providers/user_providers.dart';
 export 'utils/blob_converter.dart';
 export 'utils/geo_point_converter.dart';
+export 'utils/media_query_preview.dart';
 export 'utils/provider_logger.dart';
 export 'utils/timestamp_converter.dart';
