@@ -22,8 +22,8 @@ class MyGlassContainer extends StatelessWidget {
       ),
       child: BackdropFilter(
         filter: ImageFilter.blur(
-          sigmaX: 8,
-          sigmaY: 8,
+          sigmaX: 14,
+          sigmaY: 14,
         ),
         child: CustomPaint(
           painter: _GradientPainter(
@@ -44,14 +44,8 @@ class MyGlassContainer extends StatelessWidget {
                 radius: 1.6,
                 center: Alignment.topLeft,
                 colors: [
-                  Theme.of(context)
-                      .colorScheme
-                      .onPrimaryContainer
-                      .withOpacity(0.1),
-                  Theme.of(context)
-                      .colorScheme
-                      .onPrimaryContainer
-                      .withOpacity(0.05),
+                  Theme.of(context).colorScheme.onPrimary.withOpacity(0.6),
+                  Theme.of(context).colorScheme.onPrimary.withOpacity(0.4),
                 ],
               ),
               shape: RoundedRectangleBorder(

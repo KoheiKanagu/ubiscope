@@ -6,7 +6,6 @@ import 'package:client_app/features/event/presentation/event_capturing_dialog.da
 import 'package:client_app/features/maps/application/maps_bottom_sheet_providers.dart';
 import 'package:client_app/features/maps/presentation/maps_bottom_sheet.dart';
 import 'package:client_app/features/maps/presentation/maps_page_body.dart';
-import 'package:collection/collection.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -23,18 +22,6 @@ class MapsBottomSheetMeasurementPointDetail extends HookConsumerWidget {
     ref.listen(
       mapsSelectedMeasurementPointIdProvider,
       (_, next) async {
-        /// measurementPointDetail以外を閉じる
-        /// measurementPointDetailは直後に開く可能性があるので無駄にアニメーションしないようにするためignore
-        for (final e in MapsBottomSheetType.values.whereNot(
-          (element) => element == MapsBottomSheetType.measurementPointDetail,
-        )) {
-          await ref
-              .read(
-                mapsBottomSheetControllerProvider(e),
-              )
-              .close();
-        }
-
         final controller = ref.read(
           mapsBottomSheetControllerProvider(
             MapsBottomSheetType.measurementPointDetail,
@@ -48,16 +35,6 @@ class MapsBottomSheetMeasurementPointDetail extends HookConsumerWidget {
         }
       },
     );
-
-    final selectedPointId =
-        ref.watch(mapsSelectedMeasurementPointIdProvider) ?? '';
-    final selectedPoint =
-        ref.watch(measurementPointSnapshotsProvider(selectedPointId));
-
-    final measuredTypes =
-        selectedPoint.asData?.value.data()?.measuredTypes ?? {};
-    final measuredTypesCompleted =
-        selectedPoint.asData?.value.data()?.measuredTypesCompleted ?? [];
 
     return DraggableScrollableSheet(
       key: const GlobalObjectKey(
@@ -75,6 +52,17 @@ class MapsBottomSheetMeasurementPointDetail extends HookConsumerWidget {
       maxChildSize: MapsPageBody.sheetSize + 0.2,
       snap: true,
       builder: (_, controller) {
+        final selectedPointId =
+            ref.watch(mapsSelectedMeasurementPointIdProvider) ?? '';
+        final selectedPoint = ref
+            .watch(measurementPointSnapshotsProvider(selectedPointId))
+            .asData
+            ?.value
+            .data();
+
+        final measuredTypesCompleted =
+            selectedPoint?.measuredTypesCompleted ?? {};
+
         return MapsBottomSheet(
           controller,
           onClose: () {
@@ -98,77 +86,68 @@ class MapsBottomSheetMeasurementPointDetail extends HookConsumerWidget {
                       const Gap(8),
                       Wrap(
                         spacing: 4,
-                        children: measuredTypesCompleted
-                            .map(
-                              (e) => MeasurementTypeChip(
-                                e,
-                                subtitle: switch ((
-                                  measuredTypes[e],
-                                  e,
-                                )) {
-                                  (final String id, final MeasurementType e) =>
-                                    '${ref.watch(
-                                          measurementResultsAggregateQuerySnapshotProvider(
-                                            datasetId: id,
-                                            type: e,
-                                          ),
-                                        ).asData?.value.count ?? '...'} ${e.unit}',
-                                  (_, _) => null,
-                                },
-                                onDeleted: () {
-                                  ref
-                                      .read(measurementPointControllerProvider)
-                                      .deleteMeasuredType(
-                                        selectedPointId,
-                                        type: e,
-                                      );
-                                },
-                                onPressed: () async {
-                                  final datasetId = measuredTypes[e];
-                                  if (datasetId == null) {
-                                    return;
-                                  }
+                        children: measuredTypesCompleted.entries.map(
+                          (e) {
+                            final type = e.key;
+                            final datasetId = e.value;
 
-                                  final (results, count) = (
-                                    await ref
-                                        .read(
-                                          measurementResultsRecentProvider(
-                                            datasetId: datasetId,
-                                            type: e,
-                                          ).future,
-                                        )
-                                        .then(
-                                          (value) =>
-                                              value.docs.map((e) => e.data()),
+                            return MeasurementTypeChip(
+                              type,
+                              subtitle: '${ref.watch(
+                                    measurementResultsAggregateQuerySnapshotProvider(
+                                      datasetId: datasetId,
+                                      type: type,
+                                    ),
+                                  ).asData?.value.count ?? '...'} ${type.unit}',
+                              onDeleted: () {
+                                ref
+                                    .read(measurementPointControllerProvider)
+                                    .deleteMeasuredType(
+                                      selectedPointId,
+                                      type: type,
+                                    );
+                              },
+                              onPressed: () async {
+                                final (results, count) = (
+                                  await ref
+                                      .read(
+                                        measurementResultsRecentProvider(
+                                          datasetId: datasetId,
+                                          type: type,
+                                        ).future,
+                                      )
+                                      .then(
+                                        (value) =>
+                                            value.docs.map((e) => e.data()),
+                                      ),
+                                  await ref
+                                      .read(
+                                        measurementResultsAggregateQueryProvider(
+                                          datasetId: datasetId,
+                                          type: type,
                                         ),
-                                    await ref
-                                        .read(
-                                          measurementResultsAggregateQueryProvider(
-                                            datasetId: datasetId,
-                                            type: e,
-                                          ),
-                                        )
-                                        .get()
-                                        .then((value) => value.count),
-                                  );
+                                      )
+                                      .get()
+                                      .then((value) => value.count),
+                                );
 
-                                  if (!context.mounted) {
-                                    return;
-                                  }
+                                if (!context.mounted) {
+                                  return;
+                                }
 
-                                  await showDialog<void>(
-                                    context: context,
-                                    builder: (context) {
-                                      return MeasurementPointDetailDialog(
-                                        totalDataCount: count,
-                                        measurementResults: results,
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
-                            )
-                            .toList(),
+                                await showDialog<void>(
+                                  context: context,
+                                  builder: (context) {
+                                    return MeasurementPointDetailDialog(
+                                      totalDataCount: count,
+                                      measurementResults: results,
+                                    );
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        ).toList(),
                       ),
                       const Divider(),
                     ],

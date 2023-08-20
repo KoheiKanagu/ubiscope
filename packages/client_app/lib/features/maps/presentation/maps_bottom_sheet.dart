@@ -17,12 +17,7 @@ class MapsBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MyOutlinedWidget(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(16),
-        ),
-      ),
+    return MyGlassContainer(
       child: CustomScrollView(
         controller: controller,
         slivers: [
@@ -44,6 +39,11 @@ class MapsBottomSheet extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.grey,
                   borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 0.5,
+                    strokeAlign: BorderSide.strokeAlignOutside,
+                  ),
                 ),
               ),
               toolbarHeight: 40,
@@ -55,9 +55,8 @@ class MapsBottomSheet extends StatelessWidget {
                     onPressed: onClose,
                   ),
               ],
-              surfaceTintColor: Theme.of(context).colorScheme.background,
-              shadowColor: Theme.of(context).colorScheme.onBackground,
-              scrolledUnderElevation: 1,
+              backgroundColor: Colors.transparent,
+              scrolledUnderElevation: 0,
             ),
           ),
           SliverToBoxAdapter(
