@@ -10,14 +10,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 
 class MapsBottomSheetMeasurementPointDetail extends HookConsumerWidget {
-  const MapsBottomSheetMeasurementPointDetail({
+  const MapsBottomSheetMeasurementPointDetail(
+    this.selectedPointId, {
     super.key,
   });
 
+  final String selectedPointId;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedPointId =
-        ref.watch(mapsSelectedMeasurementPointIdProvider) ?? '';
     final selectedPoint = ref
         .watch(measurementPointSnapshotsProvider(selectedPointId))
         .asData

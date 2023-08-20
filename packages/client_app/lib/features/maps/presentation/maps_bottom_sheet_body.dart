@@ -17,6 +17,7 @@ class MapsBottomSheetBody extends HookConsumerWidget {
     final child = selectedPointId == null
         ? const MapsBottomSheetUbiquitousInformation()
         : MapsBottomSheetMeasurementPointDetail(
+            selectedPointId,
             key: ValueKey(selectedPointId),
           );
 
@@ -31,6 +32,10 @@ class MapsBottomSheetBody extends HookConsumerWidget {
         secondaryAnimation: secondaryAnimation,
         fillColor: Colors.transparent,
         child: child,
+      ),
+      layoutBuilder: (entries) => Stack(
+        alignment: Alignment.topCenter,
+        children: entries,
       ),
       child: child,
     );
