@@ -43,13 +43,10 @@ class MeasurementPoint with _$MeasurementPoint {
             data.toJson(),
           );
 
-  /// Returns a list of all measurement types that have been measured
-  List<MeasurementType> get measuredTypesCompleted => measuredTypes.entries
-      .where(
-        (e) => e.value != null,
-      )
-      .map(
-        (e) => e.key,
-      )
-      .toList();
+  /// Returns a map of all measurement types that have been measured
+  Map<MeasurementType, String> get measuredTypesCompleted => Map.fromEntries(
+        measuredTypes.entries
+            .where((e) => e.value != null)
+            .map((e) => MapEntry(e.key, e.value!)),
+      );
 }

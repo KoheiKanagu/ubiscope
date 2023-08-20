@@ -21,7 +21,6 @@ class MyApp extends HookConsumerWidget {
           .textScale10()
           // .textScale15()
           // .textScale20()
-          // .darkMode()
           // .android()
           .build(),
       localizationsDelegates: const [

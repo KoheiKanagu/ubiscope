@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 class MyOutlinedElevatedButton extends StatelessWidget {
@@ -16,34 +17,21 @@ class MyOutlinedElevatedButton extends StatelessWidget {
     final borderRadius = BorderRadius.circular(8);
     const size = Size.square(48);
 
-    return Container(
-      width: size.width,
-      height: size.height,
-      decoration: ShapeDecoration(
-        shape: RoundedRectangleBorder(
-          side: BorderSide(
-            color: Theme.of(context).colorScheme.outline,
-            width: 1.7,
-            strokeAlign: BorderSide.strokeAlignOutside,
-          ),
-          borderRadius: borderRadius,
-        ),
-      ),
+    return MyGlassContainer(
+      radius: borderRadius.topLeft.x,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            side: BorderSide(
-              color: Theme.of(context).colorScheme.background,
-              width: 1.5,
-              strokeAlign: BorderSide.strokeAlignOutside,
-            ),
             borderRadius: borderRadius,
           ),
+          shadowColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
           padding: EdgeInsets.zero,
           minimumSize: size,
           maximumSize: size,
           fixedSize: size,
-          elevation: 4,
+          elevation: 0,
         ),
         onPressed: onPressed,
         child: child,

@@ -32,7 +32,9 @@ class EventDetailsWifiPage extends HookConsumerWidget {
 
           return ListTile(
             visualDensity: VisualDensity.compact,
-            tileColor: index.isEven ? scheme.onPrimary : scheme.background,
+            tileColor: index.isOdd
+                ? scheme.outline.withOpacity(0.1)
+                : scheme.background,
             title: Text(
               e.ssid,
             ),
