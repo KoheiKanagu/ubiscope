@@ -1,5 +1,3 @@
-// ignore_for_file: lines_longer_than_80_chars
-
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:client_app/features/event/application/event_providers.dart';
 import 'package:client_app/features/event/presentation/event_capturing_dialog.dart';
