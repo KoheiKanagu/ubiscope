@@ -1,75 +1,80 @@
+import 'package:client_app/features/maps/presentation/maps_bottom_sheet_body.dart';
+import 'package:client_app/features/maps/presentation/maps_page_body.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
 class MapsBottomSheet extends StatelessWidget {
-  const MapsBottomSheet(
-    this.controller, {
+  const MapsBottomSheet({
     super.key,
-    this.onClose,
-    required this.child,
+    required this.controller,
   });
 
-  final ScrollController? controller;
-
-  final Widget child;
-
-  final VoidCallback? onClose;
+  final DraggableScrollableController controller;
 
   @override
   Widget build(BuildContext context) {
-    return MyGlassContainer(
-      child: CustomScrollView(
-        controller: controller,
-        slivers: [
-          MediaQuery(
-            data: MediaQuery.of(context).copyWith(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8,
+    return DraggableScrollableSheet(
+      controller: controller,
+      initialChildSize: MapsPageBody.minimumSheetSize,
+      maxChildSize: MapsPageBody.minimumSheetSize * 3,
+      minChildSize: MapsPageBody.minimumSheetSize,
+      snap: true,
+      snapSizes: const [
+        MapsPageBody.minimumSheetSize,
+        MapsPageBody.minimumSheetSize * 2,
+        MapsPageBody.minimumSheetSize * 3,
+      ],
+      builder: (context, controller) {
+        return MyGlassContainer(
+          child: CustomScrollView(
+            controller: controller,
+            slivers: [
+              SliverPersistentHeader(
+                delegate: MapsBottomSheetHeaderDelegate(),
+                pinned: true,
               ),
-            ),
-            child: SliverAppBar(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(16),
-                ),
+              const SliverToBoxAdapter(
+                child: MapsBottomSheetBody(),
               ),
-              title: Container(
-                height: 4,
-                width: 32,
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 0.5,
-                    strokeAlign: BorderSide.strokeAlignOutside,
-                  ),
-                ),
-              ),
-              toolbarHeight: 40,
-              pinned: true,
-              centerTitle: true,
-              actions: [
-                if (onClose != null)
-                  MyCloseIconButton(
-                    onPressed: onClose,
-                  ),
-              ],
-              backgroundColor: Colors.transparent,
-              scrolledUnderElevation: 0,
-            ),
+            ],
           ),
-          SliverToBoxAdapter(
-            child: child,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
 
-enum MapsBottomSheetType {
-  ubiquitousInformation,
-  measurementPointDetail,
-  ;
+class MapsBottomSheetHeaderDelegate extends SliverPersistentHeaderDelegate {
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    return Center(
+      child: Container(
+        height: 4,
+        width: 32,
+        decoration: BoxDecoration(
+          color: Colors.grey,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: Colors.white,
+            width: 0.5,
+            strokeAlign: BorderSide.strokeAlignOutside,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  double get maxExtent => 32;
+
+  @override
+  double get minExtent => 32;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      false;
 }

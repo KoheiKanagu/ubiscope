@@ -1,8 +1,7 @@
 import 'dart:math';
 
 import 'package:client_app/features/ads/presentation/my_banner_ad.dart';
-import 'package:client_app/features/maps/presentation/maps_bottom_sheet_measurement_point_detail.dart';
-import 'package:client_app/features/maps/presentation/maps_bottom_sheet_ubiquitous_information.dart';
+import 'package:client_app/features/maps/presentation/maps_bottom_sheet.dart';
 import 'package:client_app/features/maps/presentation/maps_reticle.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,9 @@ class MapsPageBody extends HookConsumerWidget {
     super.key,
   });
 
-  static const double sheetSize = 0.2;
+  static const double minimumSheetSize = 0.2;
+
+  static final _draggableScrollableController = DraggableScrollableController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,6 +24,20 @@ class MapsPageBody extends HookConsumerWidget {
     final pixelsPerMeter = useState<double>(0);
 
     final cameraTarget = useState<LatLng?>(null);
+
+    final sheetSize = useState(
+      minimumSheetSize,
+    );
+
+    useEffect(
+      () {
+        _draggableScrollableController.addListener(
+          () => sheetSize.value = _draggableScrollableController.size,
+        );
+        return _draggableScrollableController.dispose;
+      },
+      [_draggableScrollableController],
+    );
 
     return LayoutBuilder(
       builder: (context, constraints) => Stack(
@@ -42,7 +57,7 @@ class MapsPageBody extends HookConsumerWidget {
                 .read(mapsAimedPointControllerProvider.notifier)
                 .onIndoorEvent(),
             padding: EdgeInsets.only(
-              bottom: constraints.maxHeight * sheetSize,
+              bottom: constraints.maxHeight * sheetSize.value,
               left: MediaQuery.viewPaddingOf(context).left,
               right: MediaQuery.viewPaddingOf(context).right,
             ),
@@ -55,7 +70,7 @@ class MapsPageBody extends HookConsumerWidget {
             onCameraMove: (camera) async {
               final maps = ref.read(mapsControllerProvider)!;
 
-              final mapsHeight = constraints.maxHeight * (1 - sheetSize);
+              final mapsHeight = constraints.maxHeight * (1 - sheetSize.value);
               final mapsWidth = constraints.maxWidth;
               final diagonal = sqrt(pow(mapsHeight, 2) + pow(mapsWidth, 2));
 
@@ -72,7 +87,7 @@ class MapsPageBody extends HookConsumerWidget {
             },
           ),
           SizedBox(
-            height: constraints.maxHeight * (1 - sheetSize),
+            height: constraints.maxHeight * (1 - sheetSize.value),
             child: Center(
               child: MapsReticle(
                 pixelsPerMeter.value,
@@ -80,7 +95,7 @@ class MapsPageBody extends HookConsumerWidget {
             ),
           ),
           Positioned(
-            bottom: constraints.maxHeight * sheetSize + 32,
+            bottom: constraints.maxHeight * sheetSize.value + 32,
             left: MediaQuery.viewPaddingOf(context).left + 16,
             child: MyOutlinedElevatedButton(
               child: const Icon(
@@ -91,8 +106,9 @@ class MapsPageBody extends HookConsumerWidget {
               },
             ),
           ),
-          const MapsBottomSheetUbiquitousInformation(),
-          const MapsBottomSheetMeasurementPointDetail(),
+          MapsBottomSheet(
+            controller: _draggableScrollableController,
+          ),
           const MyBannerAd(),
         ],
       ),
