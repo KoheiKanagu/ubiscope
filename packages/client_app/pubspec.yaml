@@ -79,9 +79,15 @@ flutter:
         - asset: packages/firebase_ui_auth/fonts/SocialIcons.ttf
 
 flutter_native_splash:
-  color: "#FFFFFF" # onPrimary
-  image: "assets/images/icon.webp"
-  color_dark: "#00363B" # onPrimary
+  color: "#FAFDFD" # lightColorScheme.background
+  image: "../../assets/splash_icon.png"
+  color_dark: "#191C1D" # darkColorScheme.background
+  image_dark: "../../assets/splash_icon_dark.png"
+  android_12:
+    image: "../../assets/splash_icon.png"
+    color: "#FAFDFD" # lightColorScheme.background
+    image_dark: "../../assets/splash_icon_dark.png"
+    color_dark: "#191C1D" # darkColorScheme.background
   android: true
   ios: true
   fullscreen: true
