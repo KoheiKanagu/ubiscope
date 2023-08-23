@@ -58,8 +58,9 @@ class MediaQueryPreview {
       padding: _padding ?? EdgeInsets.zero,
       child: MediaQuery(
         data: MediaQuery.of(context).copyWith(
-          textScaleFactor:
-              _textScaleFactor ?? MediaQuery.textScaleFactorOf(context),
+          textScaler: TextScaler.linear(
+            _textScaleFactor ?? 1,
+          ),
           padding: _padding == null ? null : EdgeInsets.zero,
           viewPadding: _padding == null ? null : EdgeInsets.zero,
           platformBrightness: debugBrightnessOverride,
