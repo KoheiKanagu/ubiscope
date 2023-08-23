@@ -36,7 +36,7 @@ runs:
       shell: bash
       run: |
         cd $HOME/fvm/versions/${{ inputs.flutter_branch }}
-        git pull --ff-only
+        git pull --rebase
 
     - name: Cache pub-cache
       if: inputs.use_local_dart == 'false'
