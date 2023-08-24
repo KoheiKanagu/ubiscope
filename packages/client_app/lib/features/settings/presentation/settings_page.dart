@@ -48,7 +48,7 @@ class SettingsPage extends HookConsumerWidget {
             title: const Text('Bug Report and Feature Request'),
             onTap: () {
               launchUrlString(
-                'https://github.com/KoheiKanagu/ubiscope/issues/new/choose',
+                MyLinks.issues,
               );
             },
             trailing: Icon(
@@ -63,7 +63,7 @@ class SettingsPage extends HookConsumerWidget {
             ),
             onTap: () {
               launchUrlString(
-                'https://github.com/KoheiKanagu/ubiscope/assets/privacy_policy.md',
+                MyLinks.privacyPolicy,
               );
             },
           ),
@@ -74,7 +74,7 @@ class SettingsPage extends HookConsumerWidget {
             ),
             onTap: () {
               launchUrlString(
-                'https://github.com/KoheiKanagu/ubiscope/assets/terms_of_service.md',
+                MyLinks.termOfService,
               );
             },
           ),
