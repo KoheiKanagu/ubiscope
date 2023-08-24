@@ -9,32 +9,8 @@ part of 'auth_page_route.dart';
 // **************************************************************************
 
 List<RouteBase> get $appRoutes => [
-      $signInPageRoute,
       $profilePageRoute,
     ];
-
-RouteBase get $signInPageRoute => GoRouteData.$route(
-      path: '/sign-in',
-      factory: $SignInPageRouteExtension._fromState,
-    );
-
-extension $SignInPageRouteExtension on SignInPageRoute {
-  static SignInPageRoute _fromState(GoRouterState state) =>
-      const SignInPageRoute();
-
-  String get location => GoRouteData.$location(
-        '/sign-in',
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
 
 RouteBase get $profilePageRoute => GoRouteData.$route(
       path: '/profile',
