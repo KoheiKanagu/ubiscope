@@ -50,9 +50,6 @@ class _SystemHash {
   }
 }
 
-typedef MeasurementPointSnapshotsRef
-    = AutoDisposeStreamProviderRef<DocumentSnapshot<MeasurementPoint>>;
-
 /// See also [measurementPointSnapshots].
 @ProviderFor(measurementPointSnapshots)
 const measurementPointSnapshotsProvider = MeasurementPointSnapshotsFamily();
@@ -101,10 +98,10 @@ class MeasurementPointSnapshotsProvider
     extends AutoDisposeStreamProvider<DocumentSnapshot<MeasurementPoint>> {
   /// See also [measurementPointSnapshots].
   MeasurementPointSnapshotsProvider(
-    this.documentId,
-  ) : super.internal(
+    String documentId,
+  ) : this._internal(
           (ref) => measurementPointSnapshots(
-            ref,
+            ref as MeasurementPointSnapshotsRef,
             documentId,
           ),
           from: measurementPointSnapshotsProvider,
@@ -116,9 +113,46 @@ class MeasurementPointSnapshotsProvider
           dependencies: MeasurementPointSnapshotsFamily._dependencies,
           allTransitiveDependencies:
               MeasurementPointSnapshotsFamily._allTransitiveDependencies,
+          documentId: documentId,
         );
 
+  MeasurementPointSnapshotsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.documentId,
+  }) : super.internal();
+
   final String documentId;
+
+  @override
+  Override overrideWith(
+    Stream<DocumentSnapshot<MeasurementPoint>> Function(
+            MeasurementPointSnapshotsRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: MeasurementPointSnapshotsProvider._internal(
+        (ref) => create(ref as MeasurementPointSnapshotsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        documentId: documentId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<DocumentSnapshot<MeasurementPoint>>
+      createElement() {
+    return _MeasurementPointSnapshotsProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -133,6 +167,22 @@ class MeasurementPointSnapshotsProvider
 
     return _SystemHash.finish(hash);
   }
+}
+
+mixin MeasurementPointSnapshotsRef
+    on AutoDisposeStreamProviderRef<DocumentSnapshot<MeasurementPoint>> {
+  /// The parameter `documentId` of this provider.
+  String get documentId;
+}
+
+class _MeasurementPointSnapshotsProviderElement
+    extends AutoDisposeStreamProviderElement<DocumentSnapshot<MeasurementPoint>>
+    with MeasurementPointSnapshotsRef {
+  _MeasurementPointSnapshotsProviderElement(super.provider);
+
+  @override
+  String get documentId =>
+      (origin as MeasurementPointSnapshotsProvider).documentId;
 }
 
 String _$measurementPointAroundSnapshotsHash() =>

@@ -32,9 +32,6 @@ class _SystemHash {
   }
 }
 
-typedef _GeohashMeasurementPointSnapshotCacheRef
-    = AutoDisposeStreamProviderRef<QuerySnapshot<MeasurementPoint>>;
-
 /// See also [_geohashMeasurementPointSnapshotCache].
 @ProviderFor(_geohashMeasurementPointSnapshotCache)
 const _geohashMeasurementPointSnapshotCacheProvider =
@@ -84,10 +81,10 @@ class _GeohashMeasurementPointSnapshotCacheProvider
     extends AutoDisposeStreamProvider<QuerySnapshot<MeasurementPoint>> {
   /// See also [_geohashMeasurementPointSnapshotCache].
   _GeohashMeasurementPointSnapshotCacheProvider(
-    this.query,
-  ) : super.internal(
+    Query<MeasurementPoint> query,
+  ) : this._internal(
           (ref) => _geohashMeasurementPointSnapshotCache(
-            ref,
+            ref as _GeohashMeasurementPointSnapshotCacheRef,
             query,
           ),
           from: _geohashMeasurementPointSnapshotCacheProvider,
@@ -100,9 +97,46 @@ class _GeohashMeasurementPointSnapshotCacheProvider
               _GeohashMeasurementPointSnapshotCacheFamily._dependencies,
           allTransitiveDependencies: _GeohashMeasurementPointSnapshotCacheFamily
               ._allTransitiveDependencies,
+          query: query,
         );
 
+  _GeohashMeasurementPointSnapshotCacheProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.query,
+  }) : super.internal();
+
   final Query<MeasurementPoint> query;
+
+  @override
+  Override overrideWith(
+    Stream<QuerySnapshot<MeasurementPoint>> Function(
+            _GeohashMeasurementPointSnapshotCacheRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: _GeohashMeasurementPointSnapshotCacheProvider._internal(
+        (ref) => create(ref as _GeohashMeasurementPointSnapshotCacheRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        query: query,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<QuerySnapshot<MeasurementPoint>>
+      createElement() {
+    return _GeohashMeasurementPointSnapshotCacheProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -119,10 +153,24 @@ class _GeohashMeasurementPointSnapshotCacheProvider
   }
 }
 
+mixin _GeohashMeasurementPointSnapshotCacheRef
+    on AutoDisposeStreamProviderRef<QuerySnapshot<MeasurementPoint>> {
+  /// The parameter `query` of this provider.
+  Query<MeasurementPoint> get query;
+}
+
+class _GeohashMeasurementPointSnapshotCacheProviderElement
+    extends AutoDisposeStreamProviderElement<QuerySnapshot<MeasurementPoint>>
+    with _GeohashMeasurementPointSnapshotCacheRef {
+  _GeohashMeasurementPointSnapshotCacheProviderElement(super.provider);
+
+  @override
+  Query<MeasurementPoint> get query =>
+      (origin as _GeohashMeasurementPointSnapshotCacheProvider).query;
+}
+
 String _$geohashMeasurementPointSnapshotsHash() =>
     r'0122693347207e8233a2fd28ae3e2d8848b7dec6';
-typedef GeohashMeasurementPointSnapshotsRef
-    = AutoDisposeProviderRef<List<QueryDocumentSnapshot<MeasurementPoint>>>;
 
 /// See also [geohashMeasurementPointSnapshots].
 @ProviderFor(geohashMeasurementPointSnapshots)
@@ -185,14 +233,14 @@ class GeohashMeasurementPointSnapshotsProvider
     extends AutoDisposeProvider<List<QueryDocumentSnapshot<MeasurementPoint>>> {
   /// See also [geohashMeasurementPointSnapshots].
   GeohashMeasurementPointSnapshotsProvider({
-    required this.baseQuery,
-    required this.level,
-    required this.levelShort,
-    required this.center,
-    required this.radiusKm,
-  }) : super.internal(
+    required Query<MeasurementPoint> baseQuery,
+    required String? level,
+    required String? levelShort,
+    required GeoPoint center,
+    required double radiusKm,
+  }) : this._internal(
           (ref) => geohashMeasurementPointSnapshots(
-            ref,
+            ref as GeohashMeasurementPointSnapshotsRef,
             baseQuery: baseQuery,
             level: level,
             levelShort: levelShort,
@@ -208,13 +256,62 @@ class GeohashMeasurementPointSnapshotsProvider
           dependencies: GeohashMeasurementPointSnapshotsFamily._dependencies,
           allTransitiveDependencies:
               GeohashMeasurementPointSnapshotsFamily._allTransitiveDependencies,
+          baseQuery: baseQuery,
+          level: level,
+          levelShort: levelShort,
+          center: center,
+          radiusKm: radiusKm,
         );
+
+  GeohashMeasurementPointSnapshotsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.baseQuery,
+    required this.level,
+    required this.levelShort,
+    required this.center,
+    required this.radiusKm,
+  }) : super.internal();
 
   final Query<MeasurementPoint> baseQuery;
   final String? level;
   final String? levelShort;
   final GeoPoint center;
   final double radiusKm;
+
+  @override
+  Override overrideWith(
+    List<QueryDocumentSnapshot<MeasurementPoint>> Function(
+            GeohashMeasurementPointSnapshotsRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GeohashMeasurementPointSnapshotsProvider._internal(
+        (ref) => create(ref as GeohashMeasurementPointSnapshotsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        baseQuery: baseQuery,
+        level: level,
+        levelShort: levelShort,
+        center: center,
+        radiusKm: radiusKm,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeProviderElement<List<QueryDocumentSnapshot<MeasurementPoint>>>
+      createElement() {
+    return _GeohashMeasurementPointSnapshotsProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -237,6 +334,47 @@ class GeohashMeasurementPointSnapshotsProvider
 
     return _SystemHash.finish(hash);
   }
+}
+
+mixin GeohashMeasurementPointSnapshotsRef
+    on AutoDisposeProviderRef<List<QueryDocumentSnapshot<MeasurementPoint>>> {
+  /// The parameter `baseQuery` of this provider.
+  Query<MeasurementPoint> get baseQuery;
+
+  /// The parameter `level` of this provider.
+  String? get level;
+
+  /// The parameter `levelShort` of this provider.
+  String? get levelShort;
+
+  /// The parameter `center` of this provider.
+  GeoPoint get center;
+
+  /// The parameter `radiusKm` of this provider.
+  double get radiusKm;
+}
+
+class _GeohashMeasurementPointSnapshotsProviderElement
+    extends AutoDisposeProviderElement<
+        List<QueryDocumentSnapshot<MeasurementPoint>>>
+    with GeohashMeasurementPointSnapshotsRef {
+  _GeohashMeasurementPointSnapshotsProviderElement(super.provider);
+
+  @override
+  Query<MeasurementPoint> get baseQuery =>
+      (origin as GeohashMeasurementPointSnapshotsProvider).baseQuery;
+  @override
+  String? get level =>
+      (origin as GeohashMeasurementPointSnapshotsProvider).level;
+  @override
+  String? get levelShort =>
+      (origin as GeohashMeasurementPointSnapshotsProvider).levelShort;
+  @override
+  GeoPoint get center =>
+      (origin as GeohashMeasurementPointSnapshotsProvider).center;
+  @override
+  double get radiusKm =>
+      (origin as GeohashMeasurementPointSnapshotsProvider).radiusKm;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

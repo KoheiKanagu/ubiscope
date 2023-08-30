@@ -91,8 +91,8 @@ class EventMeasurementResultsCounterProvider
         Map<MeasurementType, int>> {
   /// See also [EventMeasurementResultsCounter].
   EventMeasurementResultsCounterProvider(
-    this.measurementPointId,
-  ) : super.internal(
+    String measurementPointId,
+  ) : this._internal(
           () => EventMeasurementResultsCounter()
             ..measurementPointId = measurementPointId,
           from: eventMeasurementResultsCounterProvider,
@@ -104,9 +104,51 @@ class EventMeasurementResultsCounterProvider
           dependencies: EventMeasurementResultsCounterFamily._dependencies,
           allTransitiveDependencies:
               EventMeasurementResultsCounterFamily._allTransitiveDependencies,
+          measurementPointId: measurementPointId,
         );
 
+  EventMeasurementResultsCounterProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.measurementPointId,
+  }) : super.internal();
+
   final String measurementPointId;
+
+  @override
+  Map<MeasurementType, int> runNotifierBuild(
+    covariant EventMeasurementResultsCounter notifier,
+  ) {
+    return notifier.build(
+      measurementPointId,
+    );
+  }
+
+  @override
+  Override overrideWith(EventMeasurementResultsCounter Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: EventMeasurementResultsCounterProvider._internal(
+        () => create()..measurementPointId = measurementPointId,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        measurementPointId: measurementPointId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeNotifierProviderElement<EventMeasurementResultsCounter,
+      Map<MeasurementType, int>> createElement() {
+    return _EventMeasurementResultsCounterProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -121,15 +163,22 @@ class EventMeasurementResultsCounterProvider
 
     return _SystemHash.finish(hash);
   }
+}
+
+mixin EventMeasurementResultsCounterRef
+    on AutoDisposeNotifierProviderRef<Map<MeasurementType, int>> {
+  /// The parameter `measurementPointId` of this provider.
+  String get measurementPointId;
+}
+
+class _EventMeasurementResultsCounterProviderElement
+    extends AutoDisposeNotifierProviderElement<EventMeasurementResultsCounter,
+        Map<MeasurementType, int>> with EventMeasurementResultsCounterRef {
+  _EventMeasurementResultsCounterProviderElement(super.provider);
 
   @override
-  Map<MeasurementType, int> runNotifierBuild(
-    covariant EventMeasurementResultsCounter notifier,
-  ) {
-    return notifier.build(
-      measurementPointId,
-    );
-  }
+  String get measurementPointId =>
+      (origin as EventMeasurementResultsCounterProvider).measurementPointId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

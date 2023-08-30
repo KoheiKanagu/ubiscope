@@ -50,9 +50,6 @@ class _SystemHash {
   }
 }
 
-typedef MeasurementResultsAggregateQueryRef
-    = AutoDisposeProviderRef<AggregateQuery>;
-
 /// See also [measurementResultsAggregateQuery].
 @ProviderFor(measurementResultsAggregateQuery)
 const measurementResultsAggregateQueryProvider =
@@ -104,11 +101,11 @@ class MeasurementResultsAggregateQueryProvider
     extends AutoDisposeProvider<AggregateQuery> {
   /// See also [measurementResultsAggregateQuery].
   MeasurementResultsAggregateQueryProvider({
-    required this.datasetId,
-    required this.type,
-  }) : super.internal(
+    required String datasetId,
+    required MeasurementType type,
+  }) : this._internal(
           (ref) => measurementResultsAggregateQuery(
-            ref,
+            ref as MeasurementResultsAggregateQueryRef,
             datasetId: datasetId,
             type: type,
           ),
@@ -121,10 +118,48 @@ class MeasurementResultsAggregateQueryProvider
           dependencies: MeasurementResultsAggregateQueryFamily._dependencies,
           allTransitiveDependencies:
               MeasurementResultsAggregateQueryFamily._allTransitiveDependencies,
+          datasetId: datasetId,
+          type: type,
         );
+
+  MeasurementResultsAggregateQueryProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.datasetId,
+    required this.type,
+  }) : super.internal();
 
   final String datasetId;
   final MeasurementType type;
+
+  @override
+  Override overrideWith(
+    AggregateQuery Function(MeasurementResultsAggregateQueryRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: MeasurementResultsAggregateQueryProvider._internal(
+        (ref) => create(ref as MeasurementResultsAggregateQueryRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        datasetId: datasetId,
+        type: type,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeProviderElement<AggregateQuery> createElement() {
+    return _MeasurementResultsAggregateQueryProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -143,10 +178,30 @@ class MeasurementResultsAggregateQueryProvider
   }
 }
 
+mixin MeasurementResultsAggregateQueryRef
+    on AutoDisposeProviderRef<AggregateQuery> {
+  /// The parameter `datasetId` of this provider.
+  String get datasetId;
+
+  /// The parameter `type` of this provider.
+  MeasurementType get type;
+}
+
+class _MeasurementResultsAggregateQueryProviderElement
+    extends AutoDisposeProviderElement<AggregateQuery>
+    with MeasurementResultsAggregateQueryRef {
+  _MeasurementResultsAggregateQueryProviderElement(super.provider);
+
+  @override
+  String get datasetId =>
+      (origin as MeasurementResultsAggregateQueryProvider).datasetId;
+  @override
+  MeasurementType get type =>
+      (origin as MeasurementResultsAggregateQueryProvider).type;
+}
+
 String _$measurementResultsAggregateQuerySnapshotHash() =>
     r'778e6533744b3a0fc4b048d54c973b0b72202a24';
-typedef MeasurementResultsAggregateQuerySnapshotRef
-    = AutoDisposeFutureProviderRef<AggregateQuerySnapshot>;
 
 /// See also [measurementResultsAggregateQuerySnapshot].
 @ProviderFor(measurementResultsAggregateQuerySnapshot)
@@ -200,11 +255,11 @@ class MeasurementResultsAggregateQuerySnapshotProvider
     extends AutoDisposeFutureProvider<AggregateQuerySnapshot> {
   /// See also [measurementResultsAggregateQuerySnapshot].
   MeasurementResultsAggregateQuerySnapshotProvider({
-    required this.datasetId,
-    required this.type,
-  }) : super.internal(
+    required String datasetId,
+    required MeasurementType type,
+  }) : this._internal(
           (ref) => measurementResultsAggregateQuerySnapshot(
-            ref,
+            ref as MeasurementResultsAggregateQuerySnapshotRef,
             datasetId: datasetId,
             type: type,
           ),
@@ -219,10 +274,49 @@ class MeasurementResultsAggregateQuerySnapshotProvider
           allTransitiveDependencies:
               MeasurementResultsAggregateQuerySnapshotFamily
                   ._allTransitiveDependencies,
+          datasetId: datasetId,
+          type: type,
         );
+
+  MeasurementResultsAggregateQuerySnapshotProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.datasetId,
+    required this.type,
+  }) : super.internal();
 
   final String datasetId;
   final MeasurementType type;
+
+  @override
+  Override overrideWith(
+    FutureOr<AggregateQuerySnapshot> Function(
+            MeasurementResultsAggregateQuerySnapshotRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: MeasurementResultsAggregateQuerySnapshotProvider._internal(
+        (ref) => create(ref as MeasurementResultsAggregateQuerySnapshotRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        datasetId: datasetId,
+        type: type,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<AggregateQuerySnapshot> createElement() {
+    return _MeasurementResultsAggregateQuerySnapshotProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -241,10 +335,30 @@ class MeasurementResultsAggregateQuerySnapshotProvider
   }
 }
 
+mixin MeasurementResultsAggregateQuerySnapshotRef
+    on AutoDisposeFutureProviderRef<AggregateQuerySnapshot> {
+  /// The parameter `datasetId` of this provider.
+  String get datasetId;
+
+  /// The parameter `type` of this provider.
+  MeasurementType get type;
+}
+
+class _MeasurementResultsAggregateQuerySnapshotProviderElement
+    extends AutoDisposeFutureProviderElement<AggregateQuerySnapshot>
+    with MeasurementResultsAggregateQuerySnapshotRef {
+  _MeasurementResultsAggregateQuerySnapshotProviderElement(super.provider);
+
+  @override
+  String get datasetId =>
+      (origin as MeasurementResultsAggregateQuerySnapshotProvider).datasetId;
+  @override
+  MeasurementType get type =>
+      (origin as MeasurementResultsAggregateQuerySnapshotProvider).type;
+}
+
 String _$measurementResultsRecentHash() =>
     r'9c6c36e1255b50cc2dfa8c6db9e2e41a47dcb851';
-typedef MeasurementResultsRecentRef
-    = AutoDisposeFutureProviderRef<QuerySnapshot<MeasurementResults>>;
 
 /// See also [measurementResultsRecent].
 @ProviderFor(measurementResultsRecent)
@@ -297,11 +411,11 @@ class MeasurementResultsRecentProvider
     extends AutoDisposeFutureProvider<QuerySnapshot<MeasurementResults>> {
   /// See also [measurementResultsRecent].
   MeasurementResultsRecentProvider({
-    required this.datasetId,
-    required this.type,
-  }) : super.internal(
+    required String datasetId,
+    required MeasurementType type,
+  }) : this._internal(
           (ref) => measurementResultsRecent(
-            ref,
+            ref as MeasurementResultsRecentRef,
             datasetId: datasetId,
             type: type,
           ),
@@ -314,10 +428,50 @@ class MeasurementResultsRecentProvider
           dependencies: MeasurementResultsRecentFamily._dependencies,
           allTransitiveDependencies:
               MeasurementResultsRecentFamily._allTransitiveDependencies,
+          datasetId: datasetId,
+          type: type,
         );
+
+  MeasurementResultsRecentProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.datasetId,
+    required this.type,
+  }) : super.internal();
 
   final String datasetId;
   final MeasurementType type;
+
+  @override
+  Override overrideWith(
+    FutureOr<QuerySnapshot<MeasurementResults>> Function(
+            MeasurementResultsRecentRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: MeasurementResultsRecentProvider._internal(
+        (ref) => create(ref as MeasurementResultsRecentRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        datasetId: datasetId,
+        type: type,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<QuerySnapshot<MeasurementResults>>
+      createElement() {
+    return _MeasurementResultsRecentProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -334,6 +488,27 @@ class MeasurementResultsRecentProvider
 
     return _SystemHash.finish(hash);
   }
+}
+
+mixin MeasurementResultsRecentRef
+    on AutoDisposeFutureProviderRef<QuerySnapshot<MeasurementResults>> {
+  /// The parameter `datasetId` of this provider.
+  String get datasetId;
+
+  /// The parameter `type` of this provider.
+  MeasurementType get type;
+}
+
+class _MeasurementResultsRecentProviderElement
+    extends AutoDisposeFutureProviderElement<QuerySnapshot<MeasurementResults>>
+    with MeasurementResultsRecentRef {
+  _MeasurementResultsRecentProviderElement(super.provider);
+
+  @override
+  String get datasetId =>
+      (origin as MeasurementResultsRecentProvider).datasetId;
+  @override
+  MeasurementType get type => (origin as MeasurementResultsRecentProvider).type;
 }
 
 String _$measurementResultsControllerHash() =>
