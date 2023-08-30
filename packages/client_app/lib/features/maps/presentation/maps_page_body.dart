@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:client_app/features/ads/presentation/my_banner_ad.dart';
+import 'package:client_app/features/maps/application/maps_page_providers.dart';
 import 'package:client_app/features/maps/presentation/maps_bottom_sheet.dart';
 import 'package:client_app/features/maps/presentation/maps_reticle.dart';
 import 'package:core/core.dart';
@@ -16,8 +17,6 @@ class MapsPageBody extends HookConsumerWidget {
 
   static const double minimumSheetSize = 0.2;
 
-  static final _draggableScrollableController = DraggableScrollableController();
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // 1 meter is how many pixels
@@ -29,14 +28,11 @@ class MapsPageBody extends HookConsumerWidget {
       minimumSheetSize,
     );
 
-    useEffect(
-      () {
-        _draggableScrollableController.addListener(
-          () => sheetSize.value = _draggableScrollableController.size,
-        );
-        return _draggableScrollableController.dispose;
+    ref.listen(
+      mapsBottomSheetScrollableControllerProvider,
+      (_, next) {
+        sheetSize.value = next.size;
       },
-      [_draggableScrollableController],
     );
 
     return LayoutBuilder(
@@ -106,9 +102,7 @@ class MapsPageBody extends HookConsumerWidget {
               },
             ),
           ),
-          MapsBottomSheet(
-            controller: _draggableScrollableController,
-          ),
+          const MapsBottomSheet(),
           const MyBannerAd(),
         ],
       ),

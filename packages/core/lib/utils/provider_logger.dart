@@ -16,7 +16,8 @@ class ProviderLogger extends ProviderObserver {
     ProviderContainer container,
   ) {
     if (provider.name == 'beaconScanControllerProvider' ||
-        provider.name == 'wiFiScanControllerProvider') {
+        provider.name == 'wiFiScanControllerProvider' ||
+        provider.name == 'mapsBottomSheetScrollableControllerProvider') {
       return;
     }
 
