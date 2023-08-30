@@ -103,7 +103,7 @@ class MapsPageBody extends HookConsumerWidget {
             ),
           ),
           const MapsBottomSheet(),
-          const MyBannerAd(),
+          if (MyBannerAd.kFeatureAdBanner) const MyBannerAd(),
         ],
       ),
     );

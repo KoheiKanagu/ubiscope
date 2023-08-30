@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:client_app/features/ads/presentation/my_banner_ad.dart';
 import 'package:client_app/features/settings/presentation/settings_page.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class MapsPageFloatingActionButton extends HookConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        const Gap(kToolbarHeight + 8),
+        if (MyBannerAd.kFeatureAdBanner) const Gap(kToolbarHeight + 8),
         OpenContainer(
           closedColor: Colors.transparent,
           closedShape: const RoundedRectangleBorder(),
