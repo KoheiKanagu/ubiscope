@@ -3,6 +3,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final mapsBottomSheetScrollableControllerProvider =
     ChangeNotifierProvider.autoDispose(
-  (ref) => DraggableScrollableController(),
+  (ref) {
+    final controller = DraggableScrollableController();
+    ref.onDispose(controller.dispose);
+    return controller;
+  },
   name: 'mapsBottomSheetScrollableControllerProvider',
 );
