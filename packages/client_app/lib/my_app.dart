@@ -39,6 +39,7 @@ class MyApp extends HookConsumerWidget {
         colorScheme: darkColorScheme,
       ),
       routerConfig: ref.watch(myGoRouterProvider),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
