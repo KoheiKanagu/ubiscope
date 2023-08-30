@@ -10,8 +10,8 @@
 
 ### [client_app](packages/client_app)
 
-[![App Store](assets/badges/app_store.webp){width=200px}](https://apps.apple.com/app/apple-store/id6448748588?pt=121589329&ct=github_readme&mt=8)
-[![Google Play](assets/badges/google_play.webp){width=200px}](https://play.google.com/store/apps/details?id=dev.kingu.ubiscope.app&utm_source=github&utm_campaign=readme)
+[![App Store](assets/badges/app_store.webp)](https://apps.apple.com/app/apple-store/id6448748588?pt=121589329&ct=github_readme&mt=8){width=200px}
+[![Google Play](assets/badges/google_play.webp)](https://play.google.com/store/apps/details?id=dev.kingu.ubiscope.app&utm_source=github&utm_campaign=readme){width=200px}
 
 - Client application for iOS and Android that supports collecting ubiquitous information
 - Registration of measurement points based on Google Maps
