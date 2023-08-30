@@ -197,10 +197,10 @@ packages:
     dependency: "direct dev"
     description:
       name: pedantic_mono
-      sha256: "1637a362bbc2eee00ee9314509463c0ec03e6495109583491a5f848448e6d12d"
+      sha256: c8e31e461c66d9f3c81d2d3383f0c787e1ae160b2f0450385c159ca27f3f66c5
       url: "https://pub.dev"
     source: hosted
-    version: "1.23.0"
+    version: "1.24.0"
   platform:
     dependency: transitive
     description:
@@ -346,4 +346,4 @@ packages:
     source: hosted
     version: "2.1.1"
 sdks:
-  dart: ">=3.0.0 <4.0.0"
+  dart: ">=3.1.0 <4.0.0"
