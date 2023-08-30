@@ -1,20 +1,19 @@
+import 'package:client_app/features/maps/application/maps_page_providers.dart';
 import 'package:client_app/features/maps/presentation/maps_bottom_sheet_body.dart';
 import 'package:client_app/features/maps/presentation/maps_page_body.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MapsBottomSheet extends StatelessWidget {
+class MapsBottomSheet extends HookConsumerWidget {
   const MapsBottomSheet({
     super.key,
-    required this.controller,
   });
 
-  final DraggableScrollableController controller;
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return DraggableScrollableSheet(
-      controller: controller,
+      controller: ref.watch(mapsBottomSheetScrollableControllerProvider),
       initialChildSize: MapsPageBody.minimumSheetSize,
       maxChildSize: MapsPageBody.minimumSheetSize * 3,
       minChildSize: MapsPageBody.minimumSheetSize,
