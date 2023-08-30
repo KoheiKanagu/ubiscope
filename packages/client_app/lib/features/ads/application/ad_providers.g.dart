@@ -93,9 +93,9 @@ class BannerAdControllerProvider
     extends AutoDisposeAsyncNotifierProviderImpl<BannerAdController, BannerAd> {
   /// See also [BannerAdController].
   BannerAdControllerProvider(
-    this.orientation,
-    this.width,
-  ) : super.internal(
+    Orientation orientation,
+    int width,
+  ) : this._internal(
           () => BannerAdController()
             ..orientation = orientation
             ..width = width,
@@ -108,10 +108,58 @@ class BannerAdControllerProvider
           dependencies: BannerAdControllerFamily._dependencies,
           allTransitiveDependencies:
               BannerAdControllerFamily._allTransitiveDependencies,
+          orientation: orientation,
+          width: width,
         );
+
+  BannerAdControllerProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.orientation,
+    required this.width,
+  }) : super.internal();
 
   final Orientation orientation;
   final int width;
+
+  @override
+  Future<BannerAd> runNotifierBuild(
+    covariant BannerAdController notifier,
+  ) {
+    return notifier.build(
+      orientation,
+      width,
+    );
+  }
+
+  @override
+  Override overrideWith(BannerAdController Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: BannerAdControllerProvider._internal(
+        () => create()
+          ..orientation = orientation
+          ..width = width,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        orientation: orientation,
+        width: width,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<BannerAdController, BannerAd>
+      createElement() {
+    return _BannerAdControllerProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -128,16 +176,26 @@ class BannerAdControllerProvider
 
     return _SystemHash.finish(hash);
   }
+}
+
+mixin BannerAdControllerRef on AutoDisposeAsyncNotifierProviderRef<BannerAd> {
+  /// The parameter `orientation` of this provider.
+  Orientation get orientation;
+
+  /// The parameter `width` of this provider.
+  int get width;
+}
+
+class _BannerAdControllerProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<BannerAdController,
+        BannerAd> with BannerAdControllerRef {
+  _BannerAdControllerProviderElement(super.provider);
 
   @override
-  Future<BannerAd> runNotifierBuild(
-    covariant BannerAdController notifier,
-  ) {
-    return notifier.build(
-      orientation,
-      width,
-    );
-  }
+  Orientation get orientation =>
+      (origin as BannerAdControllerProvider).orientation;
+  @override
+  int get width => (origin as BannerAdControllerProvider).width;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

@@ -5,7 +5,7 @@ PODS:
   - AppAuth/Core (1.6.2)
   - AppAuth/ExternalUserAgent (1.6.2):
     - AppAuth/Core
-  - cloud_firestore (4.8.5):
+  - cloud_firestore (4.9.0):
     - Firebase/Firestore (= 10.12.0)
     - firebase_core
     - Flutter
@@ -52,7 +52,7 @@ PODS:
     - firebase_core
     - FirebaseAppCheck (~> 10.12.0-beta)
     - Flutter
-  - firebase_auth (4.7.3):
+  - firebase_auth (4.8.0):
     - Firebase/Auth (= 10.12.0)
     - firebase_core
     - Flutter
@@ -386,14 +386,14 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
-  cloud_firestore: c556fefce96568e422e453bf9aeda683dd435367
+  cloud_firestore: 2d219f5d2eec836c5525699e777f907c9d3cd3eb
   cloud_functions: 19478d5af48098293778c254f64cf85ac8f1c1b8
   desktop_webview_auth: d645139460ef203d50bd0cdb33356785dd939cce
   device_info_plus: 7545d84d8d1b896cb16a4ff98c19f07ec4b298ea
   Firebase: 07150e75d142fb9399f6777fa56a187b17f833a0
   firebase_analytics: 3bdcd8b68b7b8ccf28bbcdcfb994309f6232f873
   firebase_app_check: 054d90729814a3b9727abd6b290bea1fe0009267
-  firebase_auth: 95f4a6acafa6a7a0d902aa467dd4d7ca336ee4be
+  firebase_auth: 604e47908bc2dcd7baa113bbd37ab74000bff488
   firebase_core: 4a3246a02f828a01c74a2c26427037786d90f17f
   firebase_crashlytics: df144edf7d04ace42beb3a3e29d825bfa49dd04b
   firebase_dynamic_links: cc3fd36190c7b58c27353915271d2c0d031ee11b

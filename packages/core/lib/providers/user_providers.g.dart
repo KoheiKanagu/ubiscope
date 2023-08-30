@@ -50,9 +50,6 @@ class _SystemHash {
   }
 }
 
-typedef UserDocumentSnapshotRef
-    = AutoDisposeStreamProviderRef<DocumentSnapshot<User>>;
-
 /// See also [userDocumentSnapshot].
 @ProviderFor(userDocumentSnapshot)
 const userDocumentSnapshotProvider = UserDocumentSnapshotFamily();
@@ -101,10 +98,10 @@ class UserDocumentSnapshotProvider
     extends AutoDisposeStreamProvider<DocumentSnapshot<User>> {
   /// See also [userDocumentSnapshot].
   UserDocumentSnapshotProvider(
-    this.uid,
-  ) : super.internal(
+    String uid,
+  ) : this._internal(
           (ref) => userDocumentSnapshot(
-            ref,
+            ref as UserDocumentSnapshotRef,
             uid,
           ),
           from: userDocumentSnapshotProvider,
@@ -116,9 +113,44 @@ class UserDocumentSnapshotProvider
           dependencies: UserDocumentSnapshotFamily._dependencies,
           allTransitiveDependencies:
               UserDocumentSnapshotFamily._allTransitiveDependencies,
+          uid: uid,
         );
 
+  UserDocumentSnapshotProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.uid,
+  }) : super.internal();
+
   final String uid;
+
+  @override
+  Override overrideWith(
+    Stream<DocumentSnapshot<User>> Function(UserDocumentSnapshotRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: UserDocumentSnapshotProvider._internal(
+        (ref) => create(ref as UserDocumentSnapshotRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        uid: uid,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<DocumentSnapshot<User>> createElement() {
+    return _UserDocumentSnapshotProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -132,6 +164,21 @@ class UserDocumentSnapshotProvider
 
     return _SystemHash.finish(hash);
   }
+}
+
+mixin UserDocumentSnapshotRef
+    on AutoDisposeStreamProviderRef<DocumentSnapshot<User>> {
+  /// The parameter `uid` of this provider.
+  String get uid;
+}
+
+class _UserDocumentSnapshotProviderElement
+    extends AutoDisposeStreamProviderElement<DocumentSnapshot<User>>
+    with UserDocumentSnapshotRef {
+  _UserDocumentSnapshotProviderElement(super.provider);
+
+  @override
+  String get uid => (origin as UserDocumentSnapshotProvider).uid;
 }
 
 String _$userControllerAwaitHash() =>
