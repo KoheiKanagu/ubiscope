@@ -9,6 +9,8 @@ class MyBannerAd extends HookConsumerWidget {
     super.key,
   });
 
+  static const kFeatureAdBanner = false;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
