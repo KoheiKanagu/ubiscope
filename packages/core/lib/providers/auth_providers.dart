@@ -11,19 +11,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_providers.g.dart';
 
-class AppleProviderOnAndroid extends AppleProvider {
-  // なぜかAndroidをサポートしていないのでオーバーライドする
-  // https://github.com/firebase/flutterfire/issues/10788
-  @override
-  bool supportsPlatform(TargetPlatform platform) {
-    return kIsWeb ||
-        platform == TargetPlatform.iOS ||
-        platform == TargetPlatform.macOS ||
-        platform == TargetPlatform.android;
-  }
-}
-
 List<OAuthProvider> get firebaseUIAuthProviders => [
+      AppleProvider(),
       GoogleProvider(
         clientId: 'ignore',
         iOSPreferPlist: true,
@@ -31,7 +20,6 @@ List<OAuthProvider> get firebaseUIAuthProviders => [
           'email',
         ],
       ),
-      AppleProviderOnAndroid(),
     ];
 
 void setupFirebaseUIAuth(FirebaseApp app) {
