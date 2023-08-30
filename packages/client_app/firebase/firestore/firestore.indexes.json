@@ -61,6 +61,32 @@
           "order": "ASCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "measurement_results_v1",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "data.type",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "datasetId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "deleted",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "measuredBy",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "measuredAt",
+          "order": "DESCENDING"
+        }
+      ]
     }
   ],
   "fieldOverrides": []
