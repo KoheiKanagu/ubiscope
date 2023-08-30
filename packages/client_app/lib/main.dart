@@ -4,7 +4,7 @@ import 'package:client_app/features/configure/application/package_info_providers
 import 'package:client_app/my_app.dart';
 import 'package:core/core.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:firebase_app_check/firebase_app_check.dart' hide AppleProvider;
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +66,17 @@ Future<void> main() async {
           .setCrashlyticsCollectionEnabled(
             kReleaseMode,
           ),
-      if (AppEnv.current.isProd) FirebaseAppCheck.instance.activate(),
+      switch (AppEnv.current) {
+        AppEnv.dev => FirebaseAppCheck.instance.activate(
+            androidProvider: AndroidProvider.debug,
+            appleProvider: AppleProvider.debug,
+          ),
+        AppEnv.prod => FirebaseAppCheck.instance.activate(
+            // ignore: avoid_redundant_argument_values
+            androidProvider: AndroidProvider.playIntegrity,
+            appleProvider: AppleProvider.appAttest,
+          ),
+      },
     ],
   );
 
