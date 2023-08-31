@@ -1,5 +1,6 @@
 import 'package:client_app/features/event/application/event_page_route.dart'
     as event_page_router;
+import 'package:client_app/features/event/application/event_providers.dart';
 import 'package:client_app/features/event_details/application/event_details_page_route.dart'
     as event_details_page_router;
 import 'package:client_app/features/maps/application/maps_page_route.dart'
@@ -71,4 +72,14 @@ GoRouter myGoRouter(
             error: (_) => throw Exception('user controller error'),
             loading: (_) => splash_screen.SplashScreenRoute.path,
           ),
+      redirect: (context, state) {
+        if (state.fullPath == maps_page_route.MapsPageRoute.path) {
+          final canStart = ref.read(eventCanStartProvider);
+          if (!canStart) {
+            return const maps_page_route.MapsEventSettingsPageRoute().location;
+          }
+        }
+
+        return null;
+      },
     );
