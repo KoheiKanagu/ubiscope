@@ -241,3 +241,10 @@ scripts:
   bump_all_deps:
     run: |
       fvm dart pub run grinder bump-all-deps
+
+  bump:
+    exec: |
+      cd MELOS_ROOT_PATH
+      fvm dart pub run grinder bump --package=MELOS_PACKAGE_NAME
+    packageFilters:
+      fileExists: pubspec.yaml
