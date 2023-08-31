@@ -68,7 +68,7 @@ void bump() {
     arguments: [
       'commit',
       '-m',
-      '[skip ci] Bump $package to v$version',
+      '[skip ci] Bump $package-v$version',
     ],
   );
 
