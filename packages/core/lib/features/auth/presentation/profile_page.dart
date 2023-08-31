@@ -7,7 +7,6 @@ import 'package:firebase_ui_oauth_apple/firebase_ui_oauth_apple.dart';
 import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ProfilePage extends HookConsumerWidget {
@@ -163,7 +162,6 @@ class ProfilePage extends HookConsumerWidget {
               await ref
                   .read(firebaseUserControllerProvider.notifier)
                   .deleteAll();
-              GoRouter.of(rootContext()!).pop();
             },
           ),
         ],

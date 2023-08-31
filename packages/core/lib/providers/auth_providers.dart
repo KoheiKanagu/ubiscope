@@ -1,4 +1,5 @@
 import 'package:core/providers/firebase_providers.dart';
+import 'package:core/providers/shared_preferences_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide OAuthProvider;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
@@ -63,6 +64,7 @@ class FirebaseUserController extends _$FirebaseUserController {
 
   Future<void> signOut() async {
     await ref.read(firebaseAuthProvider).signOut();
+    await ref.read(sharedPreferencesControllerProvider.notifier).clear();
     await ref.read(firebaseAnalyticsProvider).setUserId();
     await ref.read(firebaseCrashlyticsProvider).setUserIdentifier('');
     return;

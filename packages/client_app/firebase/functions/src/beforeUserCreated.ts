@@ -13,7 +13,7 @@ export const beforeUserCreated = identity.beforeUserCreated(async (event) => {
   const data: User = {
     createdAt: FieldValue.serverTimestamp(),
     updatedAt: FieldValue.serverTimestamp(),
-    isDeleted: false,
+    deleted: false,
   };
 
   await getFirestore() //

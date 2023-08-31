@@ -102,7 +102,7 @@ final firebasePerformanceProvider =
 );
 
 typedef FirebasePerformanceRef = AutoDisposeProviderRef<FirebasePerformance>;
-String _$firebaseFunctionsHash() => r'6ff7cfa912e67c80c87069204494eb6ebd8d3e70';
+String _$firebaseFunctionsHash() => r'fd362e5bc4e29ca966be439dd2b203e892fdaeb4';
 
 /// See also [firebaseFunctions].
 @ProviderFor(firebaseFunctions)
