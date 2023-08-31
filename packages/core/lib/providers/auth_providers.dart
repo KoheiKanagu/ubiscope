@@ -6,6 +6,7 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_oauth/firebase_ui_oauth.dart';
 import 'package:firebase_ui_oauth_apple/firebase_ui_oauth_apple.dart';
 import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_providers.g.dart';
@@ -33,6 +34,25 @@ String? firebaseUserUid(
   FirebaseUserUidRef ref,
 ) =>
     ref.watch(firebaseUserControllerProvider).asData?.value?.uid;
+
+@riverpod
+Raw<ValueNotifier<AsyncValue<User?>>> firebaseUserUidValueNotifier(
+  FirebaseUserUidValueNotifierRef ref,
+) {
+  final notifier = ValueNotifier<AsyncValue<User?>>(
+    const AsyncValue.loading(),
+  );
+
+  ref.listen(
+    firebaseUserControllerProvider,
+    (_, next) {
+      notifier.value = next;
+    },
+    fireImmediately: true,
+  );
+
+  return notifier;
+}
 
 @riverpod
 class FirebaseUserController extends _$FirebaseUserController {

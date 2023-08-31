@@ -54,7 +54,9 @@ GoRouter myGoRouter(
 
         return const Scaffold(
           body: Center(
-            child: Text('予期せぬエラーが発生しました。アプリを再起動してください。'),
+            child: Text(
+              'An unexpected error has occurred. Please restart the app.',
+            ),
           ),
         );
       },
@@ -65,21 +67,33 @@ GoRouter myGoRouter(
         ),
       ],
       debugLogDiagnostics: kDebugMode,
-      initialLocation: ref.watch(firebaseUserControllerProvider).map(
-            data: (v) => v.asData?.value != null
-                ? maps_page_route.MapsPageRoute.path
-                : onboarding_page_route.OnboardingPageRoute.path,
-            error: (_) => throw Exception('user controller error'),
-            loading: (_) => splash_screen.SplashScreenRoute.path,
-          ),
+      refreshListenable: ref.watch(firebaseUserUidValueNotifierProvider),
+      initialLocation: splash_screen.SplashScreenRoute.path,
       redirect: (context, state) {
-        if (state.fullPath == maps_page_route.MapsPageRoute.path) {
-          final canStart = ref.read(eventCanStartProvider);
-          if (!canStart) {
-            return const maps_page_route.MapsEventSettingsPageRoute().location;
-          }
-        }
+        return ref.read(firebaseUserControllerProvider).map(
+              data: (v) {
+                final user = v.asData?.value;
+                if (user == null) {
+                  return const onboarding_page_route.OnboardingPageRoute()
+                      .location;
+                }
 
-        return null;
+                final canStart = ref.read(eventCanStartProvider);
+                if (!canStart) {
+                  return const maps_page_route.MapsEventSettingsPageRoute()
+                      .location;
+                }
+
+                if (state.fullPath ==
+                        onboarding_page_route.OnboardingPageRoute.path ||
+                    state.fullPath == splash_screen.SplashScreenRoute.path) {
+                  return const maps_page_route.MapsPageRoute().location;
+                }
+
+                return null;
+              },
+              error: (_) => throw Exception('user controller error'),
+              loading: (_) => const splash_screen.SplashScreenRoute().location,
+            );
       },
     );

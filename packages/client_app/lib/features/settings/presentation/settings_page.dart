@@ -109,6 +109,16 @@ class SettingsPage extends HookConsumerWidget {
                     .clear();
               },
             ),
+            ListTile(
+              title: const Text('[Debug] getIdTokenResult'),
+              onTap: () {
+                ref
+                    .read(firebaseUserControllerProvider)
+                    .asData
+                    ?.value
+                    ?.getIdTokenResult(true);
+              },
+            ),
           ],
         ],
       ),
