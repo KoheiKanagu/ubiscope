@@ -22,6 +22,10 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
+    permissions:
+      id-token: write
+      contents: read
+
     steps:
       ### Setup ###
       - uses: actions/checkout@v3
@@ -45,6 +49,20 @@ jobs:
           package: ${{ matrix.package }}
           signing_configs_base64: ${{ secrets.SIGNING_CONFIGS_CLIENT_APP_BASE64 }}
           upload_keystore_base64: ${{ secrets.UPLOAD_KEYSTORE_CLIENT_APP_BASE64 }}
+
+      - name: Setup Firebase CLI Dev
+        uses: ./.github/actions/setup-firebase-cli
+        if: matrix.flavor == 'dev' && matrix.os == 'ubuntu-latest'
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_DEV }}
+          service_account: ${{ vars.SERVICE_ACCOUNT_DEV }}
+
+      - name: Setup Firebase CLI Prod
+        uses: ./.github/actions/setup-firebase-cli
+        if: matrix.flavor == 'prod' && matrix.os == 'ubuntu-latest'
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_PROD }}
+          service_account: ${{ vars.SERVICE_ACCOUNT_PROD }}
 
       ### Build ###
       - name: Build Android Dev
