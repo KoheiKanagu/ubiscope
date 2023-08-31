@@ -111,7 +111,7 @@ scripts:
         --split-debug-info=build/app/outputs
 
       firebase crashlytics:symbols:upload \
-        --app $(cat packages/$MELOS_PACKAGES/android/app/src/dev/google-services.json | jq -r '.client[0].client_info.mobilesdk_app_id')
+        --app $(cat packages/$MELOS_PACKAGES/android/app/src/dev/google-services.json | jq -r '.client[0].client_info.mobilesdk_app_id') \
         build/app/outputs/app.android-*.symbols
     exec:
       concurrency: 1
@@ -129,7 +129,7 @@ scripts:
         --split-debug-info=build/app/outputs
 
       firebase crashlytics:symbols:upload \
-        --app $(cat packages/$MELOS_PACKAGES/android/app/src/prod/google-services.json | jq -r '.client[0].client_info.mobilesdk_app_id')
+        --app $(cat packages/$MELOS_PACKAGES/android/app/src/prod/google-services.json | jq -r '.client[0].client_info.mobilesdk_app_id') \
         build/app/outputs/app.android-*.symbols
     exec:
       concurrency: 1
