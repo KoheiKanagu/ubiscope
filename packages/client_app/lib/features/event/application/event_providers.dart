@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:client_app/features/event/application/beacon_providers.dart';
 import 'package:client_app/features/event/application/wifi_providers.dart';
@@ -79,16 +80,27 @@ mixin EventControllerBase<T> {
     return true;
   }
 }
-
 @riverpod
-class EventPermissionStatus extends _$EventPermissionStatus {
-  @override
-  bool build() {
-    return [
+bool eventPermissionStatus(
+  EventPermissionStatusRef ref,
+) =>
+    [
       ref.watch(wiFiScanPermissionControllerProvider),
       ref.watch(beaconScanPermissionControllerProvider),
     ].every((element) => element == PermissionStatus.granted);
+
+@riverpod
+bool eventCanStart(
+  EventCanStartRef ref,
+) {
+  final permission = ref.watch(eventPermissionStatusProvider);
+
+  if (Platform.isIOS) {
+    /// iOS requires a UUID to be set in order to scan for beacons.
+    final uuid = ref.watch(sharedPreferencesBeaconScanUuidProvider) ?? '';
+    return uuid.isNotEmpty && permission;
   }
+  return permission;
 }
 
 @riverpod

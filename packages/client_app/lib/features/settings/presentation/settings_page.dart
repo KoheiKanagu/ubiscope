@@ -2,6 +2,7 @@ import 'package:client_app/features/configure/application/package_info_providers
 import 'package:client_app/features/event/application/event_page_route.dart';
 import 'package:client_app/gen/assets.gen.dart';
 import 'package:core/core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -98,6 +99,17 @@ class SettingsPage extends HookConsumerWidget {
               Icons.adaptive.arrow_forward,
             ),
           ),
+          if (kDebugMode) ...[
+            const Divider(),
+            ListTile(
+              title: const Text('[Debug] Clear SharedPreferences'),
+              onTap: () async {
+                await ref
+                    .read(sharedPreferencesControllerProvider.notifier)
+                    .clear();
+              },
+            ),
+          ],
         ],
       ),
     );

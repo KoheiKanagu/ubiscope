@@ -158,12 +158,12 @@ class ProfilePage extends HookConsumerWidget {
                 return;
               }
 
-              showMyProgressIndicator(rootContext!);
+              showMyProgressIndicator(rootContext()!);
 
               await ref
                   .read(firebaseUserControllerProvider.notifier)
                   .deleteAll();
-              GoRouter.of(rootContext!).pop();
+              GoRouter.of(rootContext()!).pop();
             },
           ),
         ],

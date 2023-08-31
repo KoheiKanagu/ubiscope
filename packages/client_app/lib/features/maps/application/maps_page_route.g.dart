@@ -15,6 +15,12 @@ List<RouteBase> get $appRoutes => [
 RouteBase get $mapsPageRoute => GoRouteData.$route(
       path: '/maps',
       factory: $MapsPageRouteExtension._fromState,
+      routes: [
+        GoRouteData.$route(
+          path: 'event-settings',
+          factory: $MapsEventSettingsPageRouteExtension._fromState,
+        ),
+      ],
     );
 
 extension $MapsPageRouteExtension on MapsPageRoute {
@@ -22,6 +28,24 @@ extension $MapsPageRouteExtension on MapsPageRoute {
 
   String get location => GoRouteData.$location(
         '/maps',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $MapsEventSettingsPageRouteExtension on MapsEventSettingsPageRoute {
+  static MapsEventSettingsPageRoute _fromState(GoRouterState state) =>
+      const MapsEventSettingsPageRoute();
+
+  String get location => GoRouteData.$location(
+        '/maps/event-settings',
       );
 
   void go(BuildContext context) => context.go(location);
