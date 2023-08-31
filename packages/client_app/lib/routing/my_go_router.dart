@@ -54,7 +54,9 @@ GoRouter myGoRouter(
 
         return const Scaffold(
           body: Center(
-            child: Text('予期せぬエラーが発生しました。アプリを再起動してください。'),
+            child: Text(
+              'An unexpected error has occurred. Please restart the app.',
+            ),
           ),
         );
       },
