@@ -22,7 +22,7 @@ export const deleteUser = functions().https.onCall(async (data, context) => {
       collection.doc(uid), //
       {
         updatedAt: FieldValue.serverTimestamp(),
-        isDeleted: true,
+        deleted: true,
       }
     );
     return Promise.resolve();

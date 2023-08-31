@@ -33,4 +33,6 @@ FirebasePerformance firebasePerformance(FirebasePerformanceRef _) =>
 
 @riverpod
 FirebaseFunctions firebaseFunctions(FirebaseFunctionsRef _) =>
-    FirebaseFunctions.instance;
+    FirebaseFunctions.instanceFor(
+      region: 'asia-northeast1',
+    );

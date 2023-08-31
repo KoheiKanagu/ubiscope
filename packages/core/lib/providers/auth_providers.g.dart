@@ -42,7 +42,7 @@ final firebaseUserUidValueNotifierProvider =
 typedef FirebaseUserUidValueNotifierRef
     = AutoDisposeProviderRef<ValueNotifier<AsyncValue<User?>>>;
 String _$firebaseUserControllerHash() =>
-    r'35b1d0059d559c1b8d16a7048eee7f3e64699c1e';
+    r'893c60290b3f832f3749e6a4bedab7702568c76b';
 
 /// See also [FirebaseUserController].
 @ProviderFor(FirebaseUserController)
