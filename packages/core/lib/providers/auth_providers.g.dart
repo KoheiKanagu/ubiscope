@@ -24,7 +24,7 @@ final firebaseUserUidProvider = AutoDisposeProvider<String?>.internal(
 
 typedef FirebaseUserUidRef = AutoDisposeProviderRef<String?>;
 String _$firebaseUserUidValueNotifierHash() =>
-    r'5991bf65a7aa78624282dbd29ae93bf1a4d3d655';
+    r'c01e7f7b0a3c8c762153b9bb4c1a2f1477cad62a';
 
 /// See also [firebaseUserUidValueNotifier].
 @ProviderFor(firebaseUserUidValueNotifier)
