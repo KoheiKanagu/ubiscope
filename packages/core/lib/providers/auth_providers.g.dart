@@ -23,6 +23,24 @@ final firebaseUserUidProvider = AutoDisposeProvider<String?>.internal(
 );
 
 typedef FirebaseUserUidRef = AutoDisposeProviderRef<String?>;
+String _$firebaseUserUidValueNotifierHash() =>
+    r'5991bf65a7aa78624282dbd29ae93bf1a4d3d655';
+
+/// See also [firebaseUserUidValueNotifier].
+@ProviderFor(firebaseUserUidValueNotifier)
+final firebaseUserUidValueNotifierProvider =
+    AutoDisposeProvider<ValueNotifier<AsyncValue<User?>>>.internal(
+  firebaseUserUidValueNotifier,
+  name: r'firebaseUserUidValueNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$firebaseUserUidValueNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FirebaseUserUidValueNotifierRef
+    = AutoDisposeProviderRef<ValueNotifier<AsyncValue<User?>>>;
 String _$firebaseUserControllerHash() =>
     r'35b1d0059d559c1b8d16a7048eee7f3e64699c1e';
 

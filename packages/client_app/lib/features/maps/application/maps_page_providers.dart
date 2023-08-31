@@ -1,12 +1,10 @@
 import 'package:flutter/widgets.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final mapsBottomSheetScrollableControllerProvider =
-    ChangeNotifierProvider.autoDispose(
-  (ref) {
-    final controller = DraggableScrollableController();
-    ref.onDispose(controller.dispose);
-    return controller;
-  },
-  name: 'mapsBottomSheetScrollableControllerProvider',
-);
+part 'maps_page_providers.g.dart';
+
+@riverpod
+Raw<DraggableScrollableController> mapsBottomSheetScrollableController(
+  MapsBottomSheetScrollableControllerRef ref,
+) =>
+    DraggableScrollableController();

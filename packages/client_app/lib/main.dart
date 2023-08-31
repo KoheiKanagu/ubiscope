@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:client_app/features/configure/application/package_info_providers.dart';
+import 'package:client_app/features/event/application/event_providers.dart';
 import 'package:client_app/my_app.dart';
 import 'package:core/core.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -107,6 +108,9 @@ Future<void> main() async {
   }
 
   setupFirebaseUIAuth(firebaseApp);
+
+  /// [eventPermissionStatus]から各イベントのPermissionをチェックしてstartScanを呼ぶため
+  container.listen(eventCanStartProvider, (_, __) {});
 
   runApp(
     UncontrolledProviderScope(
