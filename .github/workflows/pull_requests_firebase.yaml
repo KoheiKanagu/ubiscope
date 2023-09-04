@@ -30,7 +30,7 @@ jobs:
 
     steps:
       ### Set up ###
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Firebase CLI Dev
         uses: ./.github/actions/setup-firebase-cli
