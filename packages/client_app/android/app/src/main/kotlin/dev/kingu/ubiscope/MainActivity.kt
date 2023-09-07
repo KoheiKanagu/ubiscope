@@ -1,6 +1,12 @@
 package dev.kingu.ubiscope
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothManager
+import android.bluetooth.le.ScanCallback
+import android.bluetooth.le.ScanResult
+import android.bluetooth.le.ScanSettings
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -9,15 +15,13 @@ import android.content.pm.PackageManager
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.SystemClock
-import androidx.core.content.ContextCompat.getSystemService
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import org.altbeacon.beacon.Beacon
 import org.altbeacon.beacon.BeaconManager
 import org.altbeacon.beacon.BeaconParser
-import org.altbeacon.beacon.Identifier
-import org.altbeacon.beacon.RangeNotifier
-import org.altbeacon.beacon.Region
+import org.altbeacon.beacon.distance.DistanceCalculator
+import org.altbeacon.beacon.distance.ModelSpecificDistanceCalculator
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
@@ -46,34 +50,85 @@ private class WiFiHostApiImpl(
     }
 }
 
+@SuppressLint("MissingPermission")
 private class BeaconHostApiImpl(
-    private val beaconManager: BeaconManager
-) : BeaconHostApi {
+    bluetoothAdapter: BluetoothAdapter,
+    private val onReceived: ((beacons: List<dev.kingu.ubiscope.Beacon>) -> Unit)
+) : BeaconHostApi, ScanCallback() {
 
-    private var region: Region? = null
+    private var targetUuid: String? = null
+    private var targetMajor: Long? = null
+    private var targetMinor: Long? = null
+
+    private val scanSettings =
+        ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build()
+
+    private val bluetoothLeScanner = bluetoothAdapter.bluetoothLeScanner
+
+    private val iBeaconFormat = "m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"
+
+    private val beaconParser = BeaconParser().setBeaconLayout(iBeaconFormat)
 
     override fun startScan(uuid: String?, major: Long?, minor: Long?): Boolean {
-        val uuidIdentifier = if (uuid != null) Identifier.parse(uuid) else null
-        val majorIdentifier = if (major != null) Identifier.fromInt(major.toInt()) else null
-        val minorIdentifier = if (minor != null) Identifier.fromInt(minor.toInt()) else null
+        targetUuid = uuid
+        targetMajor = major
+        targetMinor = minor
 
-        region = Region(
-            "dev.kingu.ubiscope.BeaconHostApiImpl", uuidIdentifier, majorIdentifier, minorIdentifier
-        )
-
-        beaconManager.startRangingBeacons(region!!)
+        bluetoothLeScanner.startScan(emptyList(), scanSettings, this)
         return true;
     }
 
-    override fun stopScan() {
-        if (region != null) {
-            beaconManager.stopRangingBeacons(region!!)
+    override fun onScanResult(callbackType: Int, result: ScanResult?) {
+        super.onScanResult(callbackType, result)
+
+        if (result == null) {
+            return
         }
+
+        val beacons = arrayOf(
+            beaconParser.fromScanData(
+                result.scanRecord?.bytes,
+                result.rssi,
+                result.device,
+                // https://github.com/AltBeacon/android-beacon-library/blob/d816ecc3dc7c6fb7d29ca9e1f78be61a5b251349/lib/src/main/java/org/altbeacon/beacon/service/scanner/CycledLeScannerForLollipop.java#L352C1-L353C1
+                System.currentTimeMillis() - SystemClock.elapsedRealtime() + result.timestampNanos / 1000 / 1000,
+            )
+        ).filterNotNull().map {
+            dev.kingu.ubiscope.Beacon(
+                uuid = it.id1.toString(),
+                major = it.id2.toInt().toLong(),
+                minor = it.id3.toInt().toLong(),
+                rssi = it.rssi.toLong(),
+                timestamp = LocalDateTime.ofEpochSecond(
+                    it.firstCycleDetectionTimestamp / 1000, 0, ZoneOffset.UTC
+                ).format(DateTimeFormatter.ISO_DATE_TIME),
+                accuracy = it.distance,
+                proximity = null,
+                txPower = it.txPower.toLong(),
+                bluetoothAddress = it.bluetoothAddress,
+                type = BeaconType.IBEACON,
+            )
+        }.filter {
+            targetUuid == null || targetUuid == it.uuid
+        }.filter {
+            targetMajor == null || targetMajor == it.major
+        }.filter {
+            targetMinor == null || targetMinor == it.minor
+        }
+
+        onReceived(beacons)
+    }
+
+
+    override fun stopScan() {
+        bluetoothLeScanner.stopScan(this)
+        targetUuid = null
+        targetMajor = null
+        targetMinor = null
     }
 }
 
-class MainActivity : FlutterActivity(), RangeNotifier {
-
+class MainActivity : FlutterActivity() {
     private var wifiHostApi: WiFiHostApiImpl? = null
 
     private var wifiFlutterApi: WiFiFlutterApi? = null
@@ -83,8 +138,6 @@ class MainActivity : FlutterActivity(), RangeNotifier {
     private var beaconHostApi: BeaconHostApiImpl? = null
 
     private var beaconFlutterApi: BeaconFlutterApi? = null
-
-    private val iBeaconFormat = "m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"
 
     private val wifiScanReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -147,34 +200,18 @@ class MainActivity : FlutterActivity(), RangeNotifier {
         // Setup the Beacon APIs
         beaconFlutterApi = BeaconFlutterApi(flutterEngine.dartExecutor.binaryMessenger)
 
-        val beaconManager = BeaconManager.getInstanceForApplication(this)
-        beaconManager.addRangeNotifier(this)
-        beaconManager.beaconParsers.add(BeaconParser().setBeaconLayout(iBeaconFormat))
+        val bluetoothAdapter =
+            (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
 
-        beaconHostApi = BeaconHostApiImpl(beaconManager)
+        // https://github.com/AltBeacon/android-beacon-library/blob/d816ecc3dc7c6fb7d29ca9e1f78be61a5b251349/lib/src/main/java/org/altbeacon/beacon/service/BeaconService.java#L238-L239
+        val defaultDistanceCalculator: DistanceCalculator =
+            ModelSpecificDistanceCalculator(this, BeaconManager.getDistanceModelUpdateUrl())
+        Beacon.setDistanceCalculator(defaultDistanceCalculator)
+
+        beaconHostApi = BeaconHostApiImpl(bluetoothAdapter) {
+            beaconFlutterApi!!.onEvent(it) {}
+        }
+
         BeaconHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, beaconHostApi)
-    }
-
-    override fun didRangeBeaconsInRegion(beacons: MutableCollection<Beacon>?, region: Region?) {
-        val results = beacons?.map {
-            dev.kingu.ubiscope.Beacon(
-                uuid = it.id1.toString(),
-                major = it.id2.toInt().toLong(),
-                minor = it.id3.toInt().toLong(),
-                rssi = it.rssi.toLong(),
-                timestamp = LocalDateTime.ofEpochSecond(
-                    it.firstCycleDetectionTimestamp / 1000 / 1000, 0, ZoneOffset.UTC
-                ).format(DateTimeFormatter.ISO_DATE_TIME),
-                accuracy = it.distance,
-                proximity = null,
-                txPower = it.txPower.toLong(),
-                bluetoothAddress = it.bluetoothAddress,
-                type = BeaconType.IBEACON,
-            )
-        }
-
-        if (results != null) {
-            beaconFlutterApi?.onEvent(results) {}
-        }
     }
 }

@@ -41,9 +41,12 @@ class MapsBottomSheetUbiquitousInformation extends HookConsumerWidget {
                       MeasurementType.wifi =>
                         '${ref.watch(wiFiScanControllerProvider).length} '
                             '${e.unit}',
-                      MeasurementType.ibeacon =>
-                        '${ref.watch(beaconScanControllerProvider).length} '
-                            '${e.unit}',
+                      MeasurementType.ibeacon => ref
+                              .watch(beaconScanControllerProvider)
+                              .isEmpty
+                          ? '${ref.watch(beaconScanControllerProvider).length} '
+                              '${e.unit}'
+                          : 'some ${e.unit}',
                       _ => null,
                     },
                   ),
