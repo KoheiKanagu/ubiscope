@@ -24,7 +24,7 @@ final _beaconHostApiProvider = Provider<BeaconHostApi>.internal(
 
 typedef _BeaconHostApiRef = ProviderRef<BeaconHostApi>;
 String _$beaconScanPermissionControllerHash() =>
-    r'd66955275659845772c9220e7009dd4463567146';
+    r'fe2e7843b4f7810800a0ab6d26f4346fe11cac35';
 
 /// See also [BeaconScanPermissionController].
 @ProviderFor(BeaconScanPermissionController)
@@ -42,7 +42,7 @@ final beaconScanPermissionControllerProvider = AutoDisposeNotifierProvider<
 typedef _$BeaconScanPermissionController
     = AutoDisposeNotifier<PermissionStatus>;
 String _$beaconScanControllerHash() =>
-    r'b09fc8b2d124b419b641c2d3929185a19469707e';
+    r'67cc91ace5d2585d4920ff294590c206e4c5ae48';
 
 /// See also [BeaconScanController].
 @ProviderFor(BeaconScanController)

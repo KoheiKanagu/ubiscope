@@ -32,6 +32,9 @@ class BeaconScanPermissionController extends _$BeaconScanPermissionController {
         /// for Simulator
         if (!ref.watch(deviceInfoIsPhysicalDeviceProvider)) {
           state = PermissionStatus.granted;
+        } else if (Platform.isIOS) {
+          /// 実機の場合は常に許可されている
+          state = PermissionStatus.granted;
         } else {
           final result = await Permission.bluetooth.status;
           state = result;
@@ -133,6 +136,10 @@ class BeaconScanController extends _$BeaconScanController
 
   @override
   void onEvent(List<Beacon?> results) {
+    if (results.isEmpty) {
+      return;
+    }
+
     state = results.whereType<Beacon>().toList();
 
     if (capture && captureArgs != null) {

@@ -1,7 +1,8 @@
 import 'package:client_app/features/event/application/beacon_providers.dart';
+import 'package:client_app/gen/message.g.dart';
 import 'package:collection/collection.dart';
-import 'package:core/models/measurement_results_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class EventDetailsBeaconPage extends HookConsumerWidget {
@@ -11,18 +12,31 @@ class EventDetailsBeaconPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final values = ref
-        .watch(beaconScanControllerProvider)
-        .sorted((a, b) => b.rssi.compareTo(a.rssi));
+    final valuesState = useState(
+      <Beacon>[],
+    );
+
+    ref.listen(
+      beaconScanControllerProvider,
+      (previous, next) {
+        final newBeacons = [
+          ...next,
+          ...valuesState.value,
+        ];
+
+        valuesState.value = newBeacons.take(100).toList();
+      },
+    );
 
     final scheme = Theme.of(context).colorScheme;
+    final values = valuesState.value;
 
     return Scaffold(
       appBar: AppBar(
         title: Column(
           children: [
-            Text('${values.length} ${MeasurementType.ibeacon.unit}'),
             Text(values.firstOrNull?.timestamp ?? ''),
+            const Text('Recently observed Beacons'),
           ],
         ),
       ),
@@ -38,8 +52,12 @@ class EventDetailsBeaconPage extends HookConsumerWidget {
             title: Text(
               '${e.uuid}:${e.major}:${e.minor}',
             ),
-            subtitle: Text(
-              'accuracy: ${e.accuracy}',
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('accuracy: ${e.accuracy}'),
+                Text('timestamp: ${e.timestamp}'),
+              ],
             ),
             trailing: Text(
               'RSSI: ${e.rssi}',
