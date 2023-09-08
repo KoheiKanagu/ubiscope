@@ -13,14 +13,18 @@ concurrency:
 jobs:
   build:
     timeout-minutes: 30
-    runs-on: self-hosted # TODO: Change to macos-latest when available
+    runs-on: macos-latest
     steps:
       ### Set up ###
       - uses: actions/checkout@v4
 
       - uses: ./.github/actions/setup-flutter
+
+      - uses: actions/cache@v3
         with:
-          use_local_dart: true # TODO: Change to macos-latest when available
+          path: |
+            packages/client_app/ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}-v1
 
       ### Build ###
       - run: melos run build:ios:config-only
