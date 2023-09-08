@@ -22,6 +22,7 @@ class MyApp extends HookConsumerWidget {
           // .textScale15()
           // .textScale20()
           // .android()
+          // .ios()
           .build(),
       localizationsDelegates: const [
         GlobalCupertinoLocalizations.delegate,
