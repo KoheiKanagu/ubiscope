@@ -20,6 +20,12 @@ jobs:
 
       - uses: ./.github/actions/setup-flutter
 
+      - uses: actions/cache@v3
+        with:
+          path: |
+            packages/client_app/ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}-v1
+
       ### Build ###
       - run: melos run build:ios:config-only
       - run: git diff --exit-code
