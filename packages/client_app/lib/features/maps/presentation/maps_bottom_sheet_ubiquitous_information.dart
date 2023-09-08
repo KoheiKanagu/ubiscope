@@ -14,6 +14,8 @@ class MapsBottomSheetUbiquitousInformation extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final targetPlatform = Theme.of(context).platform;
+
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
@@ -28,6 +30,14 @@ class MapsBottomSheetUbiquitousInformation extends HookConsumerWidget {
             spacing: 4,
             children: MeasurementType.values
                 .whereNot((e) => e == MeasurementType.unknown)
+                .where((e) {
+                  // iOSではWiFiの計測はできない
+                  if (targetPlatform == TargetPlatform.iOS &&
+                      e == MeasurementType.wifi) {
+                    return false;
+                  }
+                  return true;
+                })
                 .whereNot(
                   (e) => e == MeasurementType.magnetic,
                 ) // TODO(kingu): remove this when implemented

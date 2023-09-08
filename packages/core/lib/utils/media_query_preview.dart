@@ -49,6 +49,11 @@ class MediaQueryPreview {
     return this;
   }
 
+  MediaQueryPreview ios() {
+    _targetPlatform = TargetPlatform.iOS;
+    return this;
+  }
+
   Widget build() {
     if (kReleaseMode) {
       return child!;
