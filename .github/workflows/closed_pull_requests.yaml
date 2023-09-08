@@ -13,7 +13,7 @@ jobs:
       matrix:
         os: # FIXME
           - ubuntu-latest
-          - self-hosted
+          - macos-latest
         flavor: # FIXME
           - dev
           - prod
@@ -31,8 +31,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: ./.github/actions/setup-flutter
-        with:
-          use_local_dart: ${{ matrix.os == 'self-hosted' }}
 
       - name: Gradle Cache
         if: matrix.os == 'ubuntu-latest'
@@ -74,9 +72,9 @@ jobs:
         run: melos run build:appbundle:prod --no-select
 
       - name: Build iOS Dev
-        if: matrix.os == 'self-hosted' && matrix.flavor == 'dev'
+        if: matrix.os == 'macos-latest' && matrix.flavor == 'dev'
         run: melos run build:ios:no-codesign:dev --no-select
 
       - name: Build iOS Prod
-        if: matrix.os == 'self-hosted' && matrix.flavor == 'prod'
+        if: matrix.os == 'macos-latest' && matrix.flavor == 'prod'
         run: melos run build:ios:no-codesign:prod --no-select
