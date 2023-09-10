@@ -31,3 +31,8 @@ jobs:
       ### Build ###
       - name: build
         run: melos run build:apk:dev --no-select
+
+  pull_request_conclusion:
+    needs:
+      - build
+    runs-on: ubuntu-latest
