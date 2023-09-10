@@ -31,45 +31,45 @@ class EventSettingsPermissionCheck extends HookConsumerWidget {
         ),
         ListTile(
           title: const Text('Location'),
-          trailing: ref.watch(wiFiScanPermissionControllerProvider) ==
-                  PermissionStatus.granted
-              ? permissionGrantedButton
-              : ElevatedButton(
-                  onPressed: () async {
-                    final result = await ref
-                        .read(wiFiScanPermissionControllerProvider.notifier)
-                        .requestPermission();
+          trailing: switch (ref.watch(wiFiScanPermissionControllerProvider)) {
+            PermissionStatus.granted => permissionGrantedButton,
+            _ => ElevatedButton(
+                onPressed: () async {
+                  final result = await ref
+                      .read(wiFiScanPermissionControllerProvider.notifier)
+                      .requestPermission();
 
-                    if (result != PermissionStatus.granted) {
-                      if (context.mounted) {
-                        await showPermissionDeniedDialog(context);
-                      }
+                  if (result != PermissionStatus.granted) {
+                    if (context.mounted) {
+                      await showPermissionDeniedDialog(context);
                     }
-                  },
-                  child: const Text('Allow'),
-                ),
+                  }
+                },
+                child: const Text('Allow'),
+              ),
+          },
         ),
         ListTile(
           title: const Text('Bluetooth'),
-          trailing: ref.watch(beaconScanPermissionControllerProvider) ==
-                  PermissionStatus.granted
-              ? permissionGrantedButton
-              : ElevatedButton(
-                  onPressed: () async {
-                    final result = await ref
-                        .read(
-                          beaconScanPermissionControllerProvider.notifier,
-                        )
-                        .requestPermission();
+          trailing: switch (ref.watch(beaconScanPermissionControllerProvider)) {
+            PermissionStatus.granted => permissionGrantedButton,
+            _ => ElevatedButton(
+                onPressed: () async {
+                  final result = await ref
+                      .read(
+                        beaconScanPermissionControllerProvider.notifier,
+                      )
+                      .requestPermission();
 
-                    if (result != PermissionStatus.granted) {
-                      if (context.mounted) {
-                        await showPermissionDeniedDialog(context);
-                      }
+                  if (result != PermissionStatus.granted) {
+                    if (context.mounted) {
+                      await showPermissionDeniedDialog(context);
                     }
-                  },
-                  child: const Text('Allow'),
-                ),
+                  }
+                },
+                child: const Text('Allow'),
+              ),
+          },
         ),
       ],
     );
