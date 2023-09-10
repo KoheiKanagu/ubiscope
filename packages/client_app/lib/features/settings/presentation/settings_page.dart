@@ -50,10 +50,11 @@ class SettingsPage extends HookConsumerWidget {
             onTap: () {
               launchUrlString(
                 MyLinks.issues,
+                mode: LaunchMode.externalApplication,
               );
             },
-            trailing: Icon(
-              Icons.adaptive.arrow_forward,
+            trailing: const Icon(
+              Icons.open_in_new,
             ),
           ),
           const Divider(),
