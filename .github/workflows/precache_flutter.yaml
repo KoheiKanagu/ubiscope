@@ -6,9 +6,16 @@ on:
     - cron: "0 18 * * *" # JTS 03:00
 
 jobs:
-  precache:
+  precache-linux:
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-flutter
+
+  precache-macos:
+    timeout-minutes: 30
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-flutter
