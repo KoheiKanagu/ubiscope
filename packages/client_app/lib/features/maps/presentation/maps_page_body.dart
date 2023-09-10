@@ -15,25 +15,12 @@ class MapsPageBody extends HookConsumerWidget {
     super.key,
   });
 
-  static const double minimumSheetSize = 0.2;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // 1 meter is how many pixels
     final pixelsPerMeter = useState<double>(0);
 
     final cameraTarget = useState<LatLng?>(null);
-
-    final sheetSize = useState(
-      minimumSheetSize,
-    );
-
-    ref.listen(
-      mapsBottomSheetScrollableControllerProvider,
-      (_, next) {
-        sheetSize.value = next.size;
-      },
-    );
 
     return LayoutBuilder(
       builder: (context, constraints) => Stack(
@@ -53,7 +40,8 @@ class MapsPageBody extends HookConsumerWidget {
                 .read(mapsAimedPointControllerProvider.notifier)
                 .onIndoorEvent(),
             padding: EdgeInsets.only(
-              bottom: constraints.maxHeight * sheetSize.value,
+              bottom: constraints.maxHeight *
+                  ref.watch(mapsBottomSheetSizeProvider),
               left: MediaQuery.viewPaddingOf(context).left,
               right: MediaQuery.viewPaddingOf(context).right,
             ),
@@ -66,7 +54,8 @@ class MapsPageBody extends HookConsumerWidget {
             onCameraMove: (camera) async {
               final maps = ref.read(mapsControllerProvider)!;
 
-              final mapsHeight = constraints.maxHeight * (1 - sheetSize.value);
+              final mapsHeight = constraints.maxHeight *
+                  (1 - ref.read(mapsBottomSheetSizeProvider));
               final mapsWidth = constraints.maxWidth;
               final diagonal = sqrt(pow(mapsHeight, 2) + pow(mapsWidth, 2));
 
@@ -83,7 +72,8 @@ class MapsPageBody extends HookConsumerWidget {
             },
           ),
           SizedBox(
-            height: constraints.maxHeight * (1 - sheetSize.value),
+            height: constraints.maxHeight *
+                (1 - ref.watch(mapsBottomSheetSizeProvider)),
             child: Center(
               child: MapsReticle(
                 pixelsPerMeter.value,
@@ -91,7 +81,9 @@ class MapsPageBody extends HookConsumerWidget {
             ),
           ),
           Positioned(
-            bottom: constraints.maxHeight * sheetSize.value + 32,
+            bottom:
+                constraints.maxHeight * ref.watch(mapsBottomSheetSizeProvider) +
+                    32,
             left: MediaQuery.viewPaddingOf(context).left + 16,
             child: MyOutlinedElevatedButton(
               child: const Icon(
