@@ -1,6 +1,5 @@
 import 'package:client_app/features/maps/application/maps_page_providers.dart';
 import 'package:client_app/features/maps/presentation/maps_bottom_sheet_body.dart';
-import 'package:client_app/features/maps/presentation/maps_page_body.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -14,14 +13,14 @@ class MapsBottomSheet extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return DraggableScrollableSheet(
       controller: ref.watch(mapsBottomSheetScrollableControllerProvider),
-      initialChildSize: MapsPageBody.minimumSheetSize,
-      maxChildSize: MapsPageBody.minimumSheetSize * 3,
-      minChildSize: MapsPageBody.minimumSheetSize,
+      initialChildSize: MapsBottomSheetSize.minimumSheetSize,
+      maxChildSize: MapsBottomSheetSize.minimumSheetSize * 3,
+      minChildSize: MapsBottomSheetSize.minimumSheetSize,
       snap: true,
       snapSizes: const [
-        MapsPageBody.minimumSheetSize,
-        MapsPageBody.minimumSheetSize * 2,
-        MapsPageBody.minimumSheetSize * 3,
+        MapsBottomSheetSize.minimumSheetSize,
+        MapsBottomSheetSize.minimumSheetSize * 2,
+        MapsBottomSheetSize.minimumSheetSize * 3,
       ],
       builder: (context, controller) {
         return MyGlassContainer(

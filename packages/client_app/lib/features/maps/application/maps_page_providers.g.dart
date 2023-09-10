@@ -26,5 +26,22 @@ final mapsBottomSheetScrollableControllerProvider =
 
 typedef MapsBottomSheetScrollableControllerRef
     = AutoDisposeProviderRef<DraggableScrollableController>;
+String _$mapsBottomSheetSizeHash() =>
+    r'f7ab5d1c194498811d15eda2ea45793048eb264e';
+
+/// See also [MapsBottomSheetSize].
+@ProviderFor(MapsBottomSheetSize)
+final mapsBottomSheetSizeProvider =
+    AutoDisposeNotifierProvider<MapsBottomSheetSize, double>.internal(
+  MapsBottomSheetSize.new,
+  name: r'mapsBottomSheetSizeProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$mapsBottomSheetSizeHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$MapsBottomSheetSize = AutoDisposeNotifier<double>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member
