@@ -38,15 +38,21 @@ class EventSettingsPermissionCheck extends HookConsumerWidget {
                 onPressed: () async {
                   logger.d('request Location permission: $e');
 
-                  final result = await ref
+                  final result = await showOkAlertDialog(
+                    context: context,
+                    title: 'Location permission',
+                    message:
+                        // ignore: lines_longer_than_80_chars
+                        'Location permission is required to detect beacons around you.',
+                    okLabel: 'Next',
+                  );
+                  if (result == OkCancelResult.cancel) {
+                    return;
+                  }
+
+                  await ref
                       .read(wiFiScanPermissionControllerProvider.notifier)
                       .requestPermission();
-
-                  if (result != PermissionStatus.granted) {
-                    if (context.mounted) {
-                      await showPermissionDeniedDialog(context);
-                    }
-                  }
                 },
                 child: const Text('Allow'),
               ),
@@ -60,17 +66,23 @@ class EventSettingsPermissionCheck extends HookConsumerWidget {
                 onPressed: () async {
                   logger.d('request Bluetooth permission: $e');
 
-                  final result = await ref
+                  final result = await showOkAlertDialog(
+                    context: context,
+                    title: 'Bluetooth permission',
+                    message:
+                        // ignore: lines_longer_than_80_chars
+                        'Bluetooth permission is required to detect beacons around you.',
+                    okLabel: 'Next',
+                  );
+                  if (result == OkCancelResult.cancel) {
+                    return;
+                  }
+
+                  await ref
                       .read(
                         beaconScanPermissionControllerProvider.notifier,
                       )
                       .requestPermission();
-
-                  if (result != PermissionStatus.granted) {
-                    if (context.mounted) {
-                      await showPermissionDeniedDialog(context);
-                    }
-                  }
                 },
                 child: const Text('Allow'),
               ),
@@ -78,24 +90,5 @@ class EventSettingsPermissionCheck extends HookConsumerWidget {
         ),
       ],
     );
-  }
-
-  Future<void> showPermissionDeniedDialog(BuildContext context) async {
-    final result = await showModalActionSheet(
-      context: context,
-      title: 'Permission denied',
-      message: 'Please allow the permission to use this app.',
-      actions: [
-        const SheetAction(
-          label: 'Go to settings',
-          key: OkCancelResult.ok,
-          isDefaultAction: true,
-        ),
-      ],
-    );
-
-    if (result == OkCancelResult.ok) {
-      await openAppSettings();
-    }
   }
 }
