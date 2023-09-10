@@ -1,6 +1,7 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:client_app/features/event/application/beacon_providers.dart';
 import 'package:client_app/features/event/application/wifi_providers.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -33,8 +34,10 @@ class EventSettingsPermissionCheck extends HookConsumerWidget {
           title: const Text('Location'),
           trailing: switch (ref.watch(wiFiScanPermissionControllerProvider)) {
             PermissionStatus.granted => permissionGrantedButton,
-            _ => ElevatedButton(
+            final e => ElevatedButton(
                 onPressed: () async {
+                  logger.d('request Location permission: $e');
+
                   final result = await ref
                       .read(wiFiScanPermissionControllerProvider.notifier)
                       .requestPermission();
@@ -53,8 +56,10 @@ class EventSettingsPermissionCheck extends HookConsumerWidget {
           title: const Text('Bluetooth'),
           trailing: switch (ref.watch(beaconScanPermissionControllerProvider)) {
             PermissionStatus.granted => permissionGrantedButton,
-            _ => ElevatedButton(
+            final e => ElevatedButton(
                 onPressed: () async {
+                  logger.d('request Bluetooth permission: $e');
+
                   final result = await ref
                       .read(
                         beaconScanPermissionControllerProvider.notifier,
