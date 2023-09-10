@@ -47,3 +47,6 @@ jobs:
       - analyze
       - test
     runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Pull request conclusion"
