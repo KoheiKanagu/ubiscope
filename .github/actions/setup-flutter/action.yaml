@@ -21,7 +21,9 @@ runs:
       uses: actions/cache@v3.3.1
       with:
         path: ~/fvm/versions
-        key: flutter-v1
+        key: flutter-${{ runner.os }}-${{ github.run_id }}
+        restore-keys: |
+          flutter-${{ runner.os }}
 
     - name: Clone Flutter
       if: inputs.use_local_dart == 'false' && steps.cache-flutter.outputs.cache-hit != 'true'
@@ -43,7 +45,9 @@ runs:
       uses: actions/cache@v3.3.1
       with:
         path: ~/.pub-cache
-        key: pub-cache-v1
+        key: pub-cache-${{ runner.os }}-${{ github.run_id }}
+        restore-keys: |
+          pub-cache-${{ runner.os }}
 
     - name: PATH
       if: inputs.use_local_dart == 'false'

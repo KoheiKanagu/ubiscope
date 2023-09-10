@@ -24,7 +24,9 @@ jobs:
         with:
           path: |
             packages/client_app/ios/Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}-v1
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
 
       ### Build ###
       - run: melos run build:ios:config-only
