@@ -41,3 +41,12 @@ jobs:
       - name: Test
         run: |
           melos run flutter:test --no-select
+
+  pull_request_conclusion:
+    needs:
+      - analyze
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Pull request conclusion"

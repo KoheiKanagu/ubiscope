@@ -51,3 +51,11 @@ jobs:
         working-directory: packages/${{ matrix.package }}
         run: |
           ./firebase_emulators_test.sh ${{ matrix.flavor }}
+
+  pull_request_conclusion:
+    needs:
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Pull request conclusion"

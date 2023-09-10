@@ -30,3 +30,11 @@ jobs:
       - run: melos run build:ios:config-only
       - run: git diff --exit-code
       - run: melos run build:ios:no-codesign:dev --no-select
+
+  pull_request_conclusion:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Pull request conclusion"
