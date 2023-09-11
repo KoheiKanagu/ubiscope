@@ -4,7 +4,7 @@ description: Setup Flutter SDK
 inputs:
   use_local_dart:
     description: Use local Dart SDK
-    required: true
+    required: false
     default: "false"
 
   flutter_branch:
@@ -15,6 +15,11 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - shell: bash
+      run: |
+        # Remove because it may not be empty.
+        rm -rf $HOME/fvm/versions
+
     - name: Cache Flutter
       id: cache-flutter
       if: inputs.use_local_dart == 'false'
