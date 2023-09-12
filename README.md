@@ -22,3 +22,13 @@
 - Client application for iOS and Android that supports collecting ubiquitous information
 - Registration of measurement points based on Google Maps
 - Collection of Wi-Fi and iBeacon at measurement points
+
+#### Frameworks and Main Packages Used
+
+- Flutter
+- Firebase
+- Riverpod
+- go_router
+- freezed
+- pigeon
+- pedantic_mono
