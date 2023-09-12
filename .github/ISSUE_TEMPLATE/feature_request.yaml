@@ -1,0 +1,23 @@
+name: Feature request
+description: Suggest an idea for this project
+labels: ["enhancement", "needs-triage"]
+assignees:
+  - KoheiKanagu
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an idea to make our app better! Please fill out the fields below.
+  - type: textarea
+    attributes:
+      label: What is the feature you'd like to see? 
+      description: Describe the feature you'd like to see added.
+    validations:
+      required: true
+  - type: textarea
+    id: usecase
+    attributes:
+      label: What is the use case for this feature?
+      description: Describe the problem you're trying to solve.
+    validations:
+      required: true
