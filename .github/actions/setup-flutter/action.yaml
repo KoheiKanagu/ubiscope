@@ -15,30 +15,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # - name: Cache Flutter
-    #   id: cache-flutter
-    #   if: inputs.use_local_dart == 'false'
-    #   uses: actions/cache@v3.3.1
-    #   with:
-    #     path: ~/fvm/versions
-    #     key: flutter-${{ runner.os }}-${{ github.run_id }}
-    #     restore-keys: |
-    #       flutter-${{ runner.os }}
-
-    # - name: Clone Flutter
-    #   if: inputs.use_local_dart == 'false' && steps.cache-flutter.outputs.cache-hit != 'true'
-    #   shell: bash
-    #   run: |
-    #     # If restore-keys hit, cache-hit will be false
-    #     # https://github.com/actions/cache?tab=readme-ov-file#outputs
-    #     if [ -d $HOME/fvm/versions/${{ inputs.flutter_branch }} ]; then
-    #       exit 0
-    #     fi
-
-    #     git clone https://github.com/flutter/flutter.git \
-    #       -b ${{ inputs.flutter_branch }} \
-    #       $HOME/fvm/versions/${{ inputs.flutter_branch }}
-
     - name: Clone Flutter
       if: inputs.use_local_dart == 'false'
       shell: bash
@@ -48,32 +24,12 @@ runs:
           --depth 1 \
           $HOME/fvm/versions/${{ inputs.flutter_branch }}
 
-    # - name: Pull Flutter
-    #   if: inputs.use_local_dart == 'false'
-    #   shell: bash
-    #   run: |
-    #     cd $HOME/fvm/versions/${{ inputs.flutter_branch }}
-    #     git pull --rebase
-
-    # - name: Cache pub-cache
-    #   if: inputs.use_local_dart == 'false'
-    #   uses: actions/cache@v3.3.1
-    #   with:
-    #     path: ~/.pub-cache
-    #     key: pub-cache-${{ runner.os }}-${{ github.run_id }}
-    #     restore-keys: |
-    #       pub-cache-${{ runner.os }}
-
     - name: PATH
       if: inputs.use_local_dart == 'false'
       shell: bash
       run: |
         echo "$HOME/fvm/versions/${{ inputs.flutter_branch }}/bin" >> $GITHUB_PATH
         echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-
-    # - uses: subosito/flutter-action@v2
-    #   with:
-    #     channel: ${{ inputs.flutter_branch }}
 
     - name: Setup global packages
       shell: bash
@@ -85,7 +41,3 @@ runs:
     - name: fvm
       shell: bash
       run: fvm doctor
-
-    - name: Precache
-      shell: bash
-      run: fvm flutter precache
