@@ -63,6 +63,7 @@ runs:
     #     echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
     - uses: subosito/flutter-action@v2
+      id: flutter-action
       with:
         channel: ${{ inputs.flutter_branch }}
 
@@ -72,6 +73,11 @@ runs:
         dart pub global activate melos
         dart pub global activate fvm
         dart pub global activate flutterfire_cli 0.3.0-dev.16 --overwrite
+
+    - name: Setup local packages
+      shell: bash
+      run: |
+        fvm config --cache-path ${{ steps.flutter-action.outputs.CACHE-PATH }}
 
     - name: fvm
       shell: bash
