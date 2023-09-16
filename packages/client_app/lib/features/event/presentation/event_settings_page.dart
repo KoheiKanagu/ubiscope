@@ -15,29 +15,30 @@ class EventSettingsPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
         final permission = ref.read(eventPermissionStatusProvider);
         if (!permission) {
-          await showOkAlertDialog(
+          showOkAlertDialog(
             context: context,
             title: 'Permission Required',
             message: 'Please allow all permissions to use this app.',
           );
-          return false;
+          return;
         }
 
         final uuid = ref.read(sharedPreferencesBeaconScanUuidProvider);
         if (Platform.isIOS && (uuid?.isEmpty ?? true)) {
-          await showOkAlertDialog(
+          showOkAlertDialog(
             context: context,
             title: 'Beacon UUID Required',
             message: 'Please set a beacon UUID to use this app.',
           );
-          return false;
+          return;
         }
 
-        return true;
+        Navigator.of(context).pop();
       },
       child: Scaffold(
         appBar: AppBar(
