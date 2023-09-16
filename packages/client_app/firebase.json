@@ -7,37 +7,43 @@
             "projectId": "ubiscope-dev",
             "appId": "1:636244043019:ios:b3dbac9fec3b6c5ef5ee0e",
             "uploadDebugSymbols": true,
-            "serviceFileOutput": "ios/dev/GoogleService-Info.plist"
+            "serviceFileOutput": "ios/dev/GoogleService-Info.plist",
+            "fileOutput": "ios/dev/GoogleService-Info.plist"
           },
           "Release-dev": {
             "projectId": "ubiscope-dev",
             "appId": "1:636244043019:ios:b3dbac9fec3b6c5ef5ee0e",
             "uploadDebugSymbols": true,
-            "serviceFileOutput": "ios/dev/GoogleService-Info.plist"
+            "serviceFileOutput": "ios/dev/GoogleService-Info.plist",
+            "fileOutput": "ios/dev/GoogleService-Info.plist"
           },
           "Profile-dev": {
             "projectId": "ubiscope-dev",
             "appId": "1:636244043019:ios:b3dbac9fec3b6c5ef5ee0e",
             "uploadDebugSymbols": true,
-            "serviceFileOutput": "ios/dev/GoogleService-Info.plist"
+            "serviceFileOutput": "ios/dev/GoogleService-Info.plist",
+            "fileOutput": "ios/dev/GoogleService-Info.plist"
           },
           "Debug-prod": {
             "projectId": "ubiscope",
             "appId": "1:301249130862:ios:4c57371890d706ce0b917f",
             "uploadDebugSymbols": true,
-            "serviceFileOutput": "ios/prod/GoogleService-Info.plist"
+            "serviceFileOutput": "ios/prod/GoogleService-Info.plist",
+            "fileOutput": "ios/prod/GoogleService-Info.plist"
           },
           "Release-prod": {
             "projectId": "ubiscope",
             "appId": "1:301249130862:ios:4c57371890d706ce0b917f",
             "uploadDebugSymbols": true,
-            "serviceFileOutput": "ios/prod/GoogleService-Info.plist"
+            "serviceFileOutput": "ios/prod/GoogleService-Info.plist",
+            "fileOutput": "ios/prod/GoogleService-Info.plist"
           },
           "Profile-prod": {
             "projectId": "ubiscope",
             "appId": "1:301249130862:ios:4c57371890d706ce0b917f",
             "uploadDebugSymbols": true,
-            "serviceFileOutput": "ios/prod/GoogleService-Info.plist"
+            "serviceFileOutput": "ios/prod/GoogleService-Info.plist",
+            "fileOutput": "ios/prod/GoogleService-Info.plist"
           }
         },
         "targets": {},
@@ -47,6 +53,36 @@
         "buildConfigurations": {},
         "targets": {},
         "default": {}
+      },
+      "android": {
+        "buildConfigurations": {
+          "src/dev": {
+            "projectId": "ubiscope-dev",
+            "appId": "1:636244043019:android:0e72937faed00efaf5ee0e",
+            "fileOutput": "android/app/src/dev/google-services.json"
+          },
+          "src/prod": {
+            "projectId": "ubiscope",
+            "appId": "1:301249130862:android:43d09df27f5e1b5f0b917f",
+            "fileOutput": "android/app/src/prod/google-services.json"
+          }
+        }
+      },
+      "dart": {
+        "lib/constants/firebase_options_dev.dart": {
+          "projectId": "ubiscope-dev",
+          "configurations": {
+            "android": "1:636244043019:android:0e72937faed00efaf5ee0e",
+            "ios": "1:636244043019:ios:b3dbac9fec3b6c5ef5ee0e"
+          }
+        },
+        "lib/constants/firebase_options_prod.dart": {
+          "projectId": "ubiscope",
+          "configurations": {
+            "android": "1:301249130862:android:43d09df27f5e1b5f0b917f",
+            "ios": "1:301249130862:ios:4c57371890d706ce0b917f"
+          }
+        }
       }
     }
   },

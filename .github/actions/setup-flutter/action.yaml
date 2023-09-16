@@ -36,7 +36,7 @@ runs:
       run: |
         dart pub global activate melos
         dart pub global activate fvm
-        dart pub global activate flutterfire_cli 0.3.0-dev.16 --overwrite
+        dart pub global activate flutterfire_cli 0.3.0-dev.18 --overwrite
 
     - name: fvm
       shell: bash
