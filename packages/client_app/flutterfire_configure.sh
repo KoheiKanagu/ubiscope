@@ -14,7 +14,6 @@ for build_config in "Debug-dev" "Release-dev" "Profile-dev"; do
         --yes \
         --ios-build-config $build_config \
         --ios-out ios/dev/GoogleService-Info.plist \
-        --debug-symbols-ios \
         --android-out /android/app/src/dev/google-services.json
 done
 
@@ -28,6 +27,5 @@ for build_config in "Debug-prod" "Release-prod" "Profile-prod"; do
         --yes \
         --ios-build-config $build_config \
         --ios-out ios/prod/GoogleService-Info.plist \
-        --debug-symbols-ios \
         --android-out /android/app/src/prod/google-services.json
 done
