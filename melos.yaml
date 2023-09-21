@@ -208,13 +208,6 @@ scripts:
     packageFilters:
       dirExists: firebase
 
-  firebase:deploy:prod:
-    exec: |
-      firebase use prod
-      firebase deploy --force
-    packageFilters:
-      dirExists: firebase
-
   flutterfire:configure:
     exec: |
       ./flutterfire_configure.sh
