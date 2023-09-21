@@ -23,7 +23,7 @@
     "firebase-functions": "^4.4.1"
   },
   "devDependencies": {
-    "@firebase/rules-unit-testing": "^3.0.0",
+    "@firebase/rules-unit-testing": "^3.0.1",
     "@swc/jest": "^0.2.29",
     "@types/jest": "^29.5.4",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
