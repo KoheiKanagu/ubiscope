@@ -13,7 +13,7 @@ jobs:
       matrix:
         os: # FIXME
           - ubuntu-latest
-          - macos-latest
+          - macos-13
         flavor: # FIXME
           - dev
           - prod
@@ -74,9 +74,9 @@ jobs:
         run: melos run build:appbundle:prod --no-select
 
       - name: Build iOS Dev
-        if: matrix.os == 'macos-latest' && matrix.flavor == 'dev'
+        if: matrix.os == 'macos-13' && matrix.flavor == 'dev'
         run: melos run build:ios:no-codesign:dev --no-select
 
       - name: Build iOS Prod
-        if: matrix.os == 'macos-latest' && matrix.flavor == 'prod'
+        if: matrix.os == 'macos-13' && matrix.flavor == 'prod'
         run: melos run build:ios:no-codesign:prod --no-select
