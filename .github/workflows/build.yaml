@@ -135,6 +135,14 @@ jobs:
           signing_configs_base64: ${{ secrets.SIGNING_CONFIGS_CLIENT_APP_BASE64 }}
           upload_keystore_base64: ${{ secrets.UPLOAD_KEYSTORE_CLIENT_APP_BASE64 }}
 
+      # for `firebase crashlytics:symbols:upload`
+      - name: Setup Firebase CLI Prod
+        uses: ./.github/actions/setup-firebase-cli
+        if: matrix.flavor == 'prod'
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_PROD }}
+          service_account: ${{ vars.SERVICE_ACCOUNT_PROD }}
+
       ### Build ###
       - if: matrix.flavor == 'dev'
         run: melos run build:apk:dev --no-select
