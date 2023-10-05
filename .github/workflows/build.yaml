@@ -114,6 +114,9 @@ jobs:
           - dev
           - prod
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       ### Set up ###
       - uses: actions/checkout@v4
@@ -161,11 +164,9 @@ jobs:
           - dev
           - prod
     runs-on: ubuntu-latest
-
     permissions:
       id-token: write
       contents: read
-
     steps:
       ### Set up ###
       - uses: actions/checkout@v4
