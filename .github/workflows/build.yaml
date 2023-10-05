@@ -1,0 +1,206 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 19 * * *" # JTS 04:00
+  pull_request:
+    paths-ignore:
+      - "**.md"
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - "**.md"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  actionlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download actionlint
+        id: get_actionlint
+        run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+        shell: bash
+
+      - name: Check workflow files
+        run: ${{ steps.get_actionlint.outputs.executable }} -color
+        shell: bash
+
+  analyze:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      ### Set up ###
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-flutter
+
+      ### Analyze ###
+      - name: Analyze
+        run: |
+          melos run analyze --no-select
+          git diff --exit-code
+
+  test:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      ### Set up ###
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-flutter
+
+      ### Test ###
+      - name: Test
+        run: |
+          melos run flutter:test --no-select
+
+  build_ios_config-only:
+    timeout-minutes: 30
+    runs-on: macos-13
+    steps:
+      ### Set up ###
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-flutter
+
+      ### Build ###
+      - run: melos run build:ios:config-only
+      - run: git diff --exit-code
+
+  build_ios_no-codesign:
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        package: # FIXME
+          - client_app
+        flavor: # FIXME
+          - dev
+          - prod
+    runs-on: macos-13
+    steps:
+      ### Set up ###
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-flutter
+
+      - name: Pods Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            packages/client_app/ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      ### Build ###
+      - if: matrix.flavor == 'dev'
+        run: melos run build:ios:no-codesign:dev --no-select
+
+      - if: matrix.flavor == 'prod'
+        run: melos run build:ios:no-codesign:prod --no-select
+
+  build_android:
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        package: # FIXME
+          - client_app
+        flavor: # FIXME
+          - dev
+          - prod
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      ### Set up ###
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-flutter
+
+      - name: Gradle Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - uses: ./.github/actions/setup-android-signing
+        with:
+          package: client_app
+          signing_configs_base64: ${{ secrets.SIGNING_CONFIGS_CLIENT_APP_BASE64 }}
+          upload_keystore_base64: ${{ secrets.UPLOAD_KEYSTORE_CLIENT_APP_BASE64 }}
+
+      # for `firebase crashlytics:symbols:upload`
+      - name: Setup Firebase CLI Prod
+        uses: ./.github/actions/setup-firebase-cli
+        if: matrix.flavor == 'prod'
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_PROD }}
+          service_account: ${{ vars.SERVICE_ACCOUNT_PROD }}
+
+      ### Build ###
+      - if: matrix.flavor == 'dev'
+        run: melos run build:apk:dev --no-select
+
+      - if: matrix.flavor == 'prod'
+        run: melos run build:appbundle:prod --no-select
+
+  firebase-test:
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        package: # FIXME
+          - client_app
+        flavor: # FIXME
+          - dev
+          - prod
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      ### Set up ###
+      - uses: actions/checkout@v4
+
+      - name: Setup Firebase CLI Dev
+        uses: ./.github/actions/setup-firebase-cli
+        if: matrix.flavor == 'dev'
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_DEV }}
+          service_account: ${{ vars.SERVICE_ACCOUNT_DEV }}
+
+      - name: Setup Firebase CLI Prod
+        uses: ./.github/actions/setup-firebase-cli
+        if: matrix.flavor == 'prod'
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_PROD }}
+          service_account: ${{ vars.SERVICE_ACCOUNT_PROD }}
+
+      ### Test ###
+      - name: Test
+        working-directory: packages/${{ matrix.package }}
+        run: |
+          ./firebase_emulators_test.sh ${{ matrix.flavor }}
+
+  build_conclusion:
+    needs:
+      - actionlint
+      - analyze
+      - test
+      - build_ios_config-only
+      - build_ios_no-codesign
+      - build_android
+      - firebase-test
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Build conclusion"
