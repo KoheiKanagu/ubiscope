@@ -43,6 +43,16 @@ jobs:
           restore-keys: |
             ${{ matrix.os }}-gradle-
 
+      - name: Pods Cache
+        if: matrix.os == 'macos-13'
+        uses: actions/cache@v3
+        with:
+          path: |
+            packages/${{ matrix.package }}/ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
       - uses: ./.github/actions/setup-android-signing
         if: matrix.os == 'ubuntu-latest'
         with:

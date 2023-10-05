@@ -20,7 +20,8 @@ jobs:
 
       - uses: ./.github/actions/setup-flutter
 
-      - uses: actions/cache@v3
+      - name: Pods Cache
+        uses: actions/cache@v3
         with:
           path: |
             packages/client_app/ios/Pods
