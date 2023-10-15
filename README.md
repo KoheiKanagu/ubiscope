@@ -3,8 +3,9 @@
 ![ubiscope](assets/feature_graphic.webp)
 
 [![Open in Visual Studio Code](https://img.shields.io/static/v1?logo=visualstudiocode&label=&message=Open%20in%20Visual%20Studio%20Code&labelColor=2c2c32&color=007acc&logoColor=007acc)](https://open.vscode.dev/KoheiKanagu/ubiscope)
-[![Closed Pull Requests](https://github.com/KoheiKanagu/ubiscope/actions/workflows/closed_pull_requests.yaml/badge.svg)](https://github.com/KoheiKanagu/ubiscope/actions/workflows/closed_pull_requests.yaml)
-[![Firebase Deploy](https://github.com/KoheiKanagu/ubiscope/actions/workflows/firebase_deploy.yaml/badge.svg)](https://github.com/KoheiKanagu/ubiscope/actions/workflows/firebase_deploy.yaml)
+[![Build](https://github.com/KoheiKanagu/ubiscope/actions/workflows/build.yaml/badge.svg)](https://github.com/KoheiKanagu/ubiscope/actions/workflows/build.yaml)
+[![Firebase Deploy Dev](https://github.com/KoheiKanagu/ubiscope/actions/workflows/firebase_deploy_dev.yaml/badge.svg)](https://github.com/KoheiKanagu/ubiscope/actions/workflows/firebase_deploy_dev.yaml)
+[![Firebase Deploy Prod](https://github.com/KoheiKanagu/ubiscope/actions/workflows/firebase_deploy_prod.yaml/badge.svg)](https://github.com/KoheiKanagu/ubiscope/actions/workflows/firebase_deploy_prod.yaml)
 
 ## Features
 
