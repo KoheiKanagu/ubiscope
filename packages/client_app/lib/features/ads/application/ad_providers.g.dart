@@ -23,7 +23,7 @@ final bannerAdUnitIdProvider = AutoDisposeProvider<String>.internal(
 );
 
 typedef BannerAdUnitIdRef = AutoDisposeProviderRef<String>;
-String _$bannerAdSizeHash() => r'66ed204c04e1eff53f402214f31324eba3870534';
+String _$bannerAdSizeHash() => r'f3d7962ec90edc66b41aa96c058d94c5c86dfba6';
 
 /// Copied from Dart SDK
 class _SystemHash {

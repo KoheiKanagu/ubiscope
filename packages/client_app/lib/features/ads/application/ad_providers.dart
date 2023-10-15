@@ -33,10 +33,8 @@ Future<AnchoredAdaptiveBannerAdSize> bannerAdSize(
   Orientation orientation,
   int width,
 ) async {
-  final size = await AdSize.getAnchoredAdaptiveBannerAdSize(
-    orientation,
-    width,
-  );
+  final size =
+      await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(width);
 
   if (size == null) {
     throw Exception('size is null');
