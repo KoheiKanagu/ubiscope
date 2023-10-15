@@ -8,8 +8,22 @@ part of 'ad_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$bannerAdControllerHash() =>
-    r'a1396b0b4c0f25795dbfbaddb188586cd3478393';
+String _$bannerAdUnitIdHash() => r'bf7f03d870c5bf1c2101ded0c65e8e9f0d7f3fab';
+
+/// See also [bannerAdUnitId].
+@ProviderFor(bannerAdUnitId)
+final bannerAdUnitIdProvider = AutoDisposeProvider<String>.internal(
+  bannerAdUnitId,
+  name: r'bannerAdUnitIdProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$bannerAdUnitIdHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef BannerAdUnitIdRef = AutoDisposeProviderRef<String>;
+String _$bannerAdSizeHash() => r'66ed204c04e1eff53f402214f31324eba3870534';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -32,40 +46,30 @@ class _SystemHash {
   }
 }
 
-abstract class _$BannerAdController
-    extends BuildlessAutoDisposeAsyncNotifier<BannerAd> {
-  late final Orientation orientation;
-  late final int width;
+/// See also [bannerAdSize].
+@ProviderFor(bannerAdSize)
+const bannerAdSizeProvider = BannerAdSizeFamily();
 
-  Future<BannerAd> build(
-    Orientation orientation,
-    int width,
-  );
-}
+/// See also [bannerAdSize].
+class BannerAdSizeFamily
+    extends Family<AsyncValue<AnchoredAdaptiveBannerAdSize>> {
+  /// See also [bannerAdSize].
+  const BannerAdSizeFamily();
 
-/// See also [BannerAdController].
-@ProviderFor(BannerAdController)
-const bannerAdControllerProvider = BannerAdControllerFamily();
-
-/// See also [BannerAdController].
-class BannerAdControllerFamily extends Family<AsyncValue<BannerAd>> {
-  /// See also [BannerAdController].
-  const BannerAdControllerFamily();
-
-  /// See also [BannerAdController].
-  BannerAdControllerProvider call(
+  /// See also [bannerAdSize].
+  BannerAdSizeProvider call(
     Orientation orientation,
     int width,
   ) {
-    return BannerAdControllerProvider(
+    return BannerAdSizeProvider(
       orientation,
       width,
     );
   }
 
   @override
-  BannerAdControllerProvider getProviderOverride(
-    covariant BannerAdControllerProvider provider,
+  BannerAdSizeProvider getProviderOverride(
+    covariant BannerAdSizeProvider provider,
   ) {
     return call(
       provider.orientation,
@@ -85,34 +89,36 @@ class BannerAdControllerFamily extends Family<AsyncValue<BannerAd>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'bannerAdControllerProvider';
+  String? get name => r'bannerAdSizeProvider';
 }
 
-/// See also [BannerAdController].
-class BannerAdControllerProvider
-    extends AutoDisposeAsyncNotifierProviderImpl<BannerAdController, BannerAd> {
-  /// See also [BannerAdController].
-  BannerAdControllerProvider(
+/// See also [bannerAdSize].
+class BannerAdSizeProvider
+    extends AutoDisposeFutureProvider<AnchoredAdaptiveBannerAdSize> {
+  /// See also [bannerAdSize].
+  BannerAdSizeProvider(
     Orientation orientation,
     int width,
   ) : this._internal(
-          () => BannerAdController()
-            ..orientation = orientation
-            ..width = width,
-          from: bannerAdControllerProvider,
-          name: r'bannerAdControllerProvider',
+          (ref) => bannerAdSize(
+            ref as BannerAdSizeRef,
+            orientation,
+            width,
+          ),
+          from: bannerAdSizeProvider,
+          name: r'bannerAdSizeProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$bannerAdControllerHash,
-          dependencies: BannerAdControllerFamily._dependencies,
+                  : _$bannerAdSizeHash,
+          dependencies: BannerAdSizeFamily._dependencies,
           allTransitiveDependencies:
-              BannerAdControllerFamily._allTransitiveDependencies,
+              BannerAdSizeFamily._allTransitiveDependencies,
           orientation: orientation,
           width: width,
         );
 
-  BannerAdControllerProvider._internal(
+  BannerAdSizeProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -127,23 +133,14 @@ class BannerAdControllerProvider
   final int width;
 
   @override
-  Future<BannerAd> runNotifierBuild(
-    covariant BannerAdController notifier,
+  Override overrideWith(
+    FutureOr<AnchoredAdaptiveBannerAdSize> Function(BannerAdSizeRef provider)
+        create,
   ) {
-    return notifier.build(
-      orientation,
-      width,
-    );
-  }
-
-  @override
-  Override overrideWith(BannerAdController Function() create) {
     return ProviderOverride(
       origin: this,
-      override: BannerAdControllerProvider._internal(
-        () => create()
-          ..orientation = orientation
-          ..width = width,
+      override: BannerAdSizeProvider._internal(
+        (ref) => create(ref as BannerAdSizeRef),
         from: from,
         name: null,
         dependencies: null,
@@ -156,14 +153,14 @@ class BannerAdControllerProvider
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<BannerAdController, BannerAd>
+  AutoDisposeFutureProviderElement<AnchoredAdaptiveBannerAdSize>
       createElement() {
-    return _BannerAdControllerProviderElement(this);
+    return _BannerAdSizeProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is BannerAdControllerProvider &&
+    return other is BannerAdSizeProvider &&
         other.orientation == orientation &&
         other.width == width;
   }
@@ -178,7 +175,8 @@ class BannerAdControllerProvider
   }
 }
 
-mixin BannerAdControllerRef on AutoDisposeAsyncNotifierProviderRef<BannerAd> {
+mixin BannerAdSizeRef
+    on AutoDisposeFutureProviderRef<AnchoredAdaptiveBannerAdSize> {
   /// The parameter `orientation` of this provider.
   Orientation get orientation;
 
@@ -186,16 +184,15 @@ mixin BannerAdControllerRef on AutoDisposeAsyncNotifierProviderRef<BannerAd> {
   int get width;
 }
 
-class _BannerAdControllerProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<BannerAdController,
-        BannerAd> with BannerAdControllerRef {
-  _BannerAdControllerProviderElement(super.provider);
+class _BannerAdSizeProviderElement
+    extends AutoDisposeFutureProviderElement<AnchoredAdaptiveBannerAdSize>
+    with BannerAdSizeRef {
+  _BannerAdSizeProviderElement(super.provider);
 
   @override
-  Orientation get orientation =>
-      (origin as BannerAdControllerProvider).orientation;
+  Orientation get orientation => (origin as BannerAdSizeProvider).orientation;
   @override
-  int get width => (origin as BannerAdControllerProvider).width;
+  int get width => (origin as BannerAdSizeProvider).width;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
