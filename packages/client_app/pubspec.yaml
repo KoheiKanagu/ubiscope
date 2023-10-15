@@ -4,8 +4,8 @@ publish_to: "none"
 version: 0.0.4+5
 
 environment:
-  sdk: ^3.1.0-0
-  flutter: ^3.13.0-0
+  sdk: ^3.2.0-0
+  flutter: ^3.16.0-0
 
 dependencies:
   action_slider: ^0.7.0
@@ -35,7 +35,7 @@ dependencies:
   google_maps_flutter:
     git:
       url: https://github.com/KoheiKanagu/packages
-      ref: indoor
+      ref: c8dd2d786b2f056245a8da175c6ef59a84ec5391
       path: packages/google_maps_flutter/google_maps_flutter
   google_mobile_ads: ^3.0.0
   hooks_riverpod: ^2.4.2
