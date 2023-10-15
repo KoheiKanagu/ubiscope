@@ -38,13 +38,13 @@ dependencies:
       ref: c8dd2d786b2f056245a8da175c6ef59a84ec5391
       path: packages/google_maps_flutter/google_maps_flutter
   google_mobile_ads: ^3.0.0
-  hooks_riverpod: ^2.4.2
+  hooks_riverpod: ^2.4.4
   intersperse: ^2.0.0
   intl: ^0.18.1
   json_annotation: ^4.8.1
   package_info_plus: ^4.1.0
   permission_handler: ^11.0.1
-  riverpod_annotation: ^2.1.6
+  riverpod_annotation: ^2.2.1
   share_plus: ^7.1.0
   shared_preferences: ^2.2.1
   url_launcher: ^6.1.14
@@ -62,8 +62,8 @@ dev_dependencies:
   mockito: ^5.4.2
   pedantic_mono: ^1.24.0+1
   pigeon: ^11.0.1
-  riverpod_generator: ^2.3.2
-  riverpod_lint: ^2.1.0
+  riverpod_generator: ^2.3.3
+  riverpod_lint: ^2.1.1
   test: ^1.24.7
 
 flutter:
