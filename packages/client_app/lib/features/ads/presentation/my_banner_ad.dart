@@ -49,7 +49,7 @@ class MyBannerAd extends HookConsumerWidget {
 
     return SafeArea(
       child: SizedBox(
-        height: kToolbarHeight,
+        height: size.height.toDouble(),
         child: MyOutlinedWidget(
           child: AdWidget(
             ad: bannerAd,
