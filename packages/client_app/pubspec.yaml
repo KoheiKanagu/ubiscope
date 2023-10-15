@@ -42,7 +42,7 @@ dependencies:
   intersperse: ^2.0.0
   intl: ^0.18.1
   json_annotation: ^4.8.1
-  package_info_plus: ^4.1.0
+  package_info_plus: ^4.2.0
   permission_handler: ^11.0.1
   riverpod_annotation: ^2.1.6
   share_plus: ^7.1.0
