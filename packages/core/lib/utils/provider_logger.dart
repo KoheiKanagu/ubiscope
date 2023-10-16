@@ -69,19 +69,10 @@ final logger = Roggle.crashlytics(
   printer: CrashlyticsPrinter(
     errorLevel: Level.warning,
     onError: (event) {
-      final bool fatal;
-
-      switch (event.level) {
-        case Level.verbose:
-        case Level.debug:
-        case Level.info:
-        case Level.warning:
-        case Level.nothing:
-          fatal = false;
-        case Level.error:
-        case Level.wtf:
-          fatal = true;
-      }
+      final fatal = switch (event.level) {
+        Level.error || Level.fatal => true,
+        _ => false,
+      };
 
       if (kReleaseMode) {
         FirebaseCrashlytics.instance.recordError(
@@ -98,8 +89,8 @@ final logger = Roggle.crashlytics(
                 LogEvent(
                   event.level,
                   event.exception,
-                  event.exception,
-                  event.stack,
+                  error: event.exception,
+                  stackTrace: event.stack,
                 ),
               )
               .join('\n'),
