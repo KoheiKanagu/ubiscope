@@ -8,12 +8,13 @@ part of 'measurement_point.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_MeasurementPoint _$$_MeasurementPointFromJson(Map<String, dynamic> json) =>
+_$MeasurementPointImpl _$$MeasurementPointImplFromJson(
+        Map<String, dynamic> json) =>
     $checkedCreate(
-      r'_$_MeasurementPoint',
+      r'_$MeasurementPointImpl',
       json,
       ($checkedConvert) {
-        final val = _$_MeasurementPoint(
+        final val = _$MeasurementPointImpl(
           createdAt: $checkedConvert(
               'createdAt', (v) => const TimestampConverter().fromJson(v)),
           updatedAt: $checkedConvert(
@@ -45,7 +46,8 @@ _$_MeasurementPoint _$$_MeasurementPointFromJson(Map<String, dynamic> json) =>
       },
     );
 
-Map<String, dynamic> _$$_MeasurementPointToJson(_$_MeasurementPoint instance) =>
+Map<String, dynamic> _$$MeasurementPointImplToJson(
+        _$MeasurementPointImpl instance) =>
     <String, dynamic>{
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
