@@ -48,8 +48,8 @@ GoRouter myGoRouter(
             'location: ${state.uri}',
             'queryParametersAll: ${state.uri.queryParametersAll}',
           ],
-          state.error,
-          StackTrace.current,
+          error: state.error,
+          stackTrace: StackTrace.current,
         );
 
         return const Scaffold(

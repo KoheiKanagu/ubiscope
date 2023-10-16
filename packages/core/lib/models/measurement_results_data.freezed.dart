@@ -195,25 +195,25 @@ class _$MeasurementResultsDataCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$MeasurementResultsDataUnknownCopyWith<$Res>
+abstract class _$$MeasurementResultsDataUnknownImplCopyWith<$Res>
     implements $MeasurementResultsDataCopyWith<$Res> {
-  factory _$$MeasurementResultsDataUnknownCopyWith(
-          _$MeasurementResultsDataUnknown value,
-          $Res Function(_$MeasurementResultsDataUnknown) then) =
-      __$$MeasurementResultsDataUnknownCopyWithImpl<$Res>;
+  factory _$$MeasurementResultsDataUnknownImplCopyWith(
+          _$MeasurementResultsDataUnknownImpl value,
+          $Res Function(_$MeasurementResultsDataUnknownImpl) then) =
+      __$$MeasurementResultsDataUnknownImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({MeasurementType type});
 }
 
 /// @nodoc
-class __$$MeasurementResultsDataUnknownCopyWithImpl<$Res>
+class __$$MeasurementResultsDataUnknownImplCopyWithImpl<$Res>
     extends _$MeasurementResultsDataCopyWithImpl<$Res,
-        _$MeasurementResultsDataUnknown>
-    implements _$$MeasurementResultsDataUnknownCopyWith<$Res> {
-  __$$MeasurementResultsDataUnknownCopyWithImpl(
-      _$MeasurementResultsDataUnknown _value,
-      $Res Function(_$MeasurementResultsDataUnknown) _then)
+        _$MeasurementResultsDataUnknownImpl>
+    implements _$$MeasurementResultsDataUnknownImplCopyWith<$Res> {
+  __$$MeasurementResultsDataUnknownImplCopyWithImpl(
+      _$MeasurementResultsDataUnknownImpl _value,
+      $Res Function(_$MeasurementResultsDataUnknownImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -221,7 +221,7 @@ class __$$MeasurementResultsDataUnknownCopyWithImpl<$Res>
   $Res call({
     Object? type = null,
   }) {
-    return _then(_$MeasurementResultsDataUnknown(
+    return _then(_$MeasurementResultsDataUnknownImpl(
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -232,12 +232,15 @@ class __$$MeasurementResultsDataUnknownCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$MeasurementResultsDataUnknown extends MeasurementResultsDataUnknown {
-  const _$MeasurementResultsDataUnknown({this.type = MeasurementType.unknown})
+class _$MeasurementResultsDataUnknownImpl
+    extends MeasurementResultsDataUnknown {
+  const _$MeasurementResultsDataUnknownImpl(
+      {this.type = MeasurementType.unknown})
       : super._();
 
-  factory _$MeasurementResultsDataUnknown.fromJson(Map<String, dynamic> json) =>
-      _$$MeasurementResultsDataUnknownFromJson(json);
+  factory _$MeasurementResultsDataUnknownImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$MeasurementResultsDataUnknownImplFromJson(json);
 
   @override
   @JsonKey()
@@ -252,7 +255,7 @@ class _$MeasurementResultsDataUnknown extends MeasurementResultsDataUnknown {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MeasurementResultsDataUnknown &&
+            other is _$MeasurementResultsDataUnknownImpl &&
             (identical(other.type, type) || other.type == type));
   }
 
@@ -263,9 +266,10 @@ class _$MeasurementResultsDataUnknown extends MeasurementResultsDataUnknown {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$MeasurementResultsDataUnknownCopyWith<_$MeasurementResultsDataUnknown>
-      get copyWith => __$$MeasurementResultsDataUnknownCopyWithImpl<
-          _$MeasurementResultsDataUnknown>(this, _$identity);
+  _$$MeasurementResultsDataUnknownImplCopyWith<
+          _$MeasurementResultsDataUnknownImpl>
+      get copyWith => __$$MeasurementResultsDataUnknownImplCopyWithImpl<
+          _$MeasurementResultsDataUnknownImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -415,7 +419,7 @@ class _$MeasurementResultsDataUnknown extends MeasurementResultsDataUnknown {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$MeasurementResultsDataUnknownToJson(
+    return _$$MeasurementResultsDataUnknownImplToJson(
       this,
     );
   }
@@ -423,27 +427,28 @@ class _$MeasurementResultsDataUnknown extends MeasurementResultsDataUnknown {
 
 abstract class MeasurementResultsDataUnknown extends MeasurementResultsData {
   const factory MeasurementResultsDataUnknown({final MeasurementType type}) =
-      _$MeasurementResultsDataUnknown;
+      _$MeasurementResultsDataUnknownImpl;
   const MeasurementResultsDataUnknown._() : super._();
 
   factory MeasurementResultsDataUnknown.fromJson(Map<String, dynamic> json) =
-      _$MeasurementResultsDataUnknown.fromJson;
+      _$MeasurementResultsDataUnknownImpl.fromJson;
 
   @override
   MeasurementType get type;
   @override
   @JsonKey(ignore: true)
-  _$$MeasurementResultsDataUnknownCopyWith<_$MeasurementResultsDataUnknown>
+  _$$MeasurementResultsDataUnknownImplCopyWith<
+          _$MeasurementResultsDataUnknownImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$MeasurementResultsDataWifiCopyWith<$Res>
+abstract class _$$MeasurementResultsDataWifiImplCopyWith<$Res>
     implements $MeasurementResultsDataCopyWith<$Res> {
-  factory _$$MeasurementResultsDataWifiCopyWith(
-          _$MeasurementResultsDataWifi value,
-          $Res Function(_$MeasurementResultsDataWifi) then) =
-      __$$MeasurementResultsDataWifiCopyWithImpl<$Res>;
+  factory _$$MeasurementResultsDataWifiImplCopyWith(
+          _$MeasurementResultsDataWifiImpl value,
+          $Res Function(_$MeasurementResultsDataWifiImpl) then) =
+      __$$MeasurementResultsDataWifiImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -460,13 +465,13 @@ abstract class _$$MeasurementResultsDataWifiCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$MeasurementResultsDataWifiCopyWithImpl<$Res>
+class __$$MeasurementResultsDataWifiImplCopyWithImpl<$Res>
     extends _$MeasurementResultsDataCopyWithImpl<$Res,
-        _$MeasurementResultsDataWifi>
-    implements _$$MeasurementResultsDataWifiCopyWith<$Res> {
-  __$$MeasurementResultsDataWifiCopyWithImpl(
-      _$MeasurementResultsDataWifi _value,
-      $Res Function(_$MeasurementResultsDataWifi) _then)
+        _$MeasurementResultsDataWifiImpl>
+    implements _$$MeasurementResultsDataWifiImplCopyWith<$Res> {
+  __$$MeasurementResultsDataWifiImplCopyWithImpl(
+      _$MeasurementResultsDataWifiImpl _value,
+      $Res Function(_$MeasurementResultsDataWifiImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -483,7 +488,7 @@ class __$$MeasurementResultsDataWifiCopyWithImpl<$Res>
     Object? centerFreq1 = null,
     Object? channelWidth = null,
   }) {
-    return _then(_$MeasurementResultsDataWifi(
+    return _then(_$MeasurementResultsDataWifiImpl(
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -530,8 +535,8 @@ class __$$MeasurementResultsDataWifiCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$MeasurementResultsDataWifi extends MeasurementResultsDataWifi {
-  const _$MeasurementResultsDataWifi(
+class _$MeasurementResultsDataWifiImpl extends MeasurementResultsDataWifi {
+  const _$MeasurementResultsDataWifiImpl(
       {this.type = MeasurementType.wifi,
       required this.timestamp,
       required this.ssid,
@@ -544,8 +549,9 @@ class _$MeasurementResultsDataWifi extends MeasurementResultsDataWifi {
       required this.channelWidth})
       : super._();
 
-  factory _$MeasurementResultsDataWifi.fromJson(Map<String, dynamic> json) =>
-      _$$MeasurementResultsDataWifiFromJson(json);
+  factory _$MeasurementResultsDataWifiImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$MeasurementResultsDataWifiImplFromJson(json);
 
   @override
   @JsonKey()
@@ -578,7 +584,7 @@ class _$MeasurementResultsDataWifi extends MeasurementResultsDataWifi {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MeasurementResultsDataWifi &&
+            other is _$MeasurementResultsDataWifiImpl &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.timestamp, timestamp) ||
                 other.timestamp == timestamp) &&
@@ -605,9 +611,9 @@ class _$MeasurementResultsDataWifi extends MeasurementResultsDataWifi {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$MeasurementResultsDataWifiCopyWith<_$MeasurementResultsDataWifi>
-      get copyWith => __$$MeasurementResultsDataWifiCopyWithImpl<
-          _$MeasurementResultsDataWifi>(this, _$identity);
+  _$$MeasurementResultsDataWifiImplCopyWith<_$MeasurementResultsDataWifiImpl>
+      get copyWith => __$$MeasurementResultsDataWifiImplCopyWithImpl<
+          _$MeasurementResultsDataWifiImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -760,7 +766,7 @@ class _$MeasurementResultsDataWifi extends MeasurementResultsDataWifi {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$MeasurementResultsDataWifiToJson(
+    return _$$MeasurementResultsDataWifiImplToJson(
       this,
     );
   }
@@ -777,11 +783,11 @@ abstract class MeasurementResultsDataWifi extends MeasurementResultsData {
       required final String capabilities,
       required final int centerFreq0,
       required final int centerFreq1,
-      required final int channelWidth}) = _$MeasurementResultsDataWifi;
+      required final int channelWidth}) = _$MeasurementResultsDataWifiImpl;
   const MeasurementResultsDataWifi._() : super._();
 
   factory MeasurementResultsDataWifi.fromJson(Map<String, dynamic> json) =
-      _$MeasurementResultsDataWifi.fromJson;
+      _$MeasurementResultsDataWifiImpl.fromJson;
 
   @override
   MeasurementType get type;
@@ -796,17 +802,17 @@ abstract class MeasurementResultsDataWifi extends MeasurementResultsData {
   int get channelWidth;
   @override
   @JsonKey(ignore: true)
-  _$$MeasurementResultsDataWifiCopyWith<_$MeasurementResultsDataWifi>
+  _$$MeasurementResultsDataWifiImplCopyWith<_$MeasurementResultsDataWifiImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$MeasurementResultsDataIbeaconCopyWith<$Res>
+abstract class _$$MeasurementResultsDataIbeaconImplCopyWith<$Res>
     implements $MeasurementResultsDataCopyWith<$Res> {
-  factory _$$MeasurementResultsDataIbeaconCopyWith(
-          _$MeasurementResultsDataIbeacon value,
-          $Res Function(_$MeasurementResultsDataIbeacon) then) =
-      __$$MeasurementResultsDataIbeaconCopyWithImpl<$Res>;
+  factory _$$MeasurementResultsDataIbeaconImplCopyWith(
+          _$MeasurementResultsDataIbeaconImpl value,
+          $Res Function(_$MeasurementResultsDataIbeaconImpl) then) =
+      __$$MeasurementResultsDataIbeaconImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -823,13 +829,13 @@ abstract class _$$MeasurementResultsDataIbeaconCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$MeasurementResultsDataIbeaconCopyWithImpl<$Res>
+class __$$MeasurementResultsDataIbeaconImplCopyWithImpl<$Res>
     extends _$MeasurementResultsDataCopyWithImpl<$Res,
-        _$MeasurementResultsDataIbeacon>
-    implements _$$MeasurementResultsDataIbeaconCopyWith<$Res> {
-  __$$MeasurementResultsDataIbeaconCopyWithImpl(
-      _$MeasurementResultsDataIbeacon _value,
-      $Res Function(_$MeasurementResultsDataIbeacon) _then)
+        _$MeasurementResultsDataIbeaconImpl>
+    implements _$$MeasurementResultsDataIbeaconImplCopyWith<$Res> {
+  __$$MeasurementResultsDataIbeaconImplCopyWithImpl(
+      _$MeasurementResultsDataIbeaconImpl _value,
+      $Res Function(_$MeasurementResultsDataIbeaconImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -846,7 +852,7 @@ class __$$MeasurementResultsDataIbeaconCopyWithImpl<$Res>
     Object? txPower = freezed,
     Object? bluetoothAddress = freezed,
   }) {
-    return _then(_$MeasurementResultsDataIbeacon(
+    return _then(_$MeasurementResultsDataIbeaconImpl(
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -893,8 +899,9 @@ class __$$MeasurementResultsDataIbeaconCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$MeasurementResultsDataIbeacon extends MeasurementResultsDataIbeacon {
-  const _$MeasurementResultsDataIbeacon(
+class _$MeasurementResultsDataIbeaconImpl
+    extends MeasurementResultsDataIbeacon {
+  const _$MeasurementResultsDataIbeaconImpl(
       {this.type = MeasurementType.ibeacon,
       required this.uuid,
       required this.major,
@@ -907,8 +914,9 @@ class _$MeasurementResultsDataIbeacon extends MeasurementResultsDataIbeacon {
       required this.bluetoothAddress})
       : super._();
 
-  factory _$MeasurementResultsDataIbeacon.fromJson(Map<String, dynamic> json) =>
-      _$$MeasurementResultsDataIbeaconFromJson(json);
+  factory _$MeasurementResultsDataIbeaconImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$MeasurementResultsDataIbeaconImplFromJson(json);
 
   @override
   @JsonKey()
@@ -941,7 +949,7 @@ class _$MeasurementResultsDataIbeacon extends MeasurementResultsDataIbeacon {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MeasurementResultsDataIbeacon &&
+            other is _$MeasurementResultsDataIbeaconImpl &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.uuid, uuid) || other.uuid == uuid) &&
             (identical(other.major, major) || other.major == major) &&
@@ -966,9 +974,10 @@ class _$MeasurementResultsDataIbeacon extends MeasurementResultsDataIbeacon {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$MeasurementResultsDataIbeaconCopyWith<_$MeasurementResultsDataIbeacon>
-      get copyWith => __$$MeasurementResultsDataIbeaconCopyWithImpl<
-          _$MeasurementResultsDataIbeacon>(this, _$identity);
+  _$$MeasurementResultsDataIbeaconImplCopyWith<
+          _$MeasurementResultsDataIbeaconImpl>
+      get copyWith => __$$MeasurementResultsDataIbeaconImplCopyWithImpl<
+          _$MeasurementResultsDataIbeaconImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1121,7 +1130,7 @@ class _$MeasurementResultsDataIbeacon extends MeasurementResultsDataIbeacon {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$MeasurementResultsDataIbeaconToJson(
+    return _$$MeasurementResultsDataIbeaconImplToJson(
       this,
     );
   }
@@ -1139,11 +1148,11 @@ abstract class MeasurementResultsDataIbeacon extends MeasurementResultsData {
           required final int? proximity,
           required final int? txPower,
           required final String? bluetoothAddress}) =
-      _$MeasurementResultsDataIbeacon;
+      _$MeasurementResultsDataIbeaconImpl;
   const MeasurementResultsDataIbeacon._() : super._();
 
   factory MeasurementResultsDataIbeacon.fromJson(Map<String, dynamic> json) =
-      _$MeasurementResultsDataIbeacon.fromJson;
+      _$MeasurementResultsDataIbeaconImpl.fromJson;
 
   @override
   MeasurementType get type;
@@ -1158,17 +1167,18 @@ abstract class MeasurementResultsDataIbeacon extends MeasurementResultsData {
   String? get bluetoothAddress;
   @override
   @JsonKey(ignore: true)
-  _$$MeasurementResultsDataIbeaconCopyWith<_$MeasurementResultsDataIbeacon>
+  _$$MeasurementResultsDataIbeaconImplCopyWith<
+          _$MeasurementResultsDataIbeaconImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$MeasurementResultsDataMagneticCopyWith<$Res>
+abstract class _$$MeasurementResultsDataMagneticImplCopyWith<$Res>
     implements $MeasurementResultsDataCopyWith<$Res> {
-  factory _$$MeasurementResultsDataMagneticCopyWith(
-          _$MeasurementResultsDataMagnetic value,
-          $Res Function(_$MeasurementResultsDataMagnetic) then) =
-      __$$MeasurementResultsDataMagneticCopyWithImpl<$Res>;
+  factory _$$MeasurementResultsDataMagneticImplCopyWith(
+          _$MeasurementResultsDataMagneticImpl value,
+          $Res Function(_$MeasurementResultsDataMagneticImpl) then) =
+      __$$MeasurementResultsDataMagneticImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1178,13 +1188,13 @@ abstract class _$$MeasurementResultsDataMagneticCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$MeasurementResultsDataMagneticCopyWithImpl<$Res>
+class __$$MeasurementResultsDataMagneticImplCopyWithImpl<$Res>
     extends _$MeasurementResultsDataCopyWithImpl<$Res,
-        _$MeasurementResultsDataMagnetic>
-    implements _$$MeasurementResultsDataMagneticCopyWith<$Res> {
-  __$$MeasurementResultsDataMagneticCopyWithImpl(
-      _$MeasurementResultsDataMagnetic _value,
-      $Res Function(_$MeasurementResultsDataMagnetic) _then)
+        _$MeasurementResultsDataMagneticImpl>
+    implements _$$MeasurementResultsDataMagneticImplCopyWith<$Res> {
+  __$$MeasurementResultsDataMagneticImplCopyWithImpl(
+      _$MeasurementResultsDataMagneticImpl _value,
+      $Res Function(_$MeasurementResultsDataMagneticImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1194,7 +1204,7 @@ class __$$MeasurementResultsDataMagneticCopyWithImpl<$Res>
     Object? recordStartTime = null,
     Object? record = null,
   }) {
-    return _then(_$MeasurementResultsDataMagnetic(
+    return _then(_$MeasurementResultsDataMagneticImpl(
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -1213,16 +1223,17 @@ class __$$MeasurementResultsDataMagneticCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$MeasurementResultsDataMagnetic extends MeasurementResultsDataMagnetic {
-  const _$MeasurementResultsDataMagnetic(
+class _$MeasurementResultsDataMagneticImpl
+    extends MeasurementResultsDataMagnetic {
+  const _$MeasurementResultsDataMagneticImpl(
       {this.type = MeasurementType.magnetic,
       required this.recordStartTime,
       @BlobConverter() required this.record})
       : super._();
 
-  factory _$MeasurementResultsDataMagnetic.fromJson(
+  factory _$MeasurementResultsDataMagneticImpl.fromJson(
           Map<String, dynamic> json) =>
-      _$$MeasurementResultsDataMagneticFromJson(json);
+      _$$MeasurementResultsDataMagneticImplFromJson(json);
 
   @override
   @JsonKey()
@@ -1242,7 +1253,7 @@ class _$MeasurementResultsDataMagnetic extends MeasurementResultsDataMagnetic {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MeasurementResultsDataMagnetic &&
+            other is _$MeasurementResultsDataMagneticImpl &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.recordStartTime, recordStartTime) ||
                 other.recordStartTime == recordStartTime) &&
@@ -1256,9 +1267,10 @@ class _$MeasurementResultsDataMagnetic extends MeasurementResultsDataMagnetic {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$MeasurementResultsDataMagneticCopyWith<_$MeasurementResultsDataMagnetic>
-      get copyWith => __$$MeasurementResultsDataMagneticCopyWithImpl<
-          _$MeasurementResultsDataMagnetic>(this, _$identity);
+  _$$MeasurementResultsDataMagneticImplCopyWith<
+          _$MeasurementResultsDataMagneticImpl>
+      get copyWith => __$$MeasurementResultsDataMagneticImplCopyWithImpl<
+          _$MeasurementResultsDataMagneticImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1408,7 +1420,7 @@ class _$MeasurementResultsDataMagnetic extends MeasurementResultsDataMagnetic {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$MeasurementResultsDataMagneticToJson(
+    return _$$MeasurementResultsDataMagneticImplToJson(
       this,
     );
   }
@@ -1419,11 +1431,11 @@ abstract class MeasurementResultsDataMagnetic extends MeasurementResultsData {
           {final MeasurementType type,
           required final int recordStartTime,
           @BlobConverter() required final Blob record}) =
-      _$MeasurementResultsDataMagnetic;
+      _$MeasurementResultsDataMagneticImpl;
   const MeasurementResultsDataMagnetic._() : super._();
 
   factory MeasurementResultsDataMagnetic.fromJson(Map<String, dynamic> json) =
-      _$MeasurementResultsDataMagnetic.fromJson;
+      _$MeasurementResultsDataMagneticImpl.fromJson;
 
   @override
   MeasurementType get type;
@@ -1432,6 +1444,7 @@ abstract class MeasurementResultsDataMagnetic extends MeasurementResultsData {
   Blob get record;
   @override
   @JsonKey(ignore: true)
-  _$$MeasurementResultsDataMagneticCopyWith<_$MeasurementResultsDataMagnetic>
+  _$$MeasurementResultsDataMagneticImplCopyWith<
+          _$MeasurementResultsDataMagneticImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

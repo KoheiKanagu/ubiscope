@@ -120,11 +120,11 @@ class _$MeasurementPointCopyWithImpl<$Res, $Val extends MeasurementPoint>
 }
 
 /// @nodoc
-abstract class _$$_MeasurementPointCopyWith<$Res>
+abstract class _$$MeasurementPointImplCopyWith<$Res>
     implements $MeasurementPointCopyWith<$Res> {
-  factory _$$_MeasurementPointCopyWith(
-          _$_MeasurementPoint value, $Res Function(_$_MeasurementPoint) then) =
-      __$$_MeasurementPointCopyWithImpl<$Res>;
+  factory _$$MeasurementPointImplCopyWith(_$MeasurementPointImpl value,
+          $Res Function(_$MeasurementPointImpl) then) =
+      __$$MeasurementPointImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -143,11 +143,11 @@ abstract class _$$_MeasurementPointCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_MeasurementPointCopyWithImpl<$Res>
-    extends _$MeasurementPointCopyWithImpl<$Res, _$_MeasurementPoint>
-    implements _$$_MeasurementPointCopyWith<$Res> {
-  __$$_MeasurementPointCopyWithImpl(
-      _$_MeasurementPoint _value, $Res Function(_$_MeasurementPoint) _then)
+class __$$MeasurementPointImplCopyWithImpl<$Res>
+    extends _$MeasurementPointCopyWithImpl<$Res, _$MeasurementPointImpl>
+    implements _$$MeasurementPointImplCopyWith<$Res> {
+  __$$MeasurementPointImplCopyWithImpl(_$MeasurementPointImpl _value,
+      $Res Function(_$MeasurementPointImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -160,7 +160,7 @@ class __$$_MeasurementPointCopyWithImpl<$Res>
     Object? location = null,
     Object? measuredTypes = null,
   }) {
-    return _then(_$_MeasurementPoint(
+    return _then(_$MeasurementPointImpl(
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -196,8 +196,8 @@ class __$$_MeasurementPointCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_MeasurementPoint extends _MeasurementPoint {
-  const _$_MeasurementPoint(
+class _$MeasurementPointImpl extends _MeasurementPoint {
+  const _$MeasurementPointImpl(
       {@TimestampConverter() this.createdAt,
       @TimestampConverter() this.updatedAt,
       this.deleted = false,
@@ -207,8 +207,8 @@ class _$_MeasurementPoint extends _MeasurementPoint {
       : _measuredTypes = measuredTypes,
         super._();
 
-  factory _$_MeasurementPoint.fromJson(Map<String, dynamic> json) =>
-      _$$_MeasurementPointFromJson(json);
+  factory _$MeasurementPointImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MeasurementPointImplFromJson(json);
 
   @override
   @TimestampConverter()
@@ -255,7 +255,7 @@ class _$_MeasurementPoint extends _MeasurementPoint {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MeasurementPoint &&
+            other is _$MeasurementPointImpl &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -277,12 +277,13 @@ class _$_MeasurementPoint extends _MeasurementPoint {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MeasurementPointCopyWith<_$_MeasurementPoint> get copyWith =>
-      __$$_MeasurementPointCopyWithImpl<_$_MeasurementPoint>(this, _$identity);
+  _$$MeasurementPointImplCopyWith<_$MeasurementPointImpl> get copyWith =>
+      __$$MeasurementPointImplCopyWithImpl<_$MeasurementPointImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MeasurementPointToJson(
+    return _$$MeasurementPointImplToJson(
       this,
     );
   }
@@ -290,22 +291,23 @@ class _$_MeasurementPoint extends _MeasurementPoint {
 
 abstract class _MeasurementPoint extends MeasurementPoint {
   const factory _MeasurementPoint(
-      {@TimestampConverter() final Timestamp? createdAt,
-      @TimestampConverter() final Timestamp? updatedAt,
-      final bool deleted,
-      required final String createdBy,
-      @GeoPointConverter()
-      required final ({
-        String geohash,
-        GeoPoint geopoint,
-        String? level,
-        String? levelShort
-      }) location,
-      final Map<MeasurementType, String?> measuredTypes}) = _$_MeasurementPoint;
+          {@TimestampConverter() final Timestamp? createdAt,
+          @TimestampConverter() final Timestamp? updatedAt,
+          final bool deleted,
+          required final String createdBy,
+          @GeoPointConverter()
+          required final ({
+            String geohash,
+            GeoPoint geopoint,
+            String? level,
+            String? levelShort
+          }) location,
+          final Map<MeasurementType, String?> measuredTypes}) =
+      _$MeasurementPointImpl;
   const _MeasurementPoint._() : super._();
 
   factory _MeasurementPoint.fromJson(Map<String, dynamic> json) =
-      _$_MeasurementPoint.fromJson;
+      _$MeasurementPointImpl.fromJson;
 
   @override
   @TimestampConverter()
@@ -331,6 +333,6 @@ abstract class _MeasurementPoint extends MeasurementPoint {
   Map<MeasurementType, String?> get measuredTypes;
   @override
   @JsonKey(ignore: true)
-  _$$_MeasurementPointCopyWith<_$_MeasurementPoint> get copyWith =>
+  _$$MeasurementPointImplCopyWith<_$MeasurementPointImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

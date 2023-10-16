@@ -8,25 +8,25 @@ part of 'measurement_results_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$MeasurementResultsDataUnknown _$$MeasurementResultsDataUnknownFromJson(
-        Map<String, dynamic> json) =>
-    $checkedCreate(
-      r'_$MeasurementResultsDataUnknown',
-      json,
-      ($checkedConvert) {
-        final val = _$MeasurementResultsDataUnknown(
-          type: $checkedConvert(
-              'type',
-              (v) =>
-                  $enumDecodeNullable(_$MeasurementTypeEnumMap, v) ??
-                  MeasurementType.unknown),
+_$MeasurementResultsDataUnknownImpl
+    _$$MeasurementResultsDataUnknownImplFromJson(Map<String, dynamic> json) =>
+        $checkedCreate(
+          r'_$MeasurementResultsDataUnknownImpl',
+          json,
+          ($checkedConvert) {
+            final val = _$MeasurementResultsDataUnknownImpl(
+              type: $checkedConvert(
+                  'type',
+                  (v) =>
+                      $enumDecodeNullable(_$MeasurementTypeEnumMap, v) ??
+                      MeasurementType.unknown),
+            );
+            return val;
+          },
         );
-        return val;
-      },
-    );
 
-Map<String, dynamic> _$$MeasurementResultsDataUnknownToJson(
-        _$MeasurementResultsDataUnknown instance) =>
+Map<String, dynamic> _$$MeasurementResultsDataUnknownImplToJson(
+        _$MeasurementResultsDataUnknownImpl instance) =>
     <String, dynamic>{
       'type': _$MeasurementTypeEnumMap[instance.type]!,
     };
@@ -38,13 +38,13 @@ const _$MeasurementTypeEnumMap = {
   MeasurementType.magnetic: 'magnetic',
 };
 
-_$MeasurementResultsDataWifi _$$MeasurementResultsDataWifiFromJson(
+_$MeasurementResultsDataWifiImpl _$$MeasurementResultsDataWifiImplFromJson(
         Map<String, dynamic> json) =>
     $checkedCreate(
-      r'_$MeasurementResultsDataWifi',
+      r'_$MeasurementResultsDataWifiImpl',
       json,
       ($checkedConvert) {
-        final val = _$MeasurementResultsDataWifi(
+        final val = _$MeasurementResultsDataWifiImpl(
           type: $checkedConvert(
               'type',
               (v) =>
@@ -64,8 +64,8 @@ _$MeasurementResultsDataWifi _$$MeasurementResultsDataWifiFromJson(
       },
     );
 
-Map<String, dynamic> _$$MeasurementResultsDataWifiToJson(
-        _$MeasurementResultsDataWifi instance) =>
+Map<String, dynamic> _$$MeasurementResultsDataWifiImplToJson(
+        _$MeasurementResultsDataWifiImpl instance) =>
     <String, dynamic>{
       'type': _$MeasurementTypeEnumMap[instance.type]!,
       'timestamp': instance.timestamp,
@@ -79,35 +79,36 @@ Map<String, dynamic> _$$MeasurementResultsDataWifiToJson(
       'channelWidth': instance.channelWidth,
     };
 
-_$MeasurementResultsDataIbeacon _$$MeasurementResultsDataIbeaconFromJson(
-        Map<String, dynamic> json) =>
-    $checkedCreate(
-      r'_$MeasurementResultsDataIbeacon',
-      json,
-      ($checkedConvert) {
-        final val = _$MeasurementResultsDataIbeacon(
-          type: $checkedConvert(
-              'type',
-              (v) =>
-                  $enumDecodeNullable(_$MeasurementTypeEnumMap, v) ??
-                  MeasurementType.ibeacon),
-          uuid: $checkedConvert('uuid', (v) => v as String),
-          major: $checkedConvert('major', (v) => v as int),
-          minor: $checkedConvert('minor', (v) => v as int),
-          rssi: $checkedConvert('rssi', (v) => v as int),
-          timestamp: $checkedConvert('timestamp', (v) => v as String),
-          accuracy: $checkedConvert('accuracy', (v) => (v as num).toDouble()),
-          proximity: $checkedConvert('proximity', (v) => v as int?),
-          txPower: $checkedConvert('txPower', (v) => v as int?),
-          bluetoothAddress:
-              $checkedConvert('bluetoothAddress', (v) => v as String?),
+_$MeasurementResultsDataIbeaconImpl
+    _$$MeasurementResultsDataIbeaconImplFromJson(Map<String, dynamic> json) =>
+        $checkedCreate(
+          r'_$MeasurementResultsDataIbeaconImpl',
+          json,
+          ($checkedConvert) {
+            final val = _$MeasurementResultsDataIbeaconImpl(
+              type: $checkedConvert(
+                  'type',
+                  (v) =>
+                      $enumDecodeNullable(_$MeasurementTypeEnumMap, v) ??
+                      MeasurementType.ibeacon),
+              uuid: $checkedConvert('uuid', (v) => v as String),
+              major: $checkedConvert('major', (v) => v as int),
+              minor: $checkedConvert('minor', (v) => v as int),
+              rssi: $checkedConvert('rssi', (v) => v as int),
+              timestamp: $checkedConvert('timestamp', (v) => v as String),
+              accuracy:
+                  $checkedConvert('accuracy', (v) => (v as num).toDouble()),
+              proximity: $checkedConvert('proximity', (v) => v as int?),
+              txPower: $checkedConvert('txPower', (v) => v as int?),
+              bluetoothAddress:
+                  $checkedConvert('bluetoothAddress', (v) => v as String?),
+            );
+            return val;
+          },
         );
-        return val;
-      },
-    );
 
-Map<String, dynamic> _$$MeasurementResultsDataIbeaconToJson(
-        _$MeasurementResultsDataIbeacon instance) =>
+Map<String, dynamic> _$$MeasurementResultsDataIbeaconImplToJson(
+        _$MeasurementResultsDataIbeaconImpl instance) =>
     <String, dynamic>{
       'type': _$MeasurementTypeEnumMap[instance.type]!,
       'uuid': instance.uuid,
@@ -121,28 +122,29 @@ Map<String, dynamic> _$$MeasurementResultsDataIbeaconToJson(
       'bluetoothAddress': instance.bluetoothAddress,
     };
 
-_$MeasurementResultsDataMagnetic _$$MeasurementResultsDataMagneticFromJson(
-        Map<String, dynamic> json) =>
-    $checkedCreate(
-      r'_$MeasurementResultsDataMagnetic',
-      json,
-      ($checkedConvert) {
-        final val = _$MeasurementResultsDataMagnetic(
-          type: $checkedConvert(
-              'type',
-              (v) =>
-                  $enumDecodeNullable(_$MeasurementTypeEnumMap, v) ??
-                  MeasurementType.magnetic),
-          recordStartTime: $checkedConvert('recordStartTime', (v) => v as int),
-          record: $checkedConvert(
-              'record', (v) => const BlobConverter().fromJson(v)),
+_$MeasurementResultsDataMagneticImpl
+    _$$MeasurementResultsDataMagneticImplFromJson(Map<String, dynamic> json) =>
+        $checkedCreate(
+          r'_$MeasurementResultsDataMagneticImpl',
+          json,
+          ($checkedConvert) {
+            final val = _$MeasurementResultsDataMagneticImpl(
+              type: $checkedConvert(
+                  'type',
+                  (v) =>
+                      $enumDecodeNullable(_$MeasurementTypeEnumMap, v) ??
+                      MeasurementType.magnetic),
+              recordStartTime:
+                  $checkedConvert('recordStartTime', (v) => v as int),
+              record: $checkedConvert(
+                  'record', (v) => const BlobConverter().fromJson(v)),
+            );
+            return val;
+          },
         );
-        return val;
-      },
-    );
 
-Map<String, dynamic> _$$MeasurementResultsDataMagneticToJson(
-        _$MeasurementResultsDataMagnetic instance) =>
+Map<String, dynamic> _$$MeasurementResultsDataMagneticImplToJson(
+        _$MeasurementResultsDataMagneticImpl instance) =>
     <String, dynamic>{
       'type': _$MeasurementTypeEnumMap[instance.type]!,
       'recordStartTime': instance.recordStartTime,

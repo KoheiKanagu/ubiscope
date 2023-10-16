@@ -143,11 +143,11 @@ class _$MeasurementResultsCopyWithImpl<$Res, $Val extends MeasurementResults>
 }
 
 /// @nodoc
-abstract class _$$_MeasurementResultsCopyWith<$Res>
+abstract class _$$MeasurementResultsImplCopyWith<$Res>
     implements $MeasurementResultsCopyWith<$Res> {
-  factory _$$_MeasurementResultsCopyWith(_$_MeasurementResults value,
-          $Res Function(_$_MeasurementResults) then) =
-      __$$_MeasurementResultsCopyWithImpl<$Res>;
+  factory _$$MeasurementResultsImplCopyWith(_$MeasurementResultsImpl value,
+          $Res Function(_$MeasurementResultsImpl) then) =
+      __$$MeasurementResultsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -166,11 +166,11 @@ abstract class _$$_MeasurementResultsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_MeasurementResultsCopyWithImpl<$Res>
-    extends _$MeasurementResultsCopyWithImpl<$Res, _$_MeasurementResults>
-    implements _$$_MeasurementResultsCopyWith<$Res> {
-  __$$_MeasurementResultsCopyWithImpl(
-      _$_MeasurementResults _value, $Res Function(_$_MeasurementResults) _then)
+class __$$MeasurementResultsImplCopyWithImpl<$Res>
+    extends _$MeasurementResultsCopyWithImpl<$Res, _$MeasurementResultsImpl>
+    implements _$$MeasurementResultsImplCopyWith<$Res> {
+  __$$MeasurementResultsImplCopyWithImpl(_$MeasurementResultsImpl _value,
+      $Res Function(_$MeasurementResultsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -186,7 +186,7 @@ class __$$_MeasurementResultsCopyWithImpl<$Res>
     Object? scanId = null,
     Object? data = null,
   }) {
-    return _then(_$_MeasurementResults(
+    return _then(_$MeasurementResultsImpl(
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -229,8 +229,8 @@ class __$$_MeasurementResultsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_MeasurementResults implements _MeasurementResults {
-  const _$_MeasurementResults(
+class _$MeasurementResultsImpl implements _MeasurementResults {
+  const _$MeasurementResultsImpl(
       {@TimestampConverter() this.createdAt,
       @TimestampConverter() this.updatedAt,
       this.deleted = false,
@@ -241,8 +241,8 @@ class _$_MeasurementResults implements _MeasurementResults {
       required this.scanId,
       required this.data});
 
-  factory _$_MeasurementResults.fromJson(Map<String, dynamic> json) =>
-      _$$_MeasurementResultsFromJson(json);
+  factory _$MeasurementResultsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MeasurementResultsImplFromJson(json);
 
   @override
   @TimestampConverter()
@@ -287,7 +287,7 @@ class _$_MeasurementResults implements _MeasurementResults {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MeasurementResults &&
+            other is _$MeasurementResultsImpl &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -313,13 +313,13 @@ class _$_MeasurementResults implements _MeasurementResults {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MeasurementResultsCopyWith<_$_MeasurementResults> get copyWith =>
-      __$$_MeasurementResultsCopyWithImpl<_$_MeasurementResults>(
+  _$$MeasurementResultsImplCopyWith<_$MeasurementResultsImpl> get copyWith =>
+      __$$MeasurementResultsImplCopyWithImpl<_$MeasurementResultsImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MeasurementResultsToJson(
+    return _$$MeasurementResultsImplToJson(
       this,
     );
   }
@@ -335,10 +335,10 @@ abstract class _MeasurementResults implements MeasurementResults {
       required final String measuredBy,
       required final String measurementPointId,
       required final String scanId,
-      required final MeasurementResultsData data}) = _$_MeasurementResults;
+      required final MeasurementResultsData data}) = _$MeasurementResultsImpl;
 
   factory _MeasurementResults.fromJson(Map<String, dynamic> json) =
-      _$_MeasurementResults.fromJson;
+      _$MeasurementResultsImpl.fromJson;
 
   @override
   @TimestampConverter()
@@ -373,6 +373,6 @@ abstract class _MeasurementResults implements MeasurementResults {
   MeasurementResultsData get data;
   @override
   @JsonKey(ignore: true)
-  _$$_MeasurementResultsCopyWith<_$_MeasurementResults> get copyWith =>
+  _$$MeasurementResultsImplCopyWith<_$MeasurementResultsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
