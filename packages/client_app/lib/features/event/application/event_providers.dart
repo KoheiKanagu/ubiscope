@@ -47,7 +47,11 @@ mixin EventControllerBase<T> {
     try {
       return start();
     } on Exception catch (error, stackTrace) {
-      logger.e(error, stackTrace);
+      logger.e(
+        error,
+        error: error,
+        stackTrace: stackTrace,
+      );
       didStart = false;
       return Future.error(error, stackTrace);
     }
