@@ -1,5 +1,12 @@
 version: 2
 updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+      timezone: "Asia/Tokyo"
+
   - package-ecosystem: "pub"
     directory: "/"
     schedule:
@@ -14,25 +21,9 @@ updates:
       time: "04:00"
       timezone: "Asia/Tokyo"
     groups:
-      firebase:
+      all:
         patterns:
-          - "firebase_*"
-          - "cloud_firestore"
-          - "cloud_functions"
-      freezed:
-        patterns:
-          - "freezed_annotation"
-          - "freezed"
-          - "json_annotation"
-          - "json_serializable"
-      riverpod:
-        patterns:
-          - "hooks_riverpod"
-          - "riverpod_*"
-      go_router:
-        patterns:
-          - "go_router"
-          - "go_router_builder"
+          - "*"
 
   - package-ecosystem: "pub"
     directory: "/packages/client_app"
@@ -41,33 +32,9 @@ updates:
       time: "04:00"
       timezone: "Asia/Tokyo"
     groups:
-      firebase:
+      all:
         patterns:
-          - "firebase_*"
-          - "cloud_firestore"
-          - "cloud_functions"
-      freezed:
-        patterns:
-          - "freezed_annotation"
-          - "freezed"
-          - "json_annotation"
-          - "json_serializable"
-      riverpod:
-        patterns:
-          - "hooks_riverpod"
-          - "riverpod_*"
-      go_router:
-        patterns:
-          - "go_router"
-          - "go_router_builder"
-
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "daily"
-      time: "04:00"
-      timezone: "Asia/Tokyo"
-    open-pull-requests-limit: 100
+          - "*"
 
   - package-ecosystem: "npm"
     directory: "/packages/client_app/firebase/functions"
@@ -76,16 +43,6 @@ updates:
       time: "04:00"
       timezone: "Asia/Tokyo"
     groups:
-      eslint:
+      all:
         patterns:
-          - "@typescript-eslint/*"
-          - "eslint*"
-      jest:
-        patterns:
-          - "@swc/jest"
-          - "@types/jest"
-          - "jest"
-      firebase:
-        patterns:
-          - "firebase_*"
-          - "@firebase/*"
+          - "*"
