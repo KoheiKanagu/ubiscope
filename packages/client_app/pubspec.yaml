@@ -13,7 +13,7 @@ dependencies:
   animations: ^2.0.8
   clock: ^1.1.1
   cloud_firestore: ^4.9.3
-  cloud_functions: ^4.4.2
+  cloud_functions: ^4.5.0
   collection: ^1.18.0
   core:
     path: ../core
