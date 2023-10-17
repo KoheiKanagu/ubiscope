@@ -19,7 +19,7 @@ dependencies:
     path: ../core
   device_info_plus: ^9.1.0
   firebase_analytics: ^10.5.1
-  firebase_app_check: ^0.2.0+1
+  firebase_app_check: ^0.2.1
   firebase_auth: ^4.10.1
   firebase_core: ^2.17.0
   firebase_crashlytics: ^3.3.7
