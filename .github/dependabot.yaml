@@ -13,24 +13,6 @@ updates:
       interval: "daily"
       time: "04:00"
       timezone: "Asia/Tokyo"
-
-  - package-ecosystem: "pub"
-    directory: "/packages/core"
-    schedule:
-      interval: "daily"
-      time: "04:00"
-      timezone: "Asia/Tokyo"
-    groups:
-      all:
-        patterns:
-          - "*"
-
-  - package-ecosystem: "pub"
-    directory: "/packages/client_app"
-    schedule:
-      interval: "daily"
-      time: "04:00"
-      timezone: "Asia/Tokyo"
     groups:
       all:
         patterns:
