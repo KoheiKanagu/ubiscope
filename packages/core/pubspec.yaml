@@ -11,7 +11,7 @@ dependencies:
   adaptive_dialog: ^1.9.0+2
   clock: ^1.1.1
   cloud_firestore: ^4.9.3
-  cloud_functions: ^4.4.2
+  cloud_functions: ^4.5.0
   collection: ^1.18.0
   device_info_plus: ^9.1.0
   firebase_analytics: ^10.5.1
