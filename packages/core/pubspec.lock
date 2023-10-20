@@ -517,50 +517,50 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_ui_auth
-      sha256: "66cd9ce1b6b755b1736a594ede58042a6970f634d9dbd0950bf03175f233f53e"
+      sha256: cae22dc8fa1b7f7c8341ed00ff822b7b73668286405abe9731f36942cc9460e3
       url: "https://pub.dev"
     source: hosted
-    version: "1.9.0"
+    version: "1.9.1"
   firebase_ui_localizations:
     dependency: transitive
     description:
       name: firebase_ui_localizations
-      sha256: cc3b3355c543f82d63c169848ab9011779a470e83f89b16c5c065d4e246087a0
+      sha256: "9c92bc3697a89ce74fb0237cfb9b33580dd0450c080795b605d1a852a44b9f67"
       url: "https://pub.dev"
     source: hosted
-    version: "1.7.0"
+    version: "1.7.1"
   firebase_ui_oauth:
     dependency: transitive
     description:
       name: firebase_ui_oauth
-      sha256: "23d2f2012036fab7f54395d57de85a8917372d381ab68ef59a99c0778ccef1bc"
+      sha256: cd6d2b6bb7cf3bc4a0244ec810367a405d02a5afa5aa3c72a56279b268126440
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.12"
+    version: "1.4.13"
   firebase_ui_oauth_apple:
     dependency: "direct main"
     description:
       name: firebase_ui_oauth_apple
-      sha256: dbb194f064a898f957b7956e69bcf3df1169a1ac3528f6f47c8b2c6ba31b1e1b
+      sha256: "003577e0a4f1123fb12d2d82b491fe4bef5201f7d3a2c4d4a266cb914f8a719a"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.12"
+    version: "1.2.13"
   firebase_ui_oauth_google:
     dependency: "direct main"
     description:
       name: firebase_ui_oauth_google
-      sha256: "150e0de8a46ba7da56c849b098e8ae728c8ae836aed598b8e08167ab04f763e9"
+      sha256: "1319bfb5b937f7a4940d5106a12cce509583f1277a16d915252baa9b0ba39761"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.12"
+    version: "1.2.13"
   firebase_ui_shared:
     dependency: transitive
     description:
       name: firebase_ui_shared
-      sha256: "8c593058404d69f1eab77089428d814fdfbcdcee82237b0404cb051f2c437968"
+      sha256: f1d07c130a39104d32fba1dab274b7bcb13be2bf4e652624a4ccabb58f9781f1
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.0"
+    version: "1.4.1"
   fixnum:
     dependency: transitive
     description:
