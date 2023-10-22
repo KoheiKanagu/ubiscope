@@ -65,8 +65,62 @@ class ProviderLogger extends ProviderObserver {
 
 final singlePrettyPrinter = SinglePrettyPrinter();
 
+class MyCrashlyticsPrinter extends CrashlyticsPrinter {
+  MyCrashlyticsPrinter({
+    required super.errorLevel,
+    required super.onError,
+    super.onLog,
+  });
+
+  @override
+  List<String> log(LogEvent event) {
+    if (onLog != null) {
+      final message = _formatMessage(
+        level: event.level,
+        message: stringifyMessage(event.message),
+        time: event.time,
+      );
+      onLog!.call(CrashlyticsLogEvent(event.level, message));
+    }
+
+    if (event.level.index >= errorLevel.index) {
+      Object error;
+      if (event.error != null) {
+        // If error is not null, it will be sent with priority.
+        error = event.error!;
+      } else if (event.message is Exception) {
+        error = event.message as Exception;
+      } else if (event.message is Error) {
+        error = event.message as Error;
+      } else {
+        error = stringifyMessage(event.message);
+      }
+
+      onError.call(
+        CrashlyticsErrorEvent(
+          event.level,
+          error,
+          event.stackTrace ?? StackTrace.current,
+        ),
+      );
+    }
+
+    return [];
+  }
+
+  String _formatMessage({
+    required Level level,
+    required String message,
+    required DateTime time,
+  }) {
+    final color = getLevelColor(level);
+    final fixed = formatFixed(level: level, time: time);
+    return color('$fixed$message');
+  }
+}
+
 final logger = Roggle.crashlytics(
-  printer: CrashlyticsPrinter(
+  printer: MyCrashlyticsPrinter(
     errorLevel: Level.warning,
     onError: (event) {
       final fatal = switch (event.level) {
@@ -74,10 +128,21 @@ final logger = Roggle.crashlytics(
         _ => false,
       };
 
+      // https://github.com/firebase/flutterfire/issues/11029#issuecomment-1774077570
+      final newStackTrace = StackTrace.fromString(
+        event.stack
+            .toString()
+            .split('\n')
+            .map(
+              (e) => e.replaceFirst(RegExp(r'abs [\da-f]+'), 'abs 0'),
+            )
+            .join('\n'),
+      );
+
       if (kReleaseMode) {
         FirebaseCrashlytics.instance.recordError(
           event.exception,
-          event.stack,
+          newStackTrace,
           fatal: fatal,
         );
       }
