@@ -128,6 +128,7 @@ final logger = Roggle.crashlytics(
         _ => false,
       };
 
+      // https://github.com/firebase/flutterfire/issues/11029#issuecomment-1774077570
       final newStackTrace = StackTrace.fromString(
         event.stack
             .toString()
