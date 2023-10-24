@@ -18,7 +18,7 @@ dependencies:
   firebase_auth: ^4.11.1
   firebase_core: ^2.19.0
   firebase_crashlytics: ^3.4.1
-  firebase_dynamic_links: ^5.4.1
+  firebase_dynamic_links: ^5.4.2
   firebase_performance: ^0.9.3+1
   firebase_ui_auth: ^1.9.1
   firebase_ui_oauth_apple: ^1.2.13
