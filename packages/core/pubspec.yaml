@@ -14,7 +14,7 @@ dependencies:
   cloud_functions: ^4.5.1
   collection: ^1.18.0
   device_info_plus: ^9.1.0
-  firebase_analytics: ^10.6.1
+  firebase_analytics: ^10.6.2
   firebase_auth: ^4.11.1
   firebase_core: ^2.19.0
   firebase_crashlytics: ^3.4.1
