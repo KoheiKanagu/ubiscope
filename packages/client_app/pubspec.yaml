@@ -21,7 +21,7 @@ dependencies:
   firebase_analytics: ^10.6.1
   firebase_app_check: ^0.2.1+1
   firebase_auth: ^4.11.1
-  firebase_core: ^2.19.0
+  firebase_core: ^2.20.0
   firebase_crashlytics: ^3.4.1
   firebase_performance: ^0.9.3+1
   flutter:
