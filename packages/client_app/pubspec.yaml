@@ -47,7 +47,7 @@ dependencies:
   riverpod_annotation: ^2.2.1
   share_plus: ^7.2.1
   shared_preferences: ^2.2.2
-  url_launcher: ^6.1.14
+  url_launcher: ^6.2.1
   uuid: ^3.0.7
 
 dev_dependencies:
