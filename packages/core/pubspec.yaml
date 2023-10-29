@@ -49,7 +49,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^2.4.5
-  go_router_builder: ^2.3.3
+  go_router_builder: ^2.3.4
   json_serializable: ^6.7.1
   mockito: ^5.4.2
   pedantic_mono: ^1.24.0+1
