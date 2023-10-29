@@ -44,7 +44,7 @@ dependencies:
   json_annotation: ^4.8.1
   package_info_plus: ^4.2.0
   permission_handler: ^11.0.1
-  riverpod_annotation: ^2.2.1
+  riverpod_annotation: ^2.3.0
   share_plus: ^7.2.1
   shared_preferences: ^2.2.2
   url_launcher: ^6.1.14
