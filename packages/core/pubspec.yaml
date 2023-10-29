@@ -34,7 +34,7 @@ dependencies:
       url: https://github.com/KoheiKanagu/packages
       ref: c8dd2d786b2f056245a8da175c6ef59a84ec5391
       path: packages/google_maps_flutter/google_maps_flutter
-  hooks_riverpod: ^2.4.4
+  hooks_riverpod: ^2.4.5
   intersperse: ^2.0.0
   json_annotation: ^4.8.1
   package_info_plus: ^4.2.0
