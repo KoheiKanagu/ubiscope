@@ -12,7 +12,7 @@ dependencies:
   adaptive_dialog: ^1.9.0+2
   animations: ^2.0.8
   clock: ^1.1.1
-  cloud_firestore: ^4.12.2
+  cloud_firestore: ^4.13.0
   cloud_functions: ^4.5.3
   collection: ^1.18.0
   core:
