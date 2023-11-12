@@ -29,10 +29,10 @@ packages:
     dependency: "direct main"
     description:
       name: adaptive_dialog
-      sha256: "2861f072027046912caaaec9a688e50e10b712ab11ea18d266ef83c391e5f4d6"
+      sha256: "139da77ba96cf7ba0a3dd9a717fb3e4f6870127849161b193833a405ea58095d"
       url: "https://pub.dev"
     source: hosted
-    version: "1.9.0+2"
+    version: "1.10.0"
   analyzer:
     dependency: transitive
     description:
