@@ -13,7 +13,7 @@ dependencies:
   cloud_firestore: ^4.12.2
   cloud_functions: ^4.5.3
   collection: ^1.18.0
-  device_info_plus: ^9.1.0
+  device_info_plus: ^9.1.1
   firebase_analytics: ^10.6.3
   firebase_auth: ^4.12.1
   firebase_core: ^2.21.0
