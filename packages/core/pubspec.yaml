@@ -37,7 +37,7 @@ dependencies:
   hooks_riverpod: ^2.4.5
   intersperse: ^2.0.0
   json_annotation: ^4.8.1
-  package_info_plus: ^4.2.0
+  package_info_plus: ^5.0.1
   riverpod_annotation: ^2.3.0
   roggle: ^0.4.2+1
   shared_preferences: ^2.2.2
