@@ -16,7 +16,7 @@ dependencies:
   device_info_plus: ^9.1.0
   firebase_analytics: ^10.6.3
   firebase_auth: ^4.12.1
-  firebase_core: ^2.21.0
+  firebase_core: ^2.23.0
   firebase_crashlytics: ^3.4.3
   firebase_dynamic_links: ^5.4.3
   firebase_performance: ^0.9.3+3
